@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ecoplatform.urls',namespace='eco')),
+    path('', include('ecousers.urls',namespace='ecousers')),
 ]
