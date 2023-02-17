@@ -1,0 +1,11 @@
+
+
+<h1>Projects page</h1>
+
+{% for project in projects %}
+
+<h3>Title >>> {{project.title}} || {{project.owner}}</h3>
+<p>Description >>> {{project.description}}</p>
+
+<span>Category: {{project.category}}</span>
+{% endfor %}
