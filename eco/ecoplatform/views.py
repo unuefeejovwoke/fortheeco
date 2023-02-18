@@ -5,10 +5,15 @@ from .models import Project, Problem, Category
 # Create your views here.
 def index(request):
     category_list = Category.objects.all()
-    projects = Project.objects.all()
+    projects = Project.objects.filter(isTrending=True)
+    problems = Problem.objects.filter(isTrending=True)
 
     context = {
         'category_list':category_list,
         'projects': projects,
+        'problems': problems,
     }
     return render(request,'ecoplatform/index.html',context)
+
+
+
