@@ -8,4 +8,17 @@
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
+<p><a href={% url 'project_detail' project.pk>{{project.title}}</a></p>
+{% endfor %}
+
+<br />
+<h1>Problems page</h1>
+
+{% for problem in problems%}
+
+<h3>Title >>> {{problem.title}} || {{project.owner}}</h3>
+<p>Description >>> {{problem.description}}</p>
+
+<span>Category: {{problem.category}}</span>
+<p><a href={% url 'problem_detail' project.pk>{{problem.title}}</a></p>
 {% endfor %}
