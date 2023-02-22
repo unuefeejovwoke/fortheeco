@@ -18,7 +18,6 @@
 
 
 <h1>Projects Page</h1>
-
 <form method="get">
 <label>For Project</label>
 {{ projects.form.as_p }}
@@ -31,5 +30,5 @@
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
-<p><a href={% url 'project_detail' project.pk>{{project.title}}</a></p>
+<p>{{project.title}}</p>
 {% endfor %}
