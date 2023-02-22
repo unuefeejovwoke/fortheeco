@@ -1,5 +1,3 @@
-
-
 <h1>Projects page</h1>
 
 {% for project in projects %}
@@ -8,7 +6,7 @@
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
-<p><a href={% url 'project_detail' project.pk>{{project.title}}</a></p>
+<p>{{project.title}}</p>
 {% endfor %}
 
 <br />
@@ -20,5 +18,14 @@
 <p>Description >>> {{problem.description}}</p>
 
 <span>Category: {{problem.category}}</span>
-<p><a href={% url 'problem_detail' project.pk>{{problem.title}}</a></p>
+<p>{{problem.title}}</p>
 {% endfor %}
+
+<p> <a href="{% url 'ecousers:register' %}">Sign Up</a> </p>
+<br>
+
+{% if user.is_authenticated %}
+<p> <a href="{% url 'ecousers:logout' %}">Logout</a> </p>
+{% else %}
+<p> <a href="{% url 'ecousers:login' %}">Login</a> </p>
+{% endif %}
