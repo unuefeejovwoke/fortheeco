@@ -1,33 +1,40 @@
-<h1>Projects page</h1>
+<h1>Problems Page</h1>
+
+<label>For Problem
+<form method="get">
+{{ problems.form.as_p }}
+<button type="submit">Search</button>
+</form>
+</label>
+{% for problem in problems.qs%}
+<h3>Title >>> {{problem.title}} || {{project.owner}}</h3>
+<p>Description >>> {{problem.description}}</p>
+
+<span>Category: {{problem.category}}</span>
+<p><a href={% url '' %}>{{problem.title}}</a></p>
+{% endfor %}
+
+<hr />
 
 
-<h3>Welcome <span>{{user.username}}</span></h3>
-{% for project in projects %}
+<h1>Projects Page</h1>
+<form method="get">
+<label>For Project</label>
+{{ projects.form.as_p }}
+<button type="submit">Search</button>
+</form>
+
+{% for project in projects.qs %}
 
 <h3>Title >>> {{project.title}} || {{project.owner}}</h3>
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
-<p>{{project.title}}</p>
+<p><a href={% url '' %}>{{project.title}}</a></p>
 {% endfor %}
-
-<br />
-<h1>Problems page</h1>
-
-{% for problem in problems%}
-
-<h3>Title >>> {{problem.title}} || {{project.owner}}</h3>
-<p>Description >>> {{problem.description}}</p>
-
-<span>Category: {{problem.category}}</span>
-<p>{{problem.title}}</p>
-{% endfor %}
-
-<p> <a href="{% url 'ecousers:register' %}">Sign Up</a> </p>
-<br>
 
 {% if user.is_authenticated %}
-<p> <a href="{% url 'ecousers:logout' %}">Logout</a> </p>
+<a href="{% url 'ecousers:logout' %}">Logout</a>
 {% else %}
-<p> <a href="{% url 'ecousers:login' %}">Login</a> </p>
+<a href="{% url 'ecousers:login' %}">Login</a>
 {% endif %}
