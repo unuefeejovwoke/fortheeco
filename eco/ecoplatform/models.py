@@ -1,6 +1,6 @@
 from time import timezone
 from django.db import models
-from django.contrib.auth.models import User
+from ecousers.models import Account
 import uuid
 from django.utils.text import slugify
 from django.utils import timezone
@@ -15,7 +15,7 @@ class Problem(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     
-    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    owner = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
     problem_photo_main = models.ImageField(upload_to=get_image_path)
@@ -49,7 +49,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     
-    owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    owner = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
     project_photo_main = models.ImageField(upload_to=get_image_path)
