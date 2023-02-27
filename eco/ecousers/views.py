@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
-from .models import Account
+from .models import Account, UserProfile
 from .forms import RegistrationForm
 #email verify
 from django.contrib.sites.shortcuts import get_current_site
@@ -19,7 +19,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 import requests
 
-# Create your views here.
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -29,62 +28,54 @@ def register(request):
             phone_number = form.cleaned_data['phone_number']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            username = email.split('@')[0]
+            username = email.split("@")[0]
             user = Account.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
             user.phone_number = phone_number
             user.save()
-            
-           
-            
-            #user activation
+
+            # Create a user profile
+            profile = UserProfile()
+            profile.user_id = user.id
+            profile.profile_picture = 'default/default-user.png'
+            profile.save()
+
+            # USER ACTIVATION
             current_site = get_current_site(request)
-            mail_subject = "WElcome to ECO, Please activate your account"
+            mail_subject = 'Welcome to ECO, please activate your account'
             message = render_to_string('ecousers/account_verification_email.html', {
                 'user': user,
-                'domain':current_site,
+                'domain': current_site,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
             send_email.send()
-            # messages.success(request, "Account created successfully")
+            # messages.success(request, 'Thank you for registering with us. We have sent you a verification email to your email address  Please verify it.')
             return redirect('/accounts/login/?command=verification&email='+email)
     else:
-        
         form = RegistrationForm()
     context = {
         'form': form,
     }
     return render(request, 'ecousers/register.html', context)
 
-#this method to allow user login by email and i will call it in login view
-def get_user(email):
-    try:
-        return User.objects.get(email=email.lower())
-    except:
-        return None
-
 def login(request):
-    if request.method =='POST':
+    if request.method =="POST":
         email = request.POST['email']
         password = request.POST['password']
-        username = get_user(email)
 
-        user = authenticate(username=username,password=password)
-        print(user)
+        user = auth.authenticate(email=email, password=password)
+
         if user is not None:
-            auth.login(request,user)
-            if 'remember_me' in request.POST:
-                request.session.set_expiry(1209600) # 2 weeks
+            auth.login(request, user)
 
-            messages.success(request,'you are now logged in')
-            return redirect(request.GET['next'] if 'next' in request.GET else '/')
+            return redirect('/')
+
         else:
-            messages.error(request,'invalid email or password')
+            messages.error(request, "Invalid login credentials")
             return redirect('ecousers:login')
-
-    return render(request,'ecousers/login.html')
+    return render(request, 'ecousers/login.html')
 
 @login_required(login_url="ecousers:login")
 def logout(request):
@@ -108,3 +99,13 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Invalid activation link')
         return redirect('ecousers:register')
+    
+@login_required(login_url = 'ecousers:login')
+def dashboard(request):
+    userprofile = UserProfile.objects.get(user_id=request.user.id)
+    context = {
+        
+        'userprofile': userprofile,
+    
+    }
+    return render(request, 'ecousers/dashboard.html', context)

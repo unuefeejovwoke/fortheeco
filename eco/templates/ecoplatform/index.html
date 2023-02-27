@@ -11,7 +11,11 @@
 <p>Description >>> {{problem.description}}</p>
 
 <span>Category: {{problem.category}}</span>
+<<<<<<< HEAD
 <p><a href="">{{problem.title}}</a></p>
+=======
+
+>>>>>>> 572590081ec9b34c2b24896a4f489cbaa2f9e474
 {% endfor %}
 
 <hr />
@@ -24,11 +28,21 @@
 <button type="submit">Search</button>
 </form>
 
-{% for project in projects.qs%}
+{% for project in projects.qs %}
 
 <h3>Title >>> {{project.title}} || {{project.owner}}</h3>
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
+<<<<<<< HEAD
 <p><a href="">{{project.title}}</a></p>
+=======
+
+>>>>>>> 572590081ec9b34c2b24896a4f489cbaa2f9e474
 {% endfor %}
+
+{% if user.is_authenticated %}
+<a href="{% url 'ecousers:logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'ecousers:login' %}">Login</a>
+{% endif %}
