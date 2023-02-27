@@ -15,7 +15,7 @@ class Problem(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     
-    owner = models.ForeignKey(Account,on_delete=models.CASCADE)
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
     problem_photo_main = models.ImageField(upload_to=get_image_path)
@@ -49,7 +49,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     
-    owner = models.ForeignKey(Account,on_delete=models.CASCADE)
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
     project_photo_main = models.ImageField(upload_to=get_image_path)

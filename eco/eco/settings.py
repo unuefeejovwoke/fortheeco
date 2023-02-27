@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-es6+c*qf#()*e!!w@p)6*kpxk7&csdvjt=f&#0@ho#e5%jrjli'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -139,11 +139,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 # SMTP configuration
-# SMTP configuration
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ECOdataism@gmail.com'
+EMAIL_HOST_PASSWORD = 'piusljjgxqrhvqqc'
+EMAIL_USE_TLS = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
