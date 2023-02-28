@@ -18,3 +18,27 @@ def index(request):
         'projects': project_filter,
     }
     return render(request,'ecoplatform/index.html',context)
+
+#list view for the problems
+def problemListView(request):
+    problems = Problem.objects.all()
+    problem_filter = ProblemFilter(request.GET, queryset=problems)
+    context = {'problems': problem_filter}
+    return render(request, 'ecoplatform/problem_list.html', context)
+
+#detail view for the problem
+def problemDetailView(request, id):
+    context = {'problem_detail': Problem.objects.get(id=id)}
+    return render(request, 'ecoplatform/problem_detail.html', context)
+
+#list view for the projects
+def projectListView(request):
+    projects = Project.objects.all()
+    project_filter = ProblemFilter(request.GET, queryset=projects)
+    context = {'projects': project_filter}
+    return render(request, 'ecoplatform/project_list.html', context)
+
+#detail view for the project
+def projectDetailView(request, id):
+    context = {'project_detail': Project.objects.get(id=id)}
+    return render(request, 'ecoplatform/project_detail.html', context)

@@ -11,10 +11,7 @@
 <p>Description >>> {{problem.description}}</p>
 
 <span>Category: {{problem.category}}</span>
-<<<<<<< HEAD
-<p><a href="">{{problem.title}}</a></p>
-=======
-
+<p><a href={% url 'ecoplatform:problem_detail' problem.pk %}>Learn more about {{problem.title}} problem...</a></p>
 >>>>>>> 572590081ec9b34c2b24896a4f489cbaa2f9e474
 {% endfor %}
 
@@ -34,11 +31,7 @@
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
-<<<<<<< HEAD
-<p><a href="">{{project.title}}</a></p>
-=======
-
->>>>>>> 572590081ec9b34c2b24896a4f489cbaa2f9e474
+<p><a href={% url 'ecoplatform:project_detail' project.pk %}>Learn more about {{project.title}} project...</a></p>
 {% endfor %}
 
 {% if user.is_authenticated %}
@@ -46,3 +39,11 @@
 {% else %}
 <a href="{% url 'ecousers:login' %}">Login</a>
 {% endif %}
+
+<nav>
+<p><a href={% url 'ecoplatform:project_list'  %}>View more projects here...</a></p>
+|
+<p><a href={% url 'ecoplatform:problem_list' %}>View more problems here...</a></p>
+</nav>
+
+
