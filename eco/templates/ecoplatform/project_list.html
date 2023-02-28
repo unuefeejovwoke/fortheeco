@@ -1,0 +1,16 @@
+<h1>Projects Page</h1>
+
+<form method="get">
+<label>For Project</label>
+{{ projects.form.as_p }}
+<button type="submit">Search</button>
+</form>
+
+{% for project in projects.qs%}
+
+<h3>Title >>> {{project.title}} || {{project.owner}}</h3>
+<p>Description >>> {{project.description}}</p>
+
+<span>Category: {{project.category}}</span>
+<p><a href={% url 'ecoplatform:project_detail' project.pk  %}>Learn more about {{project.title}} project...</a></p>
+{% endfor %}
