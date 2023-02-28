@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import index, problemDetailView, projectDetailView
 
-app_name = 'product'
+app_name = 'ecoplatform'
 
 urlpatterns = [
     path('problem/<id>/', problemDetailView, name='problem_detail'),
