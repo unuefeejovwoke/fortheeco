@@ -27,8 +27,8 @@ def problemListView(request):
     return render(request, 'ecoplatform/problem_list.html', context)
 
 #detail view for the problem
-def problemDetailView(request, id):
-    context = {'problem_detail': Problem.objects.get(id=id)}
+def problemDetailView(request, pk):
+    context = {'problem_detail': Problem.objects.get(pk=pk)}
     return render(request, 'ecoplatform/problem_detail.html', context)
 
 #list view for the projects
@@ -39,6 +39,6 @@ def projectListView(request):
     return render(request, 'ecoplatform/project_list.html', context)
 
 #detail view for the project
-def projectDetailView(request, id):
-    context = {'project_detail': Project.objects.get(id=id)}
+def projectDetailView(request, pk):
+    context = {'project_detail': Project.objects.get(pk=pk)}
     return render(request, 'ecoplatform/project_detail.html', context)

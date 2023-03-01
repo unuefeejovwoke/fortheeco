@@ -7,7 +7,7 @@ app_name = 'ecoplatform'
 urlpatterns = [
     path('project/', projectListView, name='project_list'),
     path('problem/', problemListView, name='problem_list'),
-    path('problem/<id>/', problemDetailView, name='problem_detail'),
-    path('project/<id>/', projectDetailView, name='project_detail'),
+    path('problem/<pk>/', problemDetailView, name='problem_detail'),
+    path('project/<pk>/', projectDetailView, name='project_detail'),
     path('', index, name='index'),
 ]
