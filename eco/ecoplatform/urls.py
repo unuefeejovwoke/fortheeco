@@ -9,5 +9,5 @@ urlpatterns = [
     path('problem/', problemListView, name='problem_list'),
     path('problem/<pk>/', problemDetailView, name='problem_detail'),
     path('project/<pk>/', projectDetailView, name='project_detail'),
-    path('', index, name='index'),
+    path('', index, name='home'),
 ]

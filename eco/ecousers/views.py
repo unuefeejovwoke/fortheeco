@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 from .models import Account, UserProfile
-from .forms import RegistrationForm
+from .forms import RegistrationForm, UserForm, UserProfileForm
 
 from ecoplatform.models import Problem, Project
 #email verify
@@ -126,11 +126,9 @@ def dashboard(request):
     
     problems = Problem.objects.order_by('-created').filter(user_id=request.user.id)
     problems_count = problems.count()
-    userprofile = UserProfile.objects.get(user_id=request.user.id)
     
     context = {
         'projects_count': projects_count,
-        'userprofile': userprofile,
         'problems_count':problems_count,
     
     }
@@ -196,3 +194,50 @@ def resetPassword(request):
             return redirect('ecousers:resetPassword')
     else:
         return render(request,'ecousers/resetPassword.html')
+    
+@login_required(login_url='login')
+def edit_profile(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('ecousers:edit_profile')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=userprofile)
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'userprofile': userprofile,
+    }
+    return render(request, 'ecousers/edit_profile.html', context)
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+
+        user = Account.objects.get(username__exact=request.user.username)
+
+        if new_password == confirm_password:
+            success = user.check_password(current_password)
+            if success:
+                user.set_password(new_password)
+                user.save()
+                # auth.logout(request)
+                messages.success(request, 'Password updated successfully.')
+                return redirect('ecousers:change_password')
+            else:
+                messages.error(request, 'Please enter valid current password')
+                return redirect('ecousers:change_password')
+        else:
+            messages.error(request, 'Password does not match!')
+            return redirect('ecousers:change_password')
+    return render(request, 'ecousers/change_password.html')
