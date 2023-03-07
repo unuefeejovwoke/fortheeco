@@ -1,0 +1,94 @@
+.cat-wrapper {
+    padding: 2rem 1.2rem 0 1.2rem;
+
+    h5 {
+        font-size: $h5FontSize;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        padding: 0.3rem 0.3rem;
+        border-radius: 0.3rem;
+        margin: 0.5rem 0;
+
+        input {
+            border: 0;
+            background: transparent;
+        }
+
+        button {
+            border: 0;
+            background: transparent;
+            background-color: $secondaryColor;
+            padding: 0.2rem;
+
+            img {
+                width: 70%;
+            }
+        }
+    }
+}
+
+.category {
+    width: 23%;
+    background-color: #D8E7F5;
+    border-radius: 0.8rem 0.8rem 0rem 0rem;
+    height: 70vh;
+    position: sticky;
+    top: 7.5rem;
+}
+
+.radio div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+@media only screen and (max-width: 1020px) {
+    .cat-wrapper h5 {
+        font-size: 0.9rem;
+    }
+
+    .cat-wrapper form input {
+        width: 65%;
+    }
+
+        .cat-wrapper form button imgitg {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .category {
+        width: 25%;
+    }
+
+    .cat-wrapper h5 {
+        font-size: 0.8rem;
+    }
+
+    .cat-wrapper form input {
+        width: 60%;
+    }
+
+    .cat-wrapper form button img {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .category {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .category {
+        display: none;
+    }
+}

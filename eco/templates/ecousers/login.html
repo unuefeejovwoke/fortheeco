@@ -1,46 +1,100 @@
-<section class="section-conten padding-y" style="min-height:84vh">
 
-  <!-- ============================ COMPONENT LOGIN   ================================= -->
-  
-  {% if request.GET.command == 'verification' %}
-  
-  <div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
-  Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
-  <br><br>
-  Already verified? <a href="{% url 'ecousers:login' %}">Login</a>
-  </div>
-  
-  {% else %}
-  
-    <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
-  
-        <div class="card-body">
-        <h4 class="card-title mb-4">Sign in</h4>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <section class="form-content">
+        {% if request.GET.command == 'verification' %}
+    
+            <div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
+            Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
+            <br><br>
+            Already verified? <a href="{% url 'ecousers:login' %}">Login</a>
+            </div>
+        {% else %}
+    <div class="form">
         
-        <form action="{% url 'ecousers:login' %}" method="POST">
-          {% csrf_token %}
-            <div class="form-group">
-         <input type="email" class="form-control" placeholder="Email Address" name="email">
-            </div> <!-- form-group// -->
-            <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" name="password">
-            </div> <!-- form-group// -->
-  
-            <div class="form-group">
-              <a href="{% url 'ecousers:forgotPassword' %}" class="float-right">Forgot password?</a>
-  
-            </div> <!-- form-group form-check .// -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-            </div> <!-- form-group// -->
-        </form>
-        </div> <!-- card-body.// -->
-      </div> <!-- card .// -->
-  
-       <p class="text-center mt-4">Don't have account? <a href="{% url 'ecousers:register' %}">Sign up</a></p>
-       <br><br>
-  <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-  {% endif %}
-  
-  </section>
+        <div class="form-wrapper">
+            <div class="form-switch">
+                <button class="active" id="loginBtn"><a href="{% url 'ecousers:login' %}">Log in</a></button>
+                <button class="" id="signUpBtn"><a href="{% url 'ecousers:register' %}">Sign Up</a></button>
+            </div>
+            <hr>
+            <p class="form-switch">continue to your account using</p>
+            <div class="options">
+                <a href=""><img src={% static 'images/form/logos_linkedin-icon.png' %} alt=""></a>
+                <a href=""><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
+                <a href=""><img src="{% static 'images/form/Twitter svg.png' %}" alt=""></a>
+            </div>
+            <div class="form-variables d-show" id="Login">
+                <form action="{% url 'ecousers:login' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="Email">Email Address</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/sms.png' %}" alt="">
+                        <input type="text" name="email" id="Email" required>
+                    </div>
+
+                    <label for="Password">Password</label> <br>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/security-safe.png' %}" alt="">
+                        <input type="password" name="password" id="pwrdHASHED" required>
+                    </div>
+
+                    <span class="pswd-reveal--toggle"><i class="ri-eye-line"></i></span>
+
+                    <input type="checkbox" name="Remember" id="Remember">
+                    <label for="Remember">Remember me</label>
+
+                    <div class="submit-btn">
+                        <button>Log In</button>
+                        <a href="{% url 'ecousers:forgotPassword' %}">Forgot Password</a>
+                    </div>
+                </form>
+
+                <p>Don't have an account yet? <a href="{% url 'ecousers:register' %}">Register for free.</a></p>
+            </div>
+            {% comment %} <div class="form-variables d-none" id="Register">
+                <form action="">
+                    <label for="firstName">First Name</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/profile.png' %}" alt="">
+                        <input type="text" name="firstName" id="firstName" required>
+                    </div>
+                    <label for="lastName">Last Name</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/profile.png' %}" alt="">
+                        <input type="text" name="lastName" id="lastName" required>
+                    </div>
+                    <label for="Email">Email Address</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/sms.png' %}" alt="">
+                        <input type="text" name="Email" id="Email" required>
+                    </div>
+
+                    <label for="Password">Password</label> <br>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/security-safe.png' %}" alt="">
+                        <input type="password" name="Password" id="Password" required>
+                    </div>
+
+                    <div class="submit-btn">
+                        <button>Create Account</button>
+                    </div>
+                </form>
+
+                <p>Already have an account? <a href="">Login to your portal.</a></p>
+            </div> {% endcomment %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="carousel-img">
+        <img src="{% static 'images/form/test.png' %}" alt="hero image for eco website" class="hero-img
+        ">
+    </div>
+
+</section>
+  {% endblock content %}
       <!-- ========================= SECTION CONTENT END// ========================= -->

@@ -1,0 +1,53 @@
+.btn{
+    font-family: inherit;
+    font-size: $bodyFontSize;
+    height: 45px;
+    border: 0px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: $primaryColor;
+    padding: 8px 16px;
+    transition: $transitionDuration;
+    cursor: pointer;
+    &:hover{
+        background-color: $secondaryColor;
+        transition: $transitionDuration;
+    }
+}
+
+.btn--without-bg{
+    font-family: inherit;
+    font-size: $bodyFontSize;
+    border: 1.5px solid #474747;
+    border-radius: 8px;
+    color: rgba(0, 0, 0, 1);
+    padding: 8px 16px;
+    transition: $transitionDuration;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    &:hover{
+        color: $secondaryColor;
+        border: 1.5px solid $secondaryColor;
+        transition: $transitionDuration;
+    }
+}
+
+.link-text{
+    font-weight: 600;
+    color: $secondaryColor;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    transition: $transitionDuration;
+    &:hover{
+        color: $primaryColor;
+        transition: $transitionDuration;
+    }
+}
+
+button{
+    background: transparent;
+    border: 0px;
+    cursor: pointer;
+}
