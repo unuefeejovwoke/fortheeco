@@ -1,4 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
 <h1>Problems Page</h1>
 
 <label>For Problem
@@ -46,5 +49,6 @@
 |
 <p><a href={% url 'ecoplatform:problem_list' %}>View more problems here...</a></p>
 </nav>
+{% endblock content %}
 
 

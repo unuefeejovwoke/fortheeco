@@ -7,6 +7,9 @@
     .search{
       display: flex;
       width: 30%;
+      input:focus {
+        outline: none;
+      }
     }
     form {
       width: 100%;
@@ -22,6 +25,7 @@
       input {
         border: 0;
         background: transparent;
+        
       }
 
       button {
@@ -253,6 +257,12 @@
 
     .search {
       width: 60% !important;
+    }
+  }
+  #details-heading{
+    flex-direction: row;
+    h5{
+      margin: 0 1rem;
     }
   }
 

@@ -1,3 +1,13 @@
+//script for nav dropdown
+const navToggle = document.querySelector('.menu');
+const navLinks = document.querySelector('.right-side__nav');
+
+const navbarReveal = function(){
+    navLinks.classList.toggle('hidden');
+}
+
+navToggle.addEventListener('click', navbarReveal);
+
 //registeration page
 const loginBtn = document.querySelector("#loginBtn");
 const signUpBtn = document.querySelector("#signUpBtn");

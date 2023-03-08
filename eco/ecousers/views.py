@@ -217,7 +217,7 @@ def edit_profile(request):
     }
     return render(request, 'ecousers/edit_profile.html', context)
 
-@login_required(login_url='login')
+@login_required(login_url='ecousers:login')
 def change_password(request):
     if request.method == 'POST':
         current_password = request.POST['current_password']

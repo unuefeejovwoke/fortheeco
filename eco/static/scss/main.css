@@ -381,14 +381,14 @@ textarea {
 
 nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background: white;
   box-shadow: 0px 4px 37px rgba(13, 13, 13, 0.2509803922);
   border-radius: 0.7rem 0 0 0.7rem;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10000;
 }
 nav .logo {
   width: 5%;
@@ -398,40 +398,46 @@ nav .logo {
 nav .logo img {
   width: 100%;
 }
+nav .right-side__nav {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+}
 nav .nav-links {
-  flex-grow: 3;
+  flex-grow: 1;
 }
 nav .nav-links a {
   margin: 0 0.5rem;
   color: rgb(84, 84, 84);
   font-size: 0.95rem;
 }
-nav .nav-links .eco-img {
-  width: 1.5%;
-  height: 5%;
-}
 nav .menu {
   display: none;
 }
 nav .connect {
-  width: 30%;
-  background: #F9FFFB;
-  padding: 1.5rem 0;
+  background: #f9fffb;
+  padding: 1.5rem 12px;
+  margin-left: auto;
   display: flex;
   justify-content: space-around;
+  gap: 24px;
   align-items: center;
   box-shadow: 8px 8px 37px rgba(13, 13, 13, 0.25);
 }
 nav .connect a {
-  width: 35%;
-  text-align: center;
-  padding: 0.7rem 0;
-  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 1em;
+  height: 45px;
+  border: 0px;
+  border-radius: 8px;
+  padding: 8px 16px;
   font-size: 0.8rem;
+  display: flex;
+  align-items: center;
 }
 nav .connect #login1 {
-  border: 1px solid #32D272;
-  color: #32D272;
+  border: 1px solid #32d272;
+  color: #32d272;
 }
 nav .connect #login1:hover {
   border: 1px solid rgb(46, 162, 207);
@@ -439,7 +445,7 @@ nav .connect #login1:hover {
   transition: 0.5s;
 }
 nav .connect #create1 {
-  background-color: #32D272;
+  background-color: #32d272;
   color: white;
 }
 nav .connect #create1:hover {
@@ -448,47 +454,62 @@ nav .connect #create1:hover {
 }
 
 @media only screen and (max-width: 1020px) {
-  .connect {
-    padding: 0.8rem 0 !important;
-  }
-}
-@media only screen and (max-width: 950px) {
-  #create1 {
-    font-size: 0.6rem;
+  nav .connect {
+    padding: 12px 0;
   }
 }
 @media only screen and (max-width: 770px) {
   .body-wrapper {
     width: 100% !important;
   }
-  .nav-links a {
-    font-size: 0.8rem !important;
-    margin: 0 0.3rem !important;
+  nav .nav-links a {
+    margin: 0 0.3rem;
   }
-  .connect {
-    padding: 0.8rem 0 !important;
-  }
-  .connect a {
-    font-size: 0.6rem !important;
+  nav .connect {
+    padding: 0.8rem 0;
   }
 }
-@media only screen and (max-width: 660px) {
-  .logo {
-    width: 50%;
+@media (max-width: 700px) {
+  nav {
+    flex-direction: column;
   }
-  .logo img {
-    width: 100%;
+  nav .logo {
+    align-self: flex-start;
+    width: 70px;
   }
-  .nav-links a {
-    font-size: 0.7rem !important;
-    margin: 0 0.2rem !important;
+  nav .hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
   }
-  .connect {
-    width: 35% !important;
-    padding: 0.5rem !important;
+  nav .right-side__nav {
+    position: relative;
+    flex-direction: column;
+    transition: 0.2s all ease-in;
+    gap: 48px;
   }
-  .connect a {
-    font-size: 0.45rem !important;
+  nav .menu {
+    display: block;
+    align-self: flex-end;
+    transform: translate(-12px, 24px);
+    position: absolute;
+  }
+  nav .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  nav .connect {
+    background: transparent;
+    padding: 0;
+    padding-bottom: 12px;
+    gap: 12px;
+    box-shadow: unset;
+    margin-top: 24px;
+  }
+  nav .connect a {
+    text-align: center;
+    padding: 0.7rem 12px;
   }
 }
 @media only screen and (max-width: 480px) {
@@ -496,30 +517,9 @@ nav .connect #create1:hover {
     margin: 0;
     width: 100%;
   }
-  nav {
-    justify-content: space-between;
-    width: 100%;
-    border-radius: 0;
-  }
-  nav .logo {
-    width: 35%;
-  }
-  nav .logo img {
-    width: 40%;
-  }
-  nav .toggler {
-    display: none;
-  }
-  nav .menu {
-    display: block !important;
-  }
-  nav .menu button {
-    background: transparent;
-    border: 0;
-  }
 }
 .cat-wrapper {
-  padding: 2rem 1.2rem 0 1.2rem;
+  padding: 2rem 1.2rem 1.2rem 1.2rem;
 }
 .cat-wrapper h5 {
   font-size: 1.125em;
@@ -538,6 +538,9 @@ nav .connect #create1:hover {
   border: 0;
   background: transparent;
 }
+.cat-wrapper form input:focus {
+  outline: none;
+}
 .cat-wrapper form button {
   border: 0;
   background: transparent;
@@ -555,6 +558,14 @@ nav .connect #create1:hover {
   height: 70vh;
   position: sticky;
   top: 7.5rem;
+}
+
+.mob-cat {
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 1rem;
+  background-color: #D8E7F5;
+  display: none;
 }
 
 .radio div {
@@ -593,6 +604,9 @@ nav .connect #create1:hover {
   .category {
     display: none;
   }
+  .mob-cat {
+    display: block;
+  }
 }
 @media only screen and (max-width: 480px) {
   .category {
@@ -608,6 +622,9 @@ nav .connect #create1:hover {
 .card-main .heading .search {
   display: flex;
   width: 30%;
+}
+.card-main .heading .search input:focus {
+  outline: none;
 }
 .card-main .heading form {
   width: 100%;
@@ -823,6 +840,12 @@ nav .connect #create1:hover {
   .heading .search {
     width: 60% !important;
   }
+  #details-heading {
+    flex-direction: row;
+  }
+  #details-heading h5 {
+    margin: 0 1rem;
+  }
   .text-fix {
     font-size: 0.7rem;
   }
@@ -901,9 +924,101 @@ nav .connect #create1:hover {
   width: 40%;
   text-align: center;
 }
-.hero-section .img-description img {
-  width: 75%;
+
+.carousel--container {
+  max-width: 400px;
+}
+
+.problem--card {
+  max-width: 400px;
+  padding: 24px;
+}
+.problem--card p {
+  font-size: 12px;
+  text-align: left;
+}
+.problem--card .problem--card-container {
+  background: #eff5f2;
+  box-shadow: 12px 12px 16px rgba(13, 13, 13, 0.25);
+  border-radius: 8px;
+  padding: 12px;
+}
+.problem--card hr {
+  width: 100%;
+  margin: 24px 0;
+  border: 1px solid #d9d9d9;
+}
+.problem--card .project--info,
+.problem--card .project-description {
+  width: 100%;
+}
+.problem--card .project--info {
+  display: flex;
+  gap: 24px;
+  justify-content: space-around;
+}
+.problem--card .project--info .profile-avatar {
+  width: 50px;
   height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: flex;
+  justify-content: flex-start;
+}
+.problem--card .project--info .flash--card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.problem--card .project--info .flash--card img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 50px;
+  height: auto;
+}
+.problem--card .project--info .flash--card p {
+  color: rgb(211, 160, 41);
+}
+.problem--card .project--info .flash--card .semi-bold {
+  font-weight: 600;
+}
+.problem--card .project--info .location--display address {
+  display: flex;
+  align-items: center;
+}
+.problem--card .project--info .location--display .location-icon {
+  width: 24px;
+  height: auto;
+}
+.problem--card .project--info .location--display .category-tag {
+  transform: translateX(16px);
+  color: rgb(46, 162, 207);
+  font-weight: 600;
+}
+.problem--card .img--container {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+.problem--card .img--container .img-item {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.problem--card .img-group .img-item {
+  height: 100px;
+}
+.problem--card .img-group .item2 {
+  margin-bottom: 12px;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+.cta-buttons button {
+  padding: 6px;
 }
 
 @media (max-width: 1024px) {
@@ -912,11 +1027,6 @@ nav .connect #create1:hover {
   }
   .hero-section .img-description {
     width: 50%;
-  }
-}
-@media (max-width: 750px) {
-  .hero-section .img-description img {
-    width: 85%;
   }
 }
 @media (max-width: 650px) {
@@ -937,9 +1047,8 @@ nav .connect #create1:hover {
   }
   .hero-section .img-description {
     width: 100%;
-  }
-  .hero-section .img-description img {
-    width: 85%;
+    text-align: center;
+    text-align: -moz-center;
   }
 }
 @media (max-width: 450px) {
