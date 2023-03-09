@@ -188,7 +188,7 @@ def resetPassword(request):
             user.set_password(password)
             user.save()
             messages.success(request, 'Password reset successful')
-            return redirect('ecousers:login')
+            return render(request, 'ecousers/passwordConfirm.html')
         else:
             messages.error(request, "Password doesn't match")
             return redirect('ecousers:resetPassword')
