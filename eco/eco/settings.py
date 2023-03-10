@@ -150,7 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "ECOdataism@gmail.com"
-EMAIL_HOST_PASSWORD = 'qyzydmturxdkyjtb'
+EMAIL_HOST_PASSWORD = 'mbxcpgiehfkjbrzy'
 EMAIL_USE_TLS = True
 #Default primary key field type
 

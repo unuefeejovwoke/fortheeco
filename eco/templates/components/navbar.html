@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <nav>
     <div class="logo">
         <img src="{% static 'images/notification/logo 3(1).png' %}" alt="Eco logo">
@@ -6,9 +8,19 @@
 
     <div class="right-side__nav hidden">
         <div class="nav-links toggler">
-            <a href="{% url 'ecoplatform:home' %}">Home</a>
-            <a href="problems.html">The Eco<img src="{% static 'images/notification/arrowdown.png' %}" alt="arrow down"
-                    class="eco-img"></a>
+            <a href="index.html">Home</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">The Eco
+                    <img src="{% static 'images/notification/arrowdown.png' %}" alt="arrow down"
+                    class="eco-img">
+                </button>
+                <div class="dropdown-content d-none">
+                    <a href="{% url 'ecoplatform:problem_list' %}">See ECO Problems</a>
+                    <a href="{% url 'ecoplatform:project_list' %}">See ECO Projects</a>
+                </div>
+            </div>
+
             <a href="#">PAls App</a>
             <a href="#">Tech4Good</a>
             <a href="#">Services</a>
@@ -24,7 +36,6 @@
                 <a href="{% url 'ecousers:dashboard' %}" id="create1">{{user.first_name|capfirst}} || Dashboard</a>
             </div>
         {% endif %}
-        
     </div>
     <div class="menu">
         <button><img src="{% static 'images/notification/more.png' %}" alt=""></button>

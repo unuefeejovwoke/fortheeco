@@ -7,57 +7,27 @@ const navbarReveal = function(){
 }
 
 navToggle.addEventListener('click', navbarReveal);
+//nav-dropdown
+const dropBtn = document.querySelector(".dropbtn")
+const dropContent = document.querySelector(".dropdown-content")
 
-//registeration page
-const loginBtn = document.querySelector("#loginBtn");
-const signUpBtn = document.querySelector("#signUpBtn");
-const loginPage = document.querySelector("#Login");
-const signUpPage = document.querySelector("#Register");
-
-const pwrd = document.querySelectorAll("#pwrdHASHED");
-const reveal = document.querySelectorAll(".ri-eye-line");
-
-const pwrdReveal = function () {
-  for (let j = 0; j < pwrd.length; j++) {
-    if (pwrd[j].type === "password") {
-      pwrd[j].type = "text";
-
-      reveal[j].classList.add("ri-eye-off-line");
-      reveal[j].classList.remove("ri-eye-line");
-    } else {
-      pwrd[j].type = "password";
-      reveal[j].classList.add("ri-eye-line");
-      reveal[j].classList.remove("ri-eye-off-line");
-    }
+dropBtn.addEventListener("click", (e)=>{
+  if(e.target === dropBtn){
+    dropContent.classList.remove("d-none");
+  dropContent.classList.add("d-show")
+  }else{
+    dropContent.add("d-none")
   }
-};
 
-for (let i = 0; i < reveal.length; i++) {
-  reveal[i].addEventListener("click", pwrdReveal);
+  console.log("clicked dropdown")
+});
+window.onclick = function(e){
+  if (!e.target.matches('.dropbtn') && 
+        dropContent.classList.contains('d-show')){
+      dropContent.classList.remove('d-show');
+      dropContent.classList.add("d-none")
+ }
 }
-
-// reveal.addEventListener("click", pwrdReveal);
-
-setTimeout(() => {
-  loginBtn.addEventListener("click", () => {
-    loginPage.classList.add("d-show");
-    signUpPage.classList.remove("d-show");
-    signUpPage.classList.add("d-none");
-    loginBtn.classList.add("active");
-    signUpBtn.classList.remove("active");
-  });
-}, 2000);
-
-setTimeout(() => {
-  signUpBtn.addEventListener("click", () => {
-    signUpPage.classList.remove("d-none");
-    signUpPage.classList.add("d-show");
-    loginPage.classList.remove("d-show");
-    loginPage.classList.add("d-none");
-    loginBtn.classList.remove("active");
-    signUpBtn.classList.add("active");
-  });
-}, 2000);
 
 ("use strict");
 
@@ -101,3 +71,4 @@ for (let i = 0; i < btnCloseModal.length; i++) {
   btnCloseModal[i].addEventListener("click", closeModal);
 }
 overlay.addEventListener("click", closeModal);
+
