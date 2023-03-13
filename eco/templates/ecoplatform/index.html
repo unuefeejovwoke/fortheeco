@@ -15,12 +15,12 @@
 
         <div class="metric--container">
             <div class="metric">
-                <h5>24</h5>
-                <p>View Problems</p>
+                <h5>{{total_problems}}</h5>
+                <p><a href="{% url 'ecoplatform:problem_list' %}">View Problems</a> </p>
             </div>
             <div class="metric">
-                <h5>24</h5>
-                <p>View Projects</p>
+                <h5>{{total_projects}}</h5>
+                <p><a href="{% url 'ecoplatform:project_list' %}">View Projects</a></p>
             </div>
         </div>
     </article>

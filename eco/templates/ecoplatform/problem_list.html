@@ -1,17 +1,144 @@
-<h1>Problems Page</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Eco Problems </title> {% endblock title %}
+{% block content %}
+<section class="main-content">
+    <aside class="category">
+        <div class="cat-wrapper">
+            <h5>Category</h5>
+            <div class="radio">
+                <div>
+                    <label for="All">All</label>
+                    <input type="radio" name="category" id="All" checked 
+                        onclick="location.href='{% url 'ecoplatform:problem_list' %}'">
+                </div>
+                {% for category in category_list %}
+                    <div>
+                        <label for="{{category.slug}}">{{category}}</label>
+                        <input type="radio" name="category" id="{{category.slug}}" {% if category == category %}checked{% endif %}
+                            onclick="location.href='{% url 'ecoplatform:problem_list' category.slug %}'">
+                    </div>
+                {% endfor %}
+            </div>
+            <h5>Based on location</h5>
+            <form>
+                <input type="text" name="" id="" placeholder="Enter search location..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
+            <h5>Based on host</h5>
+            <form>
+                <input type="text" name="" id="" placeholder="Search host name..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
+        </div>
+    </aside>
+    <main class="card-main">
+        <div class="heading">
+            <h5>Problems Posted on The ECO</h5>
 
-<label>For Problem
-<form method="get">
-{{ problems.form.as_p }}
-<button type="submit">Search</button>
-</form>
-</label>
-{% for problem in problems.qs%}
-<h3>Title >>> {{problem.title}} || {{project.owner}}</h3>
-<p>Description >>> {{problem.description}}</p>
+            <div class="search">
+                <form>
+                    <input type="text" name="" id="" placeholder="Search">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+                <!-- <button class="filter-btn d-none">
+                    <img src="images/filter-square.png" alt="filter button">
+                </button> -->
+            </div>
+            
+        </div>
+        <aside class="mob-cat" id="">
+            <div class="cat-wrapper">
+                <h5>Category</h5>
+                <div class="radio">
+                    <div>
+                        <label for="All">All</label>
+                        <input type="radio" name="category" id="All" checked>
+                    </div>
+                    <div>
+                        <label for="Environment">Environment</label>
+                        <input type="radio" name="category" id="Environment">
+                    </div>
 
-<span>Category: {{problem.category}}</span>
-<p><a href={% url 'ecoplatform:problem_detail' problem.pk  %}>Learn more about {{problem.title}} problem...</a></p>
-{% endfor %}
+                    <div>
+                        <label for="Community">Community</label>
+                        <input type="radio" name="category" id="Community">
+                    </div>
 
+                    <div>
+                        <label for="Organisation">Organisation</label>
+                        <input type="radio" name="category" id="Organisation">
+                    </div>
 
+                </div>
+                <h5>Based on location</h5>
+                <form>
+                    <input type="text" name="" id="" placeholder="Enter search location..">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+                <h5>Based on host</h5>
+                <form>
+                    <input type="text" name="" id="" placeholder="Search host name..">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+            </div>
+        </aside>
+        
+        {% for problem in problem_list %}
+         <div class="card">
+            <div class="card-wrapper">
+                <div class="card-header">
+                    <div class="post-location">
+                        <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">Ikeja,Lagos</span>
+                    </div>
+                    <div class="eco-cat">
+                        <p class="text-fix">Eco Community: <a href="">Community</a></p>
+                    </div>
+                    <div class="goal">
+                        <p class="text-fix">UNSdg Goal: </p><img src="{% static 'images/card/eco.png' %}" alt="">
+                    </div>
+                </div>
+                <hr>
+                <div class="card-details">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id minus delectus aliquam optio
+                        sunt ab. Explicabo magnam natus, eius officia et perferendis, aperiam molestiae libero
+                        numquam maxime ab dolorum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Molestias odit obcaecati libero ex rerum voluptates quibusdam at veritatis iure. Dolorem
+                        maxime fugiat omnis dolorum excepturi quaerat itaque facilis tempora natus!</p>
+                    <div class="detail-img">
+                        <img src="{% static 'images/card/Rectangle 574(1).png' %}" alt="" class="first">
+                        <div class="second">
+                            <img src="{% static 'images/card/lake.png' %}" alt="">
+                            <img src="{% static 'images/card/waterbottle.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="up-count">
+                        <img src="{% static 'images/card/upvote.png' %}" alt="">
+                        <span>1,354</span>
+                    </button>
+                    <button class="down-count">
+                        <img src="{% static 'images/card/downvote.png' %}" alt="">
+                        <span>456</span>
+                    </button>
+                    <button class="idea-count">
+                        <img src="{% static 'images/card/idea.png' %}" alt="">
+                        <span>456</span>
+                    </button>
+
+                    <a href="details-page.html" class="card-link">
+                        Link to problem
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+       
+       
+
+    </main>
+</section>
+
+{% endblock content %}
