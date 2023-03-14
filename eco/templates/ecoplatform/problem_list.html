@@ -9,16 +9,16 @@
             <div class="radio">
                 <div>
                     <label for="All">All</label>
-                    <input type="radio" name="category" id="All" checked 
+                    <input type="radio" name="category" id="All" value="All" {% if selected_category_slug == 'All' %}checked{% endif %}
                         onclick="location.href='{% url 'ecoplatform:problem_list' %}'">
                 </div>
                 {% for category in category_list %}
                     <div>
                         <label for="{{category.slug}}">{{category}}</label>
-                        <input type="radio" name="category" id="{{category.slug}}" {% if category == category %}checked{% endif %}
-                            onclick="location.href='{% url 'ecoplatform:problem_list' category.slug %}'">
+                        <input type="radio" name="category" id="{{category.slug}}" value="{{category.slug}}" {% if selected_category_slug == category.slug %}checked{% endif %}
+                            onclick="location.href='{% url 'ecoplatform:problem_list_category' category.slug %}'">
                     </div>
-                {% endfor %}
+                {% endfor%}
             </div>
             <h5>Based on location</h5>
             <form>
@@ -134,11 +134,33 @@
             </div>
 
         </div>
+        {% empty %}
+        <h4 style="text-align:center;">No Problems for this category</h4>
         {% endfor %}
        
        
 
     </main>
 </section>
+
+
+<script>
+    // Set the appropriate radio button to "checked" when the page loads
+    var selected_category_slug = '{{ selected_category_slug }}';
+    if (selected_category_slug != 'All') {
+        var radio_button = document.getElementById(selected_category_slug);
+        if (radio_button) {
+            radio_button.checked = true;
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
 
 {% endblock content %}

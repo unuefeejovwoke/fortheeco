@@ -26,13 +26,21 @@ def problemListView(request, category_slug=None):
     category = None
     problem_list = Problem.objects.all()
     category_list = Category.objects.annotate(total_problems=Count('problem'))
+    selected_category_slug = 'All'  # default to "All" category
     
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         problem_list = problem_list.filter(category=category)
-        
-    context = {'problem_list': problem_list, 'category_list': category_list, 'category': category}
+        selected_category_slug = category_slug
+    
+    context = {
+        'problem_list': problem_list,
+        'category_list': category_list,
+        'category': category,
+        'selected_category_slug': selected_category_slug,  # pass selected category slug to template
+    }
     return render(request, 'ecoplatform/problem_list.html', context)
+
 #detail view for the problem
 def problemDetailView(request, pk):
     context = {'problem_detail': Problem.objects.get(pk=pk)}
