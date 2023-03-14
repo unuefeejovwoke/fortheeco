@@ -1,33 +1,36 @@
 //script for nav dropdown
-const navToggle = document.querySelector('.menu');
-const navLinks = document.querySelector('.right-side__nav');
+const navToggle = document.querySelector(".menu");
+const navLinks = document.querySelector(".right-side__nav");
 
-const navbarReveal = function(){
-    navLinks.classList.toggle('hidden');
-}
+const navbarReveal = function () {
+  navLinks.classList.toggle("hidden");
+};
 
-navToggle.addEventListener('click', navbarReveal);
+navToggle.addEventListener("click", navbarReveal);
+
 //nav-dropdown
-const dropBtn = document.querySelector(".dropbtn")
-const dropContent = document.querySelector(".dropdown-content")
+const dropBtn = document.querySelector(".dropbtn");
+const dropContent = document.querySelector(".dropdown-content");
 
-dropBtn.addEventListener("click", (e)=>{
-  if(e.target === dropBtn){
+dropBtn.addEventListener("click", (e) => {
+  if (e.target === dropBtn) {
     dropContent.classList.remove("d-none");
-  dropContent.classList.add("d-show")
-  }else{
-    dropContent.add("d-none")
+    dropContent.classList.add("d-show");
+  } else {
+    dropContent.add("d-none");
   }
 
-  console.log("clicked dropdown")
+  console.log("clicked dropdown");
 });
-window.onclick = function(e){
-  if (!e.target.matches('.dropbtn') && 
-        dropContent.classList.contains('d-show')){
-      dropContent.classList.remove('d-show');
-      dropContent.classList.add("d-none")
- }
-}
+// window.onclick = (function (e) {
+//   if (
+//     !e.target.matches(".dropbtn") &&
+//     dropContent.classList.contains("d-show")
+//   ) {
+//     dropContent.classList.remove("d-show");
+//     dropContent.classList.add("d-none");
+//   }
+// })
 
 ("use strict");
 
@@ -71,4 +74,3 @@ for (let i = 0; i < btnCloseModal.length; i++) {
   btnCloseModal[i].addEventListener("click", closeModal);
 }
 overlay.addEventListener("click", closeModal);
-

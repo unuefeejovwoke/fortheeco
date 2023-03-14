@@ -56,6 +56,9 @@ nav {
 
   .dropdown-content{
   position: absolute;
+  bottom: -3.5rem;
+  left: 10
+  rem;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -67,12 +70,12 @@ nav {
   }
 }
 
-  .dropbtn:hover .dropdown-content {
-    display: block;
+  .dropdown:hover > .dropdown-content {
+    display: initial;
   }
 
   .connect {
-    // width: 30%;
+    width: 30%;
     background: #f9fffb;
     // height: 100%;
     padding: 1.5rem 12px;
@@ -195,6 +198,14 @@ nav {
       align-self: flex-end;
       transform: translate(-12px, 24px);
       position: absolute;
+    }
+
+    .dropdown-content{
+      top: 2rem;
+      bottom: 0;
+      left: 7rem;
+      max-height: 28%;
+      width: 25%;
     }
     .nav-links {
       display: flex;

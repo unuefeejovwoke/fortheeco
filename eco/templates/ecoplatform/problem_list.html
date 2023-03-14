@@ -53,23 +53,16 @@
                 <div class="radio">
                     <div>
                         <label for="All">All</label>
-                        <input type="radio" name="category" id="All" checked>
+                        <input type="radio" name="category" id="All" value="All" {% if selected_category_slug == 'All' %}checked="true"{% endif %}
+                            onclick="location.href='{% url 'ecoplatform:problem_list' %}'">
                     </div>
-                    <div>
-                        <label for="Environment">Environment</label>
-                        <input type="radio" name="category" id="Environment">
-                    </div>
-
-                    <div>
-                        <label for="Community">Community</label>
-                        <input type="radio" name="category" id="Community">
-                    </div>
-
-                    <div>
-                        <label for="Organisation">Organisation</label>
-                        <input type="radio" name="category" id="Organisation">
-                    </div>
-
+                    {% for category in category_list %}
+                        <div>
+                            <label for="{{category.slug}}">{{category}}</label>
+                            <input type="radio" name="category" id="{{category.slug}}" value="{{category.slug}}" {% if selected_category_slug == category.slug %}checked{% endif %}
+                                onclick="location.href='{% url 'ecoplatform:problem_list_category' category.slug %}'">
+                        </div>
+                    {% endfor%}
                 </div>
                 <h5>Based on location</h5>
                 <form>
@@ -92,7 +85,7 @@
                         <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">Ikeja,Lagos</span>
                     </div>
                     <div class="eco-cat">
-                        <p class="text-fix">Eco Community: <a href="">Community</a></p>
+                        <p class="text-fix">Eco Community: <a href="">{{problem.category}}</a></p>
                     </div>
                     <div class="goal">
                         <p class="text-fix">UNSdg Goal: </p><img src="{% static 'images/card/eco.png' %}" alt="">
@@ -106,10 +99,10 @@
                         Molestias odit obcaecati libero ex rerum voluptates quibusdam at veritatis iure. Dolorem
                         maxime fugiat omnis dolorum excepturi quaerat itaque facilis tempora natus!</p>
                     <div class="detail-img">
-                        <img src="{% static 'images/card/Rectangle 574(1).png' %}" alt="" class="first">
+                        <img src="{{problem.problem_photo_main.url}}" alt="" class="first">
                         <div class="second">
-                            <img src="{% static 'images/card/lake.png' %}" alt="">
-                            <img src="{% static 'images/card/waterbottle.png' %}" alt="">
+                            <img src="{{problem.problem_photo_1.url}}" alt="">
+                            <img src="{{problem.problem_photo_2.url}}" alt="">
                         </div>
                     </div>
                 </div>

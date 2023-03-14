@@ -42,6 +42,18 @@
   }
 }
 
+
+.add-problems-btn{
+  display: flex;
+  justify-content: flex-end;
+  width: 89%;
+  margin-top: 1rem;
+
+  a{
+    color: #1DB559;
+  }
+}
+
 .card-wrapper {
   padding: 1rem;
 }
@@ -51,6 +63,7 @@
   width: 90%;
   border-radius: 0.7rem;
   box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.08);
+  margin-top: 0.5rem;
 }
 
 .card-header {
