@@ -14,4 +14,7 @@ urlpatterns = [
     path('resetPassword/', views.resetPassword, name="resetPassword"),
     
     path('dashboard/', views.dashboard, name="dashboard"),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('change_password/', views.change_password, name='change_password'),
+    path('social/signup/', views.signup_redirect,name='signup_redirect'),
 ]

@@ -9,6 +9,7 @@
             <header class="card-header">
                 <strong class="d-inline-block mr-3">Logged in as:</strong>
                 <span>{{user.full_name}}</span>
+                <a href="{% url 'ecousers:logout' %}" style="background-color: green; padding: 20px; margin: 20px; color: white; font-weight: 600;">Logout</a>
             </header>
             <div class="card-body">
                 <div class="row">
@@ -18,13 +19,13 @@
                         <div class="card-body">
                             <h5 class="card-title">Total Projects Posted</h5>
                             <h4>{{projects_count}}</h4>
-                            <a href="{% url 'ecoplatform:home' %}">View Projects</a>
+                            <p><a href={% url 'ecoplatform:project_list'  %}>View allprojects here...</a></p>
                         </div>
 
                         <div class="card-body">
                             <h5 class="card-title">Total Problems Posted</h5>
                             <h4>{{problems_count}}</h4>
-                            <a href="{% url 'ecoplatform:home' %}">View Problems</a>
+                            <p><a href={% url 'ecoplatform:problem_list'  %}>View all problems here...</a></p>
                         </div>
                     </div>
                 </div>
@@ -35,6 +36,8 @@
                             <p class="mb-0">Email Address: {{user.email}}</p>
                             <p>Phone Number: {{user.phone_number}}</p>
                         </div>
+                        <a  style="background-color: black; padding: 20px; margin: 100px; color: white; font-weight: 600;" href="{% url 'ecousers:edit_profile' %}" > Edit Profile </a>
+                        <a style="background-color: blue; padding: 20px; margin: 100px; color: white; font-weight: 600;" href="{% url 'ecousers:change_password' %}"> Change Password </a>
                     </div>
                 </div>
     

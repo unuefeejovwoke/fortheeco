@@ -1,0 +1,17 @@
+<h1>Problems Page</h1>
+
+<label>For Problem
+<form method="get">
+{{ problems.form.as_p }}
+<button type="submit">Search</button>
+</form>
+</label>
+{% for problem in problems.qs%}
+<h3>Title >>> {{problem.title}} || {{project.owner}}</h3>
+<p>Description >>> {{problem.description}}</p>
+
+<span>Category: {{problem.category}}</span>
+<p><a href={% url 'ecoplatform:problem_detail' problem.pk  %}>Learn more about {{problem.title}} problem...</a></p>
+{% endfor %}
+
+

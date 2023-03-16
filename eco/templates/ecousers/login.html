@@ -1,6 +1,7 @@
 <section class="section-conten padding-y" style="min-height:84vh">
 
   <!-- ============================ COMPONENT LOGIN   ================================= -->
+  {%load socialaccount%}
   
   {% if request.GET.command == 'verification' %}
   
@@ -20,7 +21,7 @@
         <form action="{% url 'ecousers:login' %}" method="POST">
           {% csrf_token %}
             <div class="form-group">
-         <input type="email" class="form-control" placeholder="Email Address" name="email">
+        <input type="email" class="form-control" placeholder="Email Address" name="email">
             </div> <!-- form-group// -->
             <div class="form-group">
         <input type="password" class="form-control" placeholder="Password" name="password">
@@ -32,13 +33,18 @@
             </div> <!-- form-group form-check .// -->
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                <button class="btn btn-outline-info" >
+                  <a href= "{%provider_login_url 'google'%}?next=/">
+                    <i class = "fab fa-google"></i>Login with Google </a></button>
+                
+                
             </div> <!-- form-group// -->
         </form>
         </div> <!-- card-body.// -->
       </div> <!-- card .// -->
   
-       <p class="text-center mt-4">Don't have account? <a href="{% url 'ecousers:register' %}">Sign up</a></p>
-       <br><br>
+      <p class="text-center mt-4">Don't have account? <a href="{% url 'ecousers:register' %}">Sign up</a></p>
+      <br><br>
   <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
   {% endif %}
   

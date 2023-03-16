@@ -7,7 +7,7 @@
       <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
       <form action="{% url 'ecousers:register' %}" method="POST">
         {% csrf_token %}
-  
+        {%load socialaccount%}
   
           <div class="form-row">
             <div class="col form-group">
@@ -43,6 +43,15 @@
           </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                <button class="btn btn-outline-info" >
+                  <a href= "{%provider_login_url 'google'%}?next=/">
+                    <i class = "fab fa-google"></i>Sign up with Google </a></button>
+                <button class="btn btn-outline-info" >
+                  <a href="{% provider_login_url 'github' method="oauth2" %}">Sign up with Github</a>
+                      <i class = "fab fa-github"></i></a></button>
+                <button class="btn btn-outline-info" >
+                  <a href="{% provider_login_url 'facebook' method="oauth2" %}">Sign up with Facebook </i> </a>
+                        <i class = "fab fa-github"> </a></button>
             </div> <!-- form-group// -->
         {{ form.email.errors }}
         {{ form.non_field_errors }}

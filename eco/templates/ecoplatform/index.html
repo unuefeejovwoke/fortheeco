@@ -1,3 +1,4 @@
+{% load static %}
 <h1>Problems Page</h1>
 
 <label>For Problem
@@ -11,7 +12,8 @@
 <p>Description >>> {{problem.description}}</p>
 
 <span>Category: {{problem.category}}</span>
-
+<p><a href={% url 'ecoplatform:problem_detail' problem.pk %}>Learn more about {{problem.title}} problem...</a></p>
+<a href="#"><img src="{{problem.problem_photo_main.url}}" width="600" height="300"></a>
 {% endfor %}
 
 <hr />
@@ -30,7 +32,7 @@
 <p>Description >>> {{project.description}}</p>
 
 <span>Category: {{project.category}}</span>
-
+<p><a href={% url 'ecoplatform:project_detail' project.pk %}>Learn more about {{project.title}} project...</a></p>
 {% endfor %}
 
 {% if user.is_authenticated %}
@@ -38,3 +40,11 @@
 {% else %}
 <a href="{% url 'ecousers:login' %}">Login</a>
 {% endif %}
+
+<nav>
+<p><a href={% url 'ecoplatform:project_list'  %}>View more projects here...</a></p>
+|
+<p><a href={% url 'ecoplatform:problem_list' %}>View more problems here...</a></p>
+</nav>
+
+
