@@ -1,0 +1,822 @@
+//This is where the otherr contents of the website sits
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.heading {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/*======HERO SECTION STYLING=====*/
+.hero-section {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 12px 24px;
+  background: url("../images/hero-background.png") no-repeat, center;
+  background-size: 70%;
+  width: 100%;
+
+  .text-description {
+    width: 60%;
+    h1 {
+      margin-bottom: 24px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .metric--container {
+      display: flex;
+      gap: 48px;
+      margin: 12px;
+      h5 {
+        font-weight: 500;
+      }
+    }
+
+    .metric {
+      text-align: center;
+    }
+  }
+
+  .img-description {
+    width: 40%;
+    text-align: center;
+    img {
+      width: 75%;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-section {
+    .text-description {
+      width: 50%;
+    }
+    .img-description {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .hero-section {
+    .img-description {
+      img {
+        width: 85%;
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-section {
+    flex-direction: column;
+    justify-content: center;
+    background-size: 100%;
+    .text-description {
+      width: 100%;
+      text-align: center;
+
+      .btn-group {
+        justify-content: center;
+      }
+
+      .metric--container {
+        justify-content: center;
+      }
+    }
+    .img-description {
+      width: 100%;
+      img {
+        width: 85%;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .hero-section {
+    background-size: 150%;
+  }
+}
+/*======END OF HERO SECTION STYLING=====*/
+
+/*======DEVELOPER CIRCLE SECTION STYLING=====*/
+.developer-circle {
+  margin-top: 96px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/innovation-map-bg.png") no-repeat, center;
+  // background: ;
+  background-size: cover;
+  height: 350px;
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .circle--wrapper {
+    max-width: 500px;
+    h2,
+    p {
+      color: #fff;
+    }
+    h2 {
+      margin-bottom: 12px;
+    }
+    p {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .developer-circle {
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+      url("../images/innovation-map-bg.png") no-repeat, center;
+  }
+}
+
+/*======END OF DEVELOPER CIRCLE SECTION STYLING=====*/
+
+/*======COMING SOON SECTION STYLING=====*/
+.coming-soon__app {
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 250px;
+  margin-bottom: 250px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  background: url("../images/neural-link-bg.png") no-repeat, center;
+  background-size: cover;
+  position: relative;
+  height: 500px;
+  .img-description {
+    width: 50%;
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+  .img-description__2 {
+    display: none;
+  }
+  .img-group {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -35%;
+  }
+  .img-abs-position {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .text-description {
+    width: 50%;
+    h2,
+    p {
+      color: #fff;
+    }
+    .filled--heading {
+      margin: 6px 0 12px;
+      color: $primaryColor;
+    }
+    p {
+      margin-bottom: 24px;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      img {
+        width: auto;
+        height: 40px;
+      }
+    }
+
+    form {
+      margin-top: 32px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 24px;
+    }
+    h5 {
+      margin-bottom: 12px;
+    }
+    .input-field {
+      width: 70%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm9.06 8.683L5.648 6.238 4.353 7.762l7.72 6.555 7.581-6.56-1.308-1.513-6.285 5.439z' fill='rgba(148,148,148,1)'/%3E%3C/svg%3E");
+      background-position: 1%;
+      background-repeat: no-repeat;
+      padding-left: 28px;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .coming-soon__app {
+    margin: 96px auto;
+    flex-direction: column-reverse;
+    justify-content: center;
+    height: auto;
+
+    .img-description {
+      width: 80%;
+    }
+    .img-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      position: static;
+      transform: translateY(60px);
+    }
+    .img-abs-position {
+      flex-flow: row wrap;
+    }
+
+    .text-description {
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .coming-soon__app {
+    .img-description {
+      display: none;
+    }
+    .img-description__2 {
+      display: block;
+      width: 100%;
+      img {
+        width: calc(100% / 3);
+        height: auto;
+      }
+    }
+    .img-group {
+      transform: translateY(60px);
+    }
+    .img-abs-position {
+      display: inline;
+      flex-flow: row wrap;
+    }
+
+    .text-description {
+      width: 100%;
+      .input-field {
+        width: 100%;
+      }
+    }
+  }
+}
+/*======END OF COMING SOON SECTION STYLING=====*/
+
+/*======ECO INTORDUCTION SECTION STYLING=====*/
+.eco-introduction {
+  padding: 24px;
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    h2 {
+      margin-bottom: 12px;
+    }
+    .non-bold {
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .abbreviation {
+      position: relative;
+      display: inline-block;
+      max-width: fit-content;
+    }
+    .custom-underline {
+      // position: absolute;
+      display: block;
+      margin: auto;
+      // left: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .intro--container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    .intro--card {
+      max-width: 400px;
+      padding: 18px;
+      border-radius: 8px;
+    }
+    .environ {
+      background-color: rgba(238, 252, 244, 1);
+      background-image: url("../images/env-bg.png");
+      background-repeat: no-repeat;
+      background-size: 60%;
+      background-position: 110% 120%;
+    }
+    .community {
+      background-color: rgba(241, 250, 254, 1);
+      background-image: url("../images/community-bg.png");
+      background-repeat: no-repeat;
+      background-size: 60%;
+      background-position: 95% 130%;
+    }
+    .organization {
+      background-color: rgba(255, 243, 237, 1);
+      background-image: url("../images/org-bg.png");
+      background-repeat: no-repeat;
+      background-size: 60%;
+      background-position: 100% 110%;
+    }
+    .eco-icon {
+      width: 40px;
+      height: auto;
+      margin-bottom: 24px;
+    }
+    h4 {
+      margin-bottom: 12px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .intro--container {
+    place-items: center;
+  }
+}
+@media (max-width: 530px) {
+  .eco-introduction {
+    .custom-underline {
+      width: 100% !important;
+    }
+
+    .intro--container {
+      .environ {
+        background-size: 40%;
+        background-position: 110% 120%;
+      }
+      .community {
+        background-size: 40%;
+        background-position: 95% 130%;
+      }
+      .organization {
+        background-size: 40%;
+        background-position: 100% 110%;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .eco-introduction {
+    .intro--container {
+      .environ {
+        background-size: 60%;
+      }
+      .community {
+        background-size: 60%;
+      }
+      .organization {
+        background-size: 60%;
+      }
+    }
+  }
+}
+
+/*======ECO INTORDUCTION SECTION STYLING=====*/
+
+/*======TECH4GOOD AFRICA SECTION STYLING=====*/
+.t4ga-section {
+  margin: 96px 0;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  background: linear-gradient(91.56deg, #f5f7fa 0.55%, #b8c6db 98.03%);
+  padding: 24px;
+
+  .img-description {
+    width: 40%;
+    img {
+      width: 50%;
+    }
+  }
+
+  .text-description {
+    width: 60%;
+    p {
+      margin-bottom: 24px;
+    }
+  }
+
+  .socials--container {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    transform: translateY(40px);
+    margin-bottom: 48px;
+
+    img {
+      width: 24px;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .t4ga-section {
+    flex-direction: column;
+    justify-content: center;
+
+    .img-description,
+    .text-description {
+      width: 80%;
+    }
+
+    .img-description {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .t4ga-section {
+    height: auto;
+    .img-description,
+    .text-description {
+      width: 100%;
+    }
+  }
+}
+/*======END OF TECH4GOOD AFRICA SECTION STYLING=====*/
+
+/*======FEATURE SECTION STYLING=====*/
+.features-section {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: url("../images/Tech-4-good-bg.png") no-repeat, center;
+  background-size: cover;
+  .lhs-description {
+    width: 50%;
+  }
+  .rhs-description {
+    width: 50%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 24px;
+    h4 {
+      margin-bottom: 12px;
+    }
+    .features--container {
+      max-width: 400px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #ffffff;
+      border-top: 2px solid #1db559;
+      box-shadow: 0px 0px 16px rgba(13, 13, 13, 0.25);
+      border-radius: 10px;
+    }
+    .eco-icon {
+      width: 40px;
+      height: auto;
+      margin-bottom: 12px;
+      background: linear-gradient(136.14deg, #ffffff 0%, #daf8e5 92.11%);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(20.5px);
+      border-radius: 6px;
+      transform: translateY(-30px);
+      padding: 6px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .features-section {
+    flex-direction: column;
+    justify-content: center;
+    .lhs-description {
+      text-align: center;
+      margin: 24px 0 48px;
+    }
+    .lhs-description,
+    .rhs-description {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .features-section {
+    .rhs-description {
+      place-items: center;
+    }
+  }
+}
+/*======END OF FEATURE SECTION STYLING=====*/
+
+/*======CONTACT SECTION STYLING=====*/
+.contact-section {
+  padding: 24px;
+  margin-top: 96px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+
+  .lhs-description {
+    width: 50%;
+    header {
+      max-width: 500px;
+      position: relative;
+    }
+    .contact-img {
+      width: 200px;
+      height: auto;
+      position: absolute;
+      transform: translateY(-100px);
+    }
+    h4 {
+      margin-bottom: 12px;
+    }
+  }
+  .rhs-description {
+    width: 50%;
+
+    form {
+      background: #ffffff;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin: auto;
+      width: 100%;
+    }
+
+    .logo--container {
+      margin-bottom: 24px;
+      img {
+        width: 100px;
+        height: auto;
+      }
+    }
+
+    div {
+      margin-bottom: 24px;
+      display: block;
+      text-align: left;
+    }
+    .input-field,
+    textarea {
+      margin: auto;
+      width: 80%;
+      margin-top: 12px;
+    }
+    .input-field {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm9.06 8.683L5.648 6.238 4.353 7.762l7.72 6.555 7.581-6.56-1.308-1.513-6.285 5.439z' fill='rgba(148,148,148,1)'/%3E%3C/svg%3E");
+      background-position: 1%;
+      background-repeat: no-repeat;
+      padding-left: 32px;
+    }
+
+    label {
+      display: block;
+      margin: auto;
+      width: 80%;
+    }
+    button {
+      width: 80%;
+      margin: auto;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .contact-section {
+    flex-direction: column;
+    margin-top: 48px;
+
+    .lhs-description {
+      width: 100%;
+      margin-bottom: 24px;
+      .contact-img {
+        display: none;
+      }
+    }
+    .rhs-description {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .contact-section {
+    .rhs-description {
+      .input-field,
+      textarea,
+      label,
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+/*======END OF CONTACT SECTION STYLING=====*/
+
+/*======NEWSLETTER SECTION STYLING=====*/
+.newsletter {
+  padding: 0 24px;
+}
+.newsletter--wrapper {
+  max-width: 800px;
+  margin: 48px auto;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0px -2px 10px rgba(13, 13, 13, 0.25);
+  border-radius: 10px;
+  text-align: center;
+  h4 {
+    margin-bottom: 12px;
+  }
+  p {
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+  form {
+    text-align: left;
+    position: relative;
+    margin-left: auto;
+    .input-field {
+      margin-top: 12px;
+      width: 80%;
+    }
+    img {
+      width: 48px;
+      height: auto;
+    }
+    button {
+      position: absolute;
+      right: 12%;
+      transform: translateY(-46px);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .newsletter--wrapper {
+    form {
+      button {
+        right: 8%;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .newsletter--wrapper {
+    form {
+      button {
+        right: 4%;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .newsletter--wrapper {
+    form {
+      button {
+        right: 1%;
+      }
+    }
+  }
+}
+/*======NEWSLETTER SECTION STYLING=====*/
+
+/*======ADD PROJECT AND PROBLEM PAGES STYLING======*/
+.project_modal--wrapper {
+  background-color: rgba(239, 245, 242, 1);
+  width: 80%;
+  margin: 48px auto;
+  padding: 32px;
+  border-radius: 10px;
+
+  .close-btn {
+    width: 32px;
+    height: auto;
+  }
+  h5 {
+    transform: translate(60px, -32px);
+  }
+
+  .location-field {
+    background-image: url("../icons/location-icon.png");
+    background-size: 30px;
+    background-position: 1%;
+    background-repeat: no-repeat;
+    width: 50%;
+    background-color: transparent;
+    padding-left: 36px;
+  }
+  p {
+    margin-top: 12px;
+  }
+
+  .project-category {
+    label {
+      display: block;
+      margin: 24px 0 12px;
+    }
+    select {
+      color: $primaryColor;
+      background-color: transparent;
+      // border: 0px;
+    }
+    option {
+      color: $bodyTextColor;
+    }
+  }
+
+  .projects-flier {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 24px;
+    margin: 32px 0;
+    img {
+      width: 96px;
+      height: auto;
+    }
+  }
+
+  .text-field {
+    display: block;
+    margin-bottom: 24px;
+    .input-field,
+    textarea {
+      background: transparent;
+      margin-top: 12px;
+      width: 100%;
+    }
+  }
+
+  .add-social-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .link-text {
+      font-weight: normal;
+    }
+    h5 {
+      transform: unset;
+      margin-bottom: 12px;
+    }
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  button {
+    border-color: $primaryColor;
+    width: 200px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 45px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .project_modal--wrapper {
+    width: 90%;
+    margin: 24px auto;
+    padding: 24px;
+
+    .location-field {
+      width: 100%;
+    }
+    p {
+      margin-top: 12px;
+    }
+
+    .projects-flier {
+      gap: 12px;
+      img {
+        width: 60px;
+      }
+    }
+  }
+}
+/*======END OF ADD PROJECT AND PROBLEM PAGES STYLING======*/

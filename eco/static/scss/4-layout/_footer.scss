@@ -1,0 +1,59 @@
+/*======FOOTER SECTION STYLING=====*/
+footer{
+    position: relative;
+    background-color: rgba(38, 50, 56, 1);
+    padding: 32px 24px;
+    color: #fff;
+    min-height: 300px;
+    hr{
+        margin: 24px auto;
+        width: 100%;
+        color: rgb(114, 119, 121);
+    }
+    .copyright{
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+    }
+}
+.footer--wrapper{
+    display: flex;
+    gap: 24px;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    .logo-container{
+        img{
+            width: 100px;
+            height: auto;
+        }
+    }
+    h5{
+        margin-bottom: 12px;
+        color: #fff;
+    }
+    li{
+        color: #fff;
+        padding: 6px 0;
+        width: 100%;
+        transition: $transitionDuration;
+        &:hover{
+            margin-left: 2px;
+            transition: $transitionDuration;
+        }
+    }
+    .contact-adress{ 
+        div{
+            margin-bottom: 24px;
+        }
+    }
+}
+
+@media (max-width: 550px){
+    .footer--wrapper{
+        justify-content: flex-start;
+        .logo-container{
+            width: 100%;
+        }
+    }
+}
+/*======END OF FOOTER SECTION STYLING=====*/

@@ -191,7 +191,7 @@ def resetPassword(request):
             user.set_password(password)
             user.save()
             messages.success(request, 'Password reset successful')
-            return redirect('ecousers:login')
+            return render(request, 'ecousers/passwordConfirm.html')
         else:
             messages.error(request, "Password doesn't match")
             return redirect('ecousers:resetPassword')
@@ -220,7 +220,7 @@ def edit_profile(request):
     }
     return render(request, 'ecousers/edit_profile.html', context)
 
-@login_required(login_url='login')
+@login_required(login_url='ecousers:login')
 def change_password(request):
     if request.method == 'POST':
         current_password = request.POST['current_password']

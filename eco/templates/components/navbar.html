@@ -1,0 +1,43 @@
+{% load static %}
+
+
+<nav>
+    <div class="logo">
+        <img src="{% static 'images/notification/logo 3(1).png' %}" alt="Eco logo">
+    </div>
+
+    <div class="right-side__nav hidden">
+        <div class="nav-links toggler">
+            <a href="{% url 'ecoplatform:home' %}">Home</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">The Eco
+                    <img src="{% static 'images/notification/arrowdown.png' %}" alt="arrow down"
+                    class="eco-img">
+                </button>
+                <div class="dropdown-content d-none">
+                    <a href="{% url 'ecoplatform:problem_list' %}">See ECO Problems</a>
+                    <a href="{% url 'ecoplatform:project_list' %}">See ECO Projects</a>
+                </div>
+            </div>
+
+            <a href="#">PAls App</a>
+            <a href="#">Tech4Good</a>
+            <a href="#">Services</a>
+        </div>
+        {% if user.id is None %}
+            <div class="connect toggler skew">
+                <a href="{% url 'ecousers:login' %}" id="login1">Log In</a>
+                <a href="{% url 'ecousers:register' %}" id="create1">Create Account</a>
+            </div>
+        {% else %}
+            <div class="connect toggler skew">
+                <a href="{% url 'ecousers:logout' %}" id="login1">Log Out</a>
+                <a href="{% url 'ecousers:dashboard' %}" id="create1">{{user.first_name|capfirst}} || Dashboard</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="menu">
+        <button><img src="{% static 'images/notification/more.png' %}" alt=""></button>
+    </div>
+</nav>

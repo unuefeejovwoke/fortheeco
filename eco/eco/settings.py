@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-es6+c*qf#()*e!!w@p)6*kpxk7&csdvjt=f&#0@ho#e5%jrjli'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG=True
+DEBUG = True
 
 
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #'allauth.socialaccount.providers.linkedin_oauth2',
     #'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
+    'sass_processor',
     #local applications
     'ecoplatform',
     'ecousers',
@@ -141,6 +142,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+## Django Sass
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR,'static')
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -150,8 +159,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # SMTP configuration
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER ='ECOdataism@gmail.com'
-EMAIL_HOST_PASSWORD = 'piusljjgxqrhvqqc'
+EMAIL_HOST_USER = "ECOdataism@gmail.com"
+EMAIL_HOST_PASSWORD = 'mbxcpgiehfkjbrzy'
 EMAIL_USE_TLS = True
 #Default primary key field type
 

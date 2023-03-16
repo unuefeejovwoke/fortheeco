@@ -1,0 +1,26 @@
+@mixin flexLayout{
+    display: flex;
+    gap: 24px;
+
+
+    .text-description{
+        width: 50%;
+        h4{
+            margin-bottom: 12px;
+        }
+        p{
+            margin-bottom: 24px;
+        }
+        .icon{
+            font-size: 24px;
+            margin-left: 6px;
+        }
+    }
+
+    .image-container{
+        display: flex;
+        justify-content: baseline;
+        width: 50%;
+        
+    }
+}
