@@ -1,74 +1,24 @@
 
-<<<<<<< HEAD
-  <!-- ============================ COMPONENT LOGIN   ================================= -->
-  {%load socialaccount%}
-  
-  {% if request.GET.command == 'verification' %}
-  
-  <div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
-  Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
-  <br><br>
-  Already verified? <a href="{% url 'ecousers:login' %}">Login</a>
-  </div>
-  
-  {% else %}
-  
-    <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
-  
-        <div class="card-body">
-        <h4 class="card-title mb-4">Sign in</h4>
-        
-        <form action="{% url 'ecousers:login' %}" method="POST">
-          {% csrf_token %}
-            <div class="form-group">
-        <input type="email" class="form-control" placeholder="Email Address" name="email">
-            </div> <!-- form-group// -->
-            <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" name="password">
-            </div> <!-- form-group// -->
-  
-            <div class="form-group">
-              <a href="{% url 'ecousers:forgotPassword' %}" class="float-right">Forgot password?</a>
-  
-            </div> <!-- form-group form-check .// -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-                <button class="btn btn-outline-info" >
-                  <a href= "{%provider_login_url 'google'%}?next=/">
-                    <i class = "fab fa-google"></i>Login with Google </a></button>
-                
-                
-            </div> <!-- form-group// -->
-        </form>
-        </div> <!-- card-body.// -->
-      </div> <!-- card .// -->
-  
-      <p class="text-center mt-4">Don't have account? <a href="{% url 'ecousers:register' %}">Sign up</a></p>
-      <br><br>
-  <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-  {% endif %}
-  
-  </section>
-=======
 {% extends 'base.html' %}
+{%load socialaccount%}
 {% load static %}
 {% block title %}<title>Eco website | Login</title>{% endblock title %}
 {% block content %}
 
 
 
-  <section class="form-content">
+<section class="form-content">
         {% if request.GET.command == 'verification' %}
     
             <div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:50px;">
                 <p style="text-align:center; font-size: 120px; color: #32d272;"><i class="ri-checkbox-circle-fill"></i></p>
             Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
             <br><br>
-           
+            
             <div class="submit-btn">
                 Already verified?
                 <button>  <a href="{% url 'ecousers:login' %}" id="login1">Login</a></button>
-               
+                
             </div>
             </div>
         {% else %}
@@ -83,7 +33,7 @@
             <p class="form-switch">continue to your account using</p>
             <div class="options">
                 <a href=""><img src={% static 'images/form/logos_linkedin-icon.png' %} alt=""></a>
-                <a href=""><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
+                <a href=" {%provider_login_url 'google'%}?next=/"><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
                 <a href=""><img src="{% static 'images/form/Twitter svg.png' %}" alt=""></a>
             </div>
             <div class="form-variables d-show" id="Login">
@@ -107,7 +57,9 @@
                     <label for="Remember">Remember me</label>
 
                     <div class="submit-btn">
+
                         <button>Log In</button>
+                        
                         <a href="{% url 'ecousers:forgotPassword' %}">Forgot Password</a>
                     </div>
                 </form>
@@ -156,6 +108,5 @@
     {% endif %}
 
 </section>
-  {% endblock content %}
->>>>>>> bb357619d5d4f01d2b5691bfaa9e62dbaa70fe95
-      <!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock content %}
+    <!-- ========================= SECTION CONTENT END// ========================= -->
