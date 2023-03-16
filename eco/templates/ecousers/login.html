@@ -1,24 +1,23 @@
 
 {% extends 'base.html' %}
-{%load socialaccount%}
 {% load static %}
 {% block title %}<title>Eco website | Login</title>{% endblock title %}
 {% block content %}
 
 
 
-<section class="form-content">
+  <section class="form-content">
         {% if request.GET.command == 'verification' %}
     
             <div class="container mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:50px;">
                 <p style="text-align:center; font-size: 120px; color: #32d272;"><i class="ri-checkbox-circle-fill"></i></p>
             Thank you for registering with us. We have sent you a verification email to your email address [{{ request.GET.email }}]
             <br><br>
-            
+           
             <div class="submit-btn">
                 Already verified?
                 <button>  <a href="{% url 'ecousers:login' %}" id="login1">Login</a></button>
-                
+               
             </div>
             </div>
         {% else %}
@@ -33,7 +32,7 @@
             <p class="form-switch">continue to your account using</p>
             <div class="options">
                 <a href=""><img src={% static 'images/form/logos_linkedin-icon.png' %} alt=""></a>
-                <a href=" {%provider_login_url 'google'%}?next=/"><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
+                <a href=""><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
                 <a href=""><img src="{% static 'images/form/Twitter svg.png' %}" alt=""></a>
             </div>
             <div class="form-variables d-show" id="Login">
@@ -57,9 +56,7 @@
                     <label for="Remember">Remember me</label>
 
                     <div class="submit-btn">
-
                         <button>Log In</button>
-                        
                         <a href="{% url 'ecousers:forgotPassword' %}">Forgot Password</a>
                     </div>
                 </form>
@@ -108,5 +105,5 @@
     {% endif %}
 
 </section>
-{% endblock content %}
-    <!-- ========================= SECTION CONTENT END// ========================= -->
+  {% endblock content %}
+      <!-- ========================= SECTION CONTENT END// ========================= -->
