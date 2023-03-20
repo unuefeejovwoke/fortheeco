@@ -1,59 +1,79 @@
-<section class="section-content padding-y">
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Eco website | Register </title>{% endblock title %}
 
-  <!-- ============================ COMPONENT REGISTER   ================================= -->
-    <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
-        <article class="card-body">
-    
-      <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-      <form action="{% url 'ecousers:register' %}" method="POST">
-        {% csrf_token %}
-  
-  
-          <div class="form-row">
-            <div class="col form-group">
-              <label>First name</label>
-                {{ form.first_name }}
-            </div> <!-- form-group end.// -->
-            <div class="col form-group">
-              <label>Last name</label>
-                {{ form.last_name }}
-            </div> <!-- form-group end.// -->
-          </div> <!-- form-row end.// -->
-  
-  
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Email Address</label>
-              {{form.email}}
-            </div> <!-- form-group end.// -->
-            <div class="form-group col-md-6">
-              <label>Phone Number</label>
-              {{form.phone_number}}
-            </div> <!-- form-group end.// -->
-          </div> <!-- form-row.// -->
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Create password</label>
-                {{ form.password }}
-            </div> <!-- form-group end.// -->
-            <div class="form-group col-md-6">
-              <label>Repeat password</label>
-              {{form.confirm_password}}
-            </div> <!-- form-group end.// -->
+{% block content %}
+
+  <section class="form-content">
+    <div class="form">
+        <div class="form-wrapper">
+          <div class="form-switch">
+            <button class="" id="loginBtn"><a href="{% url 'ecousers:login' %}">Log in</a></button>
+            <button class="active" id="signUpBtn"><a href="{% url 'ecousers:register' %}">Sign Up</a></button>
           </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Register  </button>
-                <button class="btn btn-outline-info" >
-              
-            </div> <!-- form-group// -->
-        {{ form.email.errors }}
-        {{ form.non_field_errors }}
-        </form>
-      </article><!-- card-body.// -->
-      </div> <!-- card .// -->
-      <p class="text-center mt-4">Have an account? <a href="{% url 'ecousers:login' %}">Log In</a></p>
-      <br><br>
-  <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
-  
-  
-  </section>
+            <hr>
+            <p class="form-switch">continue to your account using</p>
+            <div class="options">
+                <a href=""><img src="{% static 'images/form/logos_linkedin-icon.png' %}" alt=""></a>
+                <a href=""><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
+                <a href=""><img src="{% static 'images/form/Twitter svg.png' %}" alt=""></a>
+            </div>
+          
+             <div class="form-variables" id="Register">
+              <form action="{% url 'ecousers:register' %}" method="POST">
+                {% csrf_token %}
+                    <label>First Name</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/profile.png' %}" alt="">
+                        {{ form.first_name }}
+                    </div>
+                    <label>Last Name</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/profile.png' %}" alt="">
+                        {{ form.last_name }}
+                    </div>
+                    <label>Email Address</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/sms.png' %}" alt="">
+                        {{form.email}}
+                    </div>
+
+                    <label>Phone Number</label>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/sms.png' %}" alt="">
+                        {{form.phone_number}}
+                    </div>
+
+                    <label>Password</label> <br>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/security-safe.png' %}" alt="">
+                        {{form.password}}
+                    </div>
+
+                    <label>Confirm Password</label> <br>
+                    <div class="var-input">
+                        <img src="{% static 'images/form/security-safe.png' %}" alt="">
+                        {{ form.confirm_password}}
+                    </div>
+
+                    <div class="submit-btn">
+                        <button type="submit">Create Account</button>
+                    </div>
+                    {{ form.email.errors }}
+                    {{ form.non_field_errors }}
+                </form>
+
+                <p>Already have an account? <a href="{% url 'ecousers:login' %}">Login to your portal.</a></p>
+            </div> 
+        </div>
+       
+    </div>
+    
+    <div class="carousel-img">
+        <img src="{% static 'images/form/test.png' %}" alt="hero image for eco website" class="hero-img
+        ">
+    </div>
+
+</section>
+  {% endblock content %}
+      <!-- ========================= SECTION CONTENT END// ========================= -->
