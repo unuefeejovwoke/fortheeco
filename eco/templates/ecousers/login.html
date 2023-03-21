@@ -1,6 +1,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
 {% block title %}<title>Eco website | Login</title>{% endblock title %}
 {% block content %}
 
@@ -31,9 +32,9 @@
             <hr>
             <p class="form-switch">continue to your account using</p>
             <div class="options">
-                <a href=""><img src={% static 'images/form/logos_linkedin-icon.png' %} alt=""></a>
-                <a href=""><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
-                <a href=""><img src="{% static 'images/form/Twitter svg.png' %}" alt=""></a>
+                {% comment %} <a href=""><img src={% static 'images/form/logos_linkedin-icon.png' %} alt=""></a> {% endcomment %}
+                <a href="{% provider_login_url 'google'%}?next=/"><img src="{% static 'images/form/Google svg.png' %}" alt=""></a>
+                {% comment %} <a href=""><img src="{% static 'images/form/Twitter svg.png' %}" alt=""></a> {% endcomment %}
             </div>
             <div class="form-variables d-show" id="Login">
                 <form action="{% url 'ecousers:login' %}" method="POST">
