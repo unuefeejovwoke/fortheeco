@@ -12,4 +12,6 @@ urlpatterns = [
     path('problem/<pk>/', views.problemDetailView, name='problem_detail'),
     path('project/<pk>/', views.projectDetailView, name='project_detail'),
     path('', views.index, name='home'),
+    path('search/', views.search, name="search"),
+   
 ]

@@ -21,15 +21,16 @@
                 {% endfor%}
             </div>
             <h5>Based on location</h5>
-            <form>
-                <input type="text" name="" id="" placeholder="Enter search location..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-            <h5>Based on host</h5>
+            
+                <form method="GET" action="{% url 'ecoplatform:search' %}" class="cat-search">
+                    <input type="text" name="keyword" placeholder="Enter search location..">
+                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+            {% comment %} <h5>Based on host</h5>
             <form>
                 <input type="text" name="" id="" placeholder="Search host name..">
                 <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
+            </form> {% endcomment %}
         </div>
     </aside>
     <main class="card-main">
@@ -37,9 +38,9 @@
             <h5>Problems Posted on The ECO</h5>
 
             <div class="search">
-                <form>
-                    <input type="text" name="" id="" placeholder="Search">
-                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                <form method="GET" action="{% url 'ecoplatform:search' %}" class="cat-search">
+                    <input type="text" name="keyword" placeholder="Enter search location..">
+                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
                 </form>
                 <!-- <button class="filter-btn d-none">
                     <img src="images/filter-square.png" alt="filter button">
@@ -53,34 +54,29 @@
                 <div class="radio">
                     <div>
                         <label for="All">All</label>
-                        <input type="radio" name="category" id="All" checked>
+                        <input type="radio" name="category" id="All" value="All" checked="true" {% if selected_category_slug == 'All' %} checked="true" {% endif %}
+                            onclick="location.href='{% url 'ecoplatform:problem_list' %}'">
                     </div>
-                    <div>
-                        <label for="Environment">Environment</label>
-                        <input type="radio" name="category" id="Environment">
-                    </div>
-
-                    <div>
-                        <label for="Community">Community</label>
-                        <input type="radio" name="category" id="Community">
-                    </div>
-
-                    <div>
-                        <label for="Organisation">Organisation</label>
-                        <input type="radio" name="category" id="Organisation">
-                    </div>
-
+                    {% for category in category_list %}
+                        <div>
+                            <label for="{{category.slug}}">{{category}}</label>
+                            <input type="radio" name="category" id="{{category.slug}}" value="{{category.slug}}" {% if selected_category_slug == category.slug %}checked{% endif %}
+                                onclick="location.href='{% url 'ecoplatform:problem_list_category' category.slug %}'">
+                        </div>
+                    {% endfor%}
                 </div>
                 <h5>Based on location</h5>
-                <form>
-                    <input type="text" name="" id="" placeholder="Enter search location..">
-                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                <form method="GET" action="{% url 'ecoplatform:search' %}">
+                    <input type="text" name="keyword" placeholder="Enter search location..">
+                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
                 </form>
-                <h5>Based on host</h5>
-                <form>
-                    <input type="text" name="" id="" placeholder="Search host name..">
-                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-                </form>
+                
+                {% comment %} <h5>Based on host</h5>
+                <form method="GET">
+                    <input type="text" name="search_host" placeholder="Search host name..">
+                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form> {% endcomment %}
+
             </div>
         </aside>
         
@@ -89,10 +85,10 @@
             <div class="card-wrapper">
                 <div class="card-header">
                     <div class="post-location">
-                        <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">Ikeja,Lagos</span>
+                        {{problem.user.full_name|capfirst}} |  <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
                     </div>
                     <div class="eco-cat">
-                        <p class="text-fix">Eco Community: <a href="">Community</a></p>
+                        <p class="text-fix">Eco Community: <a href="">{{problem.category}}</a></p>
                     </div>
                     <div class="goal">
                         <p class="text-fix">UNSdg Goal: </p><img src="{% static 'images/card/eco.png' %}" alt="">
@@ -100,16 +96,12 @@
                 </div>
                 <hr>
                 <div class="card-details">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id minus delectus aliquam optio
-                        sunt ab. Explicabo magnam natus, eius officia et perferendis, aperiam molestiae libero
-                        numquam maxime ab dolorum hic. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Molestias odit obcaecati libero ex rerum voluptates quibusdam at veritatis iure. Dolorem
-                        maxime fugiat omnis dolorum excepturi quaerat itaque facilis tempora natus!</p>
+                    <p>{{problem.description}}</p>
                     <div class="detail-img">
-                        <img src="{% static 'images/card/Rectangle 574(1).png' %}" alt="" class="first">
+                        <img style="border-radius: 8px;" src="{{problem.problem_photo_main.url}}" alt="" class="first">
                         <div class="second">
-                            <img src="{% static 'images/card/lake.png' %}" alt="">
-                            <img src="{% static 'images/card/waterbottle.png' %}" alt="">
+                            <img style="border-radius: 8px; margin-bottom:5px;" src="{{problem.problem_photo_1.url}}" alt="">
+                            <img style="border-radius: 8px;" src="{{problem.problem_photo_2.url}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -134,8 +126,9 @@
             </div>
 
         </div>
-        {% empty %}
-        <h4 style="text-align:center;">No Problems for this category</h4>
+        {% empty%}
+        <h4 style="text-align:center">No posted problem for query</h4>
+      
         {% endfor %}
        
        

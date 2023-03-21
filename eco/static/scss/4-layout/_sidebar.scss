@@ -5,7 +5,7 @@
         font-size: $h5FontSize;
     }
 
-    form {
+    .cat-search {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -67,13 +67,13 @@
         font-size: 0.9rem;
     }
 
-    .cat-wrapper form input {
+    .cat-search input {
         width: 65%;
     }
 
-        .cat-wrapper form button imgitg {
-        width: 40%;
-    }
+    //     .cat-search button imgitg {
+    //     width: 40%;
+    // }
 }
 
 @media only screen and (max-width: 770px) {
@@ -85,11 +85,11 @@
         font-size: 0.8rem;
     }
 
-    .cat-wrapper form input {
+    .cat-search input {
         width: 60%;
     }
 
-    .cat-wrapper form button img {
+    .cat-search img {
         width: 40%;
     }
 }

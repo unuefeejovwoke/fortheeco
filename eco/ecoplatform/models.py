@@ -3,6 +3,7 @@ from django.db import models
 from ecousers.models import Account
 import uuid
 from django.utils.text import slugify
+from django.urls import reverse
 from django.utils import timezone
 # Create your models here.
 class Problem(models.Model):
@@ -18,12 +19,13 @@ class Problem(models.Model):
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
+    location = models.CharField(max_length=100,blank=True, null=True)
     problem_photo_main = models.ImageField(upload_to=get_image_path)
     problem_photo_1 = models.ImageField(upload_to=get_image_path,blank=True)
     problem_photo_2 = models.ImageField(upload_to=get_image_path,blank=True)
     problem_photo_3 = models.ImageField(upload_to=get_image_path,blank=True)
-    problem_photo_4 = models.ImageField(upload_to=get_image_path,blank=True)
-  
+    
+
     slug = models.SlugField(blank=True,null=True)
     isTrending = models.BooleanField(default=False)
 
@@ -87,6 +89,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+    
     
     def __str__(self):
         return self.name 

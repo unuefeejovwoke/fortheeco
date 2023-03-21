@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Project, Problem, Category
+from django.db.models import Q
 from .filters import ProblemFilter, ProjectFilter
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
@@ -22,6 +23,8 @@ def index(request):
     return render(request,'ecoplatform/index.html',context)
 
 #list view for the problems
+
+#list view for the problems
 def problemListView(request, category_slug=None):
     category = None
     problem_list = Problem.objects.all()
@@ -39,6 +42,19 @@ def problemListView(request, category_slug=None):
         'category': category,
         'selected_category_slug': selected_category_slug,  # pass selected category slug to template
     }
+    return render(request, 'ecoplatform/problem_list.html', context)
+
+def search(request):
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            problems = Problem.objects.order_by('-created').filter(Q(location__icontains=keyword) | Q(description__icontains=keyword))
+            problem_count = problems.count()
+        context={
+            'problems': problems,
+            'problem_count':  problem_count,
+            'keyword':keyword
+        }
     return render(request, 'ecoplatform/problem_list.html', context)
 
 #detail view for the problem
