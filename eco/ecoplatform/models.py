@@ -50,7 +50,7 @@ class Project(models.Model):
 
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
-    
+    location = models.CharField(max_length=100,blank=True, null=True)
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
@@ -58,7 +58,7 @@ class Project(models.Model):
     project_photo_1 = models.ImageField(upload_to=get_image_path,blank=True)
     project_photo_2 = models.ImageField(upload_to=get_image_path,blank=True)
     project_photo_3 = models.ImageField(upload_to=get_image_path,blank=True)
-    project_photo_4 = models.ImageField(upload_to=get_image_path,blank=True)
+   
   
     slug = models.SlugField(blank=True,null=True)
     isTrending = models.BooleanField(default=False)
