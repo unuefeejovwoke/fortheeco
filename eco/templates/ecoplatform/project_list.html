@@ -1,16 +1,140 @@
-<h1>Projects Page</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Eco Projects </title> {% endblock title %}
+{% block content %}
+<section class="main-content">
+    <aside class="category">
+        <div class="cat-wrapper">
+            <h5>Category</h5>
+            <form class="radio">
+                <div>
+                    <label for="All">All</label>
+                    <input type="radio" name="category" id="All" value="" checked>
+                </div>
+                {% for category in categories %}
+                <div>
+                    <label for="{{ category.slug }}">{{ category.name }}</label>
+                    <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
+                </div>
+                {% endfor %}
+            </form>
 
-<form method="get">
-<label>For Project</label>
-{{ projects.form.as_p }}
-<button type="submit">Search</button>
-</form>
 
-{% for project in projects.qs%}
+            <h5>Based on location</h5>
+            <form class="cat-search">
+                <input type="text" name="" id="" placeholder="Enter search location..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
+            <h5>Based on host</h5>
+            <form class="cat-search">
+                <input type="text" name="" id="" placeholder="Search host name..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
+        </div>
+    </aside>
+    <main class="card-main">
+        <div class="heading">
+            <h5>Projects Posted on The ECO</h5>
+            <div class="search">
+                <form>
+                    <input type="text" name="" id="" placeholder="Search">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+                <!-- <button class="filter-btn d-none">
+                    <img src="assets/images/filter-square.png" alt="filter button">
+                </button> -->
+            </div>
+        </div>
 
-<h3>Title >>> {{project.title}} || {{project.owner}}</h3>
-<p>Description >>> {{project.description}}</p>
+        <aside class="mob-cat" id="">
+            <div class="cat-wrapper">
+                <h5>Category</h5>
+                <form class="radio">
+                    <div>
+                        <label for="All">All</label>
+                        <input type="radio" name="category" id="All" checked="true">
+                    </div>
+                    <div>
+                        <label for="Environment">Environment</label>
+                        <input type="radio" name="category" id="Environment">
+                    </div>
 
-<span>Category: {{project.category}}</span>
-<p><a href={% url 'ecoplatform:project_detail' project.pk  %}>Learn more about {{project.title}} project...</a></p>
-{% endfor %}
+                    <div>
+                        <label for="Community">Community</label>
+                        <input type="radio" name="category" id="Community">
+                    </div>
+
+                    <div>
+                        <label for="Organisation">Organisation</label>
+                        <input type="radio" name="category" id="Organisation">
+                    </div>
+
+                </form>
+                <h5>Based on location</h5>
+                <form class="cat-search">
+                    <input type="text" name="" id="" placeholder="Search location..">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+                <h5>Based on host</h5>
+                <form class="cat-search">
+                    <input type="text" name="" id="" placeholder="Search host name..">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                </form>
+            </div>
+        </aside>
+        
+        <div class="add-problems-btn">
+            <a>Add Project</a>
+        </div>
+        {% if projects %}
+        {% for project in projects %}
+        <div class="card">
+            <div class="card-wrapper">
+                <div class="card-header">
+                    <div class="eco-cat">
+                        <p class="text-fix2">Sponsor: <a href="">{{project.user.full_name}}</a></p>
+                    </div>
+                    <div class="post-location">
+                        <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="location">Ikeja,Lagos</span>
+                    </div>
+                    <div class="eco-cat">
+                        <p class="text-fix2">Eco Categories: <a href="">{{project.category}}</a></p>
+                    </div>
+                    <div class="goal">
+                        <p class="text-fix2">UNSdg Goal: </p><img src="{% static 'images/card/eco.png' %}" alt="">
+                    </div>
+                </div>
+    
+                <div class="card-details">
+                    <p>{{project.description}}</p>
+                </div>
+    
+                <div class="card-footer">
+                    <p><b>Connect with the sponsor of the project:</b></p>
+                    <a href="#"><img src="{% static 'images/card/project-card/linkedin.png' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'images/card/project-card/twitter.png' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'images/card/project-card/insta.png' %}" alt=""></a>
+                    <a href="#"><img src="{% static 'images/card/project-card/gmail (2).png' %}" alt=""></a>
+                </div>
+    
+            </div>
+    
+        </div>
+        {% endfor %}
+        {% else %}
+        <p style="text-align:center">No projects found for this category.</p>
+        {% endif %}
+        
+    </main>
+</section>
+<script>
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(button => {
+        button.addEventListener('change', event => {
+            const form = event.target.closest('form');
+            form.submit();
+        });
+    });
+</script>
+
+{% endblock%}

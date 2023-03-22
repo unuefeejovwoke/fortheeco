@@ -45,16 +45,19 @@ def problemListView(request, category_slug=None):
     return render(request, 'ecoplatform/problem_list.html', context)
 
 def search(request):
+    category_list = Category.objects.annotate(total_problems=Count('problem'))
+    context = {'category_list': category_list}
+    
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-            problems = Problem.objects.order_by('-created').filter(Q(location__icontains=keyword) | Q(description__icontains=keyword))
+            problems = Problem.objects.filter(Q(location__icontains=keyword) | Q(description__icontains=keyword))
             problem_count = problems.count()
-        context={
-            'problems': problems,
-            'problem_count':  problem_count,
-            'keyword':keyword
-        }
+            context.update({
+                'problems': problems,
+                'problem_count':  problem_count,
+                'keyword':keyword,
+            })
     return render(request, 'ecoplatform/problem_list.html', context)
 
 #detail view for the problem
@@ -64,10 +67,24 @@ def problemDetailView(request, pk):
 
 #list view for the projects
 def projectListView(request):
-    projects = Project.objects.all()
-    project_filter = ProblemFilter(request.GET, queryset=projects)
-    context = {'projects': project_filter}
+    category_slug = request.GET.get('category')
+
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        projects = Project.objects.filter(category=category)
+    else:
+        projects = Project.objects.all()
+
+    categories = Category.objects.all()
+
+    context = {
+        'projects': projects,
+        'categories': categories,
+        'selected_category': category_slug,
+    }
     return render(request, 'ecoplatform/project_list.html', context)
+
+
 
 #detail view for the project
 def projectDetailView(request, pk):
