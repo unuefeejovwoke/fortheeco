@@ -163,9 +163,16 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "ECOdataism@gmail.com"
 EMAIL_HOST_PASSWORD = 'mbxcpgiehfkjbrzy'
 EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'ForTheEco Platform <django.ECOdataism@gmail.com>'
 #Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+
 
 
 AUTHENTICATION_BACKENDS = [
