@@ -6,31 +6,29 @@
     <aside class="category">
         <div class="cat-wrapper">
             <h5>Category</h5>
-            <div class="radio">
+            <form class="radio">
                 <div>
                     <label for="All">All</label>
-                    <input type="radio" name="category" id="All" value="All" {% if selected_category_slug == 'All' %}checked{% endif %}
-                        onclick="location.href='{% url 'ecoplatform:problem_list' %}'">
+                    <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
                 </div>
-                {% for category in category_list %}
-                    <div>
-                        <label for="{{category.slug}}">{{category}}</label>
-                        <input type="radio" name="category" id="{{category.slug}}" value="{{category.slug}}" {% if selected_category_slug == category.slug %}checked{% endif %}
-                            onclick="location.href='{% url 'ecoplatform:problem_list_category' category.slug %}'">
-                    </div>
-                {% endfor%}
-            </div>
+                {% for category in categories %}
+                <div>
+                    <label for="{{ category.slug }}">{{ category.name }}</label>
+                    <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
+                </div>
+                {% endfor %}
+            </form>
+    
             <h5>Based on location</h5>
-            
-                <form method="GET" action="{% url 'ecoplatform:search' %}" class="cat-search">
-                    <input type="text" name="keyword" placeholder="Enter search location..">
-                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-                </form>
-            {% comment %} <h5>Based on host</h5>
-            <form>
-                <input type="text" name="" id="" placeholder="Search host name..">
+            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                <input type="text" name="location_query" placeholder="Enter search location..">
                 <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form> {% endcomment %}
+            </form>
+            <h5>Based on host</h5>
+            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                <input type="text" name="user_query" placeholder="Search host name..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
         </div>
     </aside>
     <main class="card-main">
@@ -38,9 +36,9 @@
             <h5>Problems Posted on The ECO</h5>
 
             <div class="search">
-                <form method="GET" action="{% url 'ecoplatform:search' %}" class="cat-search">
-                    <input type="text" name="keyword" placeholder="Enter search location..">
-                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                    <input type="text" name="user_query" placeholder="Search..">
+                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
                 </form>
                 <!-- <button class="filter-btn d-none">
                     <img src="images/filter-square.png" alt="filter button">
@@ -51,36 +49,34 @@
         <aside class="mob-cat" id="">
             <div class="cat-wrapper">
                 <h5>Category</h5>
-                <div class="radio">
-                    <div>
-                        <label for="All">All</label>
-                        <input type="radio" name="category" id="All" value="All" checked="true" {% if selected_category_slug == 'All' %} checked="true" {% endif %}
-                            onclick="location.href='{% url 'ecoplatform:problem_list' %}'">
-                    </div>
-                    {% for category in category_list %}
-                        <div>
-                            <label for="{{category.slug}}">{{category}}</label>
-                            <input type="radio" name="category" id="{{category.slug}}" value="{{category.slug}}" {% if selected_category_slug == category.slug %}checked{% endif %}
-                                onclick="location.href='{% url 'ecoplatform:problem_list_category' category.slug %}'">
-                        </div>
-                    {% endfor%}
+            <form class="radio">
+                <div>
+                    <label for="All">All</label>
+                    <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
                 </div>
-                <h5>Based on location</h5>
-                <form method="GET" action="{% url 'ecoplatform:search' %}">
-                    <input type="text" name="keyword" placeholder="Enter search location..">
-                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-                </form>
-                
-                {% comment %} <h5>Based on host</h5>
-                <form method="GET">
-                    <input type="text" name="search_host" placeholder="Search host name..">
-                    <button type="submit"><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-                </form> {% endcomment %}
+                {% for category in categories %}
+                <div>
+                    <label for="{{ category.slug }}">{{ category.name }}</label>
+                    <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
+                </div>
+                {% endfor %}
+            </form>
+    
+            <h5>Based on location</h5>
+            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                <input type="text" name="location_query" placeholder="Enter search location..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
+            <h5>Based on host</h5>
+            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                <input type="text" name="user_query" placeholder="Search host name..">
+                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+            </form>
 
             </div>
         </aside>
-        
-        {% for problem in problem_list %}
+        {% if problems %}
+        {% for problem in problems %}
          <div class="card">
             <div class="card-wrapper">
                 <div class="card-header">
@@ -126,10 +122,11 @@
             </div>
 
         </div>
-        {% empty%}
-        <h4 style="text-align:center">No posted problem for query</h4>
-      
         {% endfor %}
+        
+        {% else %}
+        <p style="text-align:center">No posted problem for query</p>
+        {% endif %}
        
        
 
@@ -138,21 +135,14 @@
 
 
 <script>
-    // Set the appropriate radio button to "checked" when the page loads
-    var selected_category_slug = '{{ selected_category_slug }}';
-    if (selected_category_slug != 'All') {
-        var radio_button = document.getElementById(selected_category_slug);
-        if (radio_button) {
-            radio_button.checked = true;
-        }
-    }
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(button => {
+        button.addEventListener('change', event => {
+            const form = event.target.closest('form');
+            form.submit();
+        });
+    });
 </script>
-
-
-
-
-
-
 
 
 

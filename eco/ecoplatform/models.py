@@ -62,6 +62,9 @@ class Project(models.Model):
   
     slug = models.SlugField(blank=True,null=True)
     isTrending = models.BooleanField(default=False)
+    
+    upvotes = models.ManyToManyField(Account, blank=True, related_name='upvoted_projects')
+    downvotes = models.ManyToManyField(Account, blank=True, related_name='downvoted_projects')
 
     def save(self,*args,**kwargs):
         self.slug =slugify(self.title)

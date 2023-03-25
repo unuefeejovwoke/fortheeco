@@ -1,5 +1,5 @@
 <section class="section-conten padding-y bg">
-
+  
 
     <div class="container">
         <div class="row">
@@ -11,6 +11,7 @@
                 <span>{{user.full_name}}</span>
                 <a href="{% url 'ecousers:logout' %}" style="background-color: green; padding: 20px; margin: 20px; color: white; font-weight: 600;">Logout</a>
             </header>
+            {% include 'components/alerts.html' %}
             <div class="card-body">
                 <div class="row">
     

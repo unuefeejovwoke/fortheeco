@@ -5,7 +5,7 @@
 {% block title %}<title>Eco website | Login</title>{% endblock title %}
 {% block content %}
 
-
+{% include 'components/alerts.html' %}
 
   <section class="form-content">
         {% if request.GET.command == 'verification' %}
@@ -104,7 +104,7 @@
         ">
     </div>
     {% endif %}
-    {% include 'components/alerts.html' %}
+    
 </section>
   {% endblock content %}
       <!-- ========================= SECTION CONTENT END// ========================= -->

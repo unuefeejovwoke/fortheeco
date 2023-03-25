@@ -25,22 +25,32 @@ def index(request):
 #list view for the problems
 
 #list view for the problems
-def problemListView(request, category_slug=None):
-    category = None
-    problem_list = Problem.objects.all()
-    category_list = Category.objects.annotate(total_problems=Count('problem'))
-    selected_category_slug = 'All'  # default to "All" category
-    
+def problemListView(request):
+    category_slug = request.GET.get('category')
+    user_query = request.GET.get('user_query')
+    location_query = request.GET.get('location_query')
+
+    # Filter by category
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        problem_list = problem_list.filter(category=category)
-        selected_category_slug = category_slug
-    
+        problems = Problem.objects.filter(category=category)
+    else:
+        problems = Problem.objects.all()
+
+    # Filter by user query
+    if user_query:
+        problems = problems.filter(description__icontains=user_query)
+
+    # Filter by location query
+    if location_query:
+        problems = problems.filter(location__icontains=location_query)
+
+    categories = Category.objects.all()
+
     context = {
-        'problem_list': problem_list,
-        'category_list': category_list,
-        'category': category,
-        'selected_category_slug': selected_category_slug,  # pass selected category slug to template
+        'problems': problems,
+        'categories': categories,
+        'selected_category': category_slug,
     }
     return render(request, 'ecoplatform/problem_list.html', context)
 
@@ -68,12 +78,23 @@ def problemDetailView(request, pk):
 #list view for the projects
 def projectListView(request):
     category_slug = request.GET.get('category')
+    user_query = request.GET.get('user_query')
+    location_query = request.GET.get('location_query')
 
+    # Filter by category
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         projects = Project.objects.filter(category=category)
     else:
         projects = Project.objects.all()
+
+    # Filter by user query
+    if user_query:
+        projects = projects.filter(description__icontains=user_query)
+
+    # Filter by location query
+    if location_query:
+        projects = projects.filter(location__icontains=location_query)
 
     categories = Category.objects.all()
 
