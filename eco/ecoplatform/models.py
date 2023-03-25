@@ -28,6 +28,9 @@ class Problem(models.Model):
 
     slug = models.SlugField(blank=True,null=True)
     isTrending = models.BooleanField(default=False)
+    
+    upvotes = models.ManyToManyField(Account, blank=True, related_name='upvoted_problems')
+    downvotes = models.ManyToManyField(Account, blank=True, related_name='downvoted_problems')
 
     def save(self,*args,**kwargs):
         self.slug =slugify(self.title)

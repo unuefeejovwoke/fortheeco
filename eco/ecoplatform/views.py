@@ -47,6 +47,24 @@ def problemListView(request):
 
     categories = Category.objects.all()
 
+    # Handle upvoting/downvoting
+    if request.method == 'POST':
+        problem_id = request.POST.get('problem_id')
+        vote_type = request.POST.get('vote_type')
+        problem = Problem.objects.get(pk=problem_id)
+        user = request.user
+
+        if vote_type == 'upvote':
+            if user not in problem.upvotes.all():
+                problem.upvotes.add(user)
+            else:
+                problem.upvotes.remove(user)
+        elif vote_type == 'downvote':
+            if user not in problem.downvotes.all():
+                problem.downvotes.add(user)
+            else:
+                problem.downvotes.remove(user)
+
     context = {
         'problems': problems,
         'categories': categories,
@@ -98,13 +116,30 @@ def projectListView(request):
 
     categories = Category.objects.all()
 
+    # Handle upvoting/downvoting
+    if request.method == 'POST':
+        project_id = request.POST.get('project_id')
+        vote_type = request.POST.get('vote_type')
+        project = Project.objects.get(pk=project_id)
+        user = request.user
+
+        if vote_type == 'upvote':
+            if user not in project.upvotes.all():
+                project.upvotes.add(user)
+            else:
+                project.upvotes.remove(user)
+        elif vote_type == 'downvote':
+            if user not in project.downvotes.all():
+                project.downvotes.add(user)
+            else:
+                project.downvotes.remove(user)
+
     context = {
         'projects': projects,
         'categories': categories,
         'selected_category': category_slug,
     }
     return render(request, 'ecoplatform/project_list.html', context)
-
 
 
 #detail view for the project
