@@ -66,11 +66,12 @@ def problemListView(request):
                 problem.downvotes.remove(user)
 
     context = {
-        'problems': problems,
+        'problems': problems.annotate(upvote_count=Count('upvotes'), downvote_count=Count('downvotes')),
         'categories': categories,
         'selected_category': category_slug,
     }
     return render(request, 'ecoplatform/problem_list.html', context)
+
 
 def search(request):
     category_list = Category.objects.annotate(total_problems=Count('problem'))

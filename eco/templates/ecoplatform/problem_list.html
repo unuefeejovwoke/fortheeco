@@ -102,16 +102,16 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="upvote-btn" data-problem-id="{{ problem.id }}" data-is-upvoted="{% if request.user.is_authenticated and problem.upvotes.filter(user=request.user).count > 0 %}
-                        ">
-                        <i class="far fa-thumbs-up"></i>
-                        <span class="upvote-count">{{ problem.upvotes.count }}</span>
-                    </button>
-                    <button class="downvote-btn" data-problem-id="{{ problem.id }}" data-is-downvoted="{% if request.user.is_authenticated and problem.downvotes.filter(user=request.user).count > 0 %}
-                        ">
-                        <i class="far fa-thumbs-down"></i>
-                        <span class="downvote-count">{{ problem.downvotes.count }}</span>
-                    </button>
+                  <button class="upvote-btn" data-problem-id="{{ problem.id }}" data-is-upvoted="{% if request.user.is_authenticated and problem.upvotes.filter(user=request.user).count > 0 %}true{% else %}false{% endif %}">
+                    <i class="far fa-thumbs-up"></i>
+                    <span class="upvote-count">{{ problem.upvotes.count }}</span>
+                </button>
+                <button class="downvote-btn" data-problem-id="{{ problem.id }}" data-is-downvoted="{% if request.user.is_authenticated and problem.downvotes.filter(user=request.user).count > 0 %}true{% else %}false{% endif %}">
+                    <i class="far fa-thumbs-down"></i>
+                    <span class="downvote-count">{{ problem.downvotes.count }}</span>
+                </button>
+                
+                
                     <button class="idea-count">
                         <img src="{% static 'images/card/idea.png' %}" alt="">
                         <span>456</span>
@@ -145,82 +145,58 @@
         });
     });
 </script>
+<script>
+  // Upvote and downvote buttons
+    const upvoteButtons = document.querySelectorAll('.upvote-btn');
+    const downvoteButtons = document.querySelectorAll('.downvote-btn');
 
-$(document).ready(function() {
-    // Handle upvote button clicks
-    $('.upvote-btn').click(function() {
-      var problemId = $(this).data('problem-id');
-      var isUpvoted = $(this).data('is-upvoted');
-  
-      $.ajax({
-        type: 'POST',
-        url: '/upvote/',
-        data: {
-          'problem_id': problemId,
-          'is_upvoted': isUpvoted,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function(response) {
-          if (response['status'] == 'ok') {
-            var upvoteBtn = $('.upvote-btn[data-problem-id="' + problemId + '"]');
-            var upvoteCount = upvoteBtn.find('.upvote-count');
-  
-            if (response['is_upvoted']) {
-              upvoteBtn.addClass('upvoted');
-              upvoteCount.text(response['upvote_count']);
-            } else {
-              upvoteBtn.removeClass('upvoted');
-              upvoteCount.text(response['upvote_count']);
+    upvoteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const problemId = button.dataset.problemId;
+        const isUpvoted = button.dataset.isUpvoted === 'true';
+
+        fetch(`/problem/vote/${problemId}/upvote/`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'ok') {
+              // Toggle upvote button
+              button.dataset.isUpvoted = !isUpvoted;
+              button.classList.toggle('upvoted', !isUpvoted);
+
+              // Update upvote count
+              const upvoteCount = button.querySelector('.upvote-count');
+              upvoteCount.textContent = data.upvote_count;
             }
-          } else {
-            alert('Error: ' + response['error']);
-          }
-        },
-        error: function(xhr, status, error) {
-          alert('Error: ' + error);
-        }
+          })
+          .catch(error => console.error(error));
       });
-  
-      return false;
     });
-  
-    // Handle downvote button clicks
-    $('.downvote-btn').click(function() {
-      var problemId = $(this).data('problem-id');
-      var isDownvoted = $(this).data('is-downvoted');
-  
-      $.ajax({
-        type: 'POST',
-        url: '/downvote/',
-        data: {
-          'problem_id': problemId,
-          'is_downvoted': isDownvoted,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function(response) {
-          if (response['status'] == 'ok') {
-            var downvoteBtn = $('.downvote-btn[data-problem-id="' + problemId + '"]');
-            var downvoteCount = downvoteBtn.find('.downvote-count');
-  
-            if (response['is_downvoted']) {
-              downvoteBtn.addClass('downvoted');
-              downvoteCount.text(response['downvote_count']);
-            } else {
-              downvoteBtn.removeClass('downvoted');
-              downvoteCount.text(response['downvote_count']);
+
+    downvoteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const problemId = button.dataset.problemId;
+        const isDownvoted = button.dataset.isDownvoted === 'true';
+
+        fetch(`/problem/vote/${problemId}/downvote/`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'ok') {
+              // Toggle downvote button
+              button.dataset.isDownvoted = !isDownvoted;
+              button.classList.toggle('downvoted', !isDownvoted);
+
+              // Update downvote count
+              const downvoteCount = button.querySelector('.downvote-count');
+              downvoteCount.textContent = data.downvote_count;
             }
-          } else {
-            alert('Error: ' + response['error']);
-          }
-        },
-        error: function(xhr, status, error) {
-          alert('Error: ' + error);
-        }
+          })
+          .catch(error => console.error(error));
       });
-  
-      return false;
     });
-  });
+
+</script>
+
+
   
 
 {% endblock content %}
