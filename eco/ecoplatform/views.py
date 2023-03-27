@@ -5,6 +5,8 @@ from django.db.models import Q
 from .filters import ProblemFilter, ProjectFilter
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -29,6 +31,15 @@ def problemListView(request):
     category_slug = request.GET.get('category')
     user_query = request.GET.get('user_query')
     location_query = request.GET.get('location_query')
+    msg = False
+    
+    if request.user.is_authenticated:
+        user = request.user
+        
+    
+        if Problem.upvotes.filter(id=user.id).exists():
+            msg = True
+    
 
     # Filter by category
     if category_slug:
@@ -47,31 +58,41 @@ def problemListView(request):
 
     categories = Category.objects.all()
 
-    # Handle upvoting/downvoting
-    if request.method == 'POST':
-        problem_id = request.POST.get('problem_id')
-        vote_type = request.POST.get('vote_type')
-        problem = Problem.objects.get(pk=problem_id)
-        user = request.user
-
-        if vote_type == 'upvote':
-            if user not in problem.upvotes.all():
-                problem.upvotes.add(user)
-            else:
-                problem.upvotes.remove(user)
-        elif vote_type == 'downvote':
-            if user not in problem.downvotes.all():
-                problem.downvotes.add(user)
-            else:
-                problem.downvotes.remove(user)
-
     context = {
-        'problems': problems.annotate(upvote_count=Count('upvotes'), downvote_count=Count('downvotes')),
+
+        'problems': problems,
         'categories': categories,
         'selected_category': category_slug,
+        'msg':msg,
     }
     return render(request, 'ecoplatform/problem_list.html', context)
 
+def upvote_problem(request):
+    data = json.loads(request.body)
+    id = int(data["id"])
+
+    upvoted_problems = Problem.objects.get(id=id)
+    checker = None
+    
+    if request.user.is_authenticated:
+        
+        if upvoted_problems.upvotes.filter(id=request.user.id).exists():
+            upvoted_problems.upvotes.remove(request.user)
+            checker = 0
+            
+            
+        else:
+            upvoted_problems.upvotes.add(request.user)
+            checker = 1
+    
+    upvotes = upvoted_problems.upvotes.count()
+    
+    info = {
+        "check": checker,
+        "num_of_upvotes": upvotes
+    }
+    
+    return JsonResponse(info, safe=False)
 
 def search(request):
     category_list = Category.objects.annotate(total_problems=Count('problem'))
@@ -116,24 +137,6 @@ def projectListView(request):
         projects = projects.filter(location__icontains=location_query)
 
     categories = Category.objects.all()
-
-    # Handle upvoting/downvoting
-    if request.method == 'POST':
-        project_id = request.POST.get('project_id')
-        vote_type = request.POST.get('vote_type')
-        project = Project.objects.get(pk=project_id)
-        user = request.user
-
-        if vote_type == 'upvote':
-            if user not in project.upvotes.all():
-                project.upvotes.add(user)
-            else:
-                project.upvotes.remove(user)
-        elif vote_type == 'downvote':
-            if user not in project.downvotes.all():
-                project.downvotes.add(user)
-            else:
-                project.downvotes.remove(user)
 
     context = {
         'projects': projects,
