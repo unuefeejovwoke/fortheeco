@@ -5,8 +5,11 @@ from django.db.models import Q
 from .filters import ProblemFilter, ProjectFilter
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
+
 
 # Create your views here.
 
@@ -27,25 +30,17 @@ def index(request):
 #list view for the problems
 
 #list view for the problems
-def problemListView(request):
-    category_slug = request.GET.get('category')
+# list view for the problems
+def problemListView(request, category_slug=None):
     user_query = request.GET.get('user_query')
     location_query = request.GET.get('location_query')
-    msg = False
-    
-    if request.user.is_authenticated:
-        user = request.user
-        
-    
-        if Problem.upvotes.filter(id=user.id).exists():
-            msg = True
-    
 
     # Filter by category
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         problems = Problem.objects.filter(category=category)
     else:
+        category = None
         problems = Problem.objects.all()
 
     # Filter by user query
@@ -59,40 +54,40 @@ def problemListView(request):
     categories = Category.objects.all()
 
     context = {
-
         'problems': problems,
         'categories': categories,
         'selected_category': category_slug,
-        'msg':msg,
+        'category': category,
     }
     return render(request, 'ecoplatform/problem_list.html', context)
 
-def upvote_problem(request):
-    data = json.loads(request.body)
-    id = int(data["id"])
+@login_required(login_url='ecousers:login')
+@csrf_exempt
+def upvote_downvote(request):
+    if request.method == 'GET':
+        id = request.GET.get('id')
+        action = request.GET.get('action')
+        problem = get_object_or_404(Problem, id=id)
 
-    upvoted_problems = Problem.objects.get(id=id)
-    checker = None
-    
-    if request.user.is_authenticated:
-        
-        if upvoted_problems.upvotes.filter(id=request.user.id).exists():
-            upvoted_problems.upvotes.remove(request.user)
-            checker = 0
-            
-            
-        else:
-            upvoted_problems.upvotes.add(request.user)
-            checker = 1
-    
-    upvotes = upvoted_problems.upvotes.count()
-    
-    info = {
-        "check": checker,
-        "num_of_upvotes": upvotes
-    }
-    
-    return JsonResponse(info, safe=False)
+        if action == 'upvote':
+            problem.upvotes.add(request.user)
+            problem.downvotes.remove(request.user)
+        elif action == 'downvote':
+            problem.upvotes.remove(request.user)
+            problem.downvotes.add(request.user)
+
+        upvote_count = problem.upvotes.count()
+        downvote_count = problem.downvotes.count()
+
+        data = {
+            'upvotes': upvote_count,
+            'downvotes': downvote_count,
+        }
+        return JsonResponse(data)
+    else:
+        return JsonResponse({'error': 'Invalid request'})
+
+
 
 def search(request):
     category_list = Category.objects.annotate(total_problems=Count('problem'))

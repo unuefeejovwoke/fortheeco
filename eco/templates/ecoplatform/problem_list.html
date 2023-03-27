@@ -102,19 +102,19 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                       <button class="up-count">
-                        {% if msg %}
-                            <i style="font-size:25px;" class="ri-thumb-up-fill"></i>
-                        {% else %}
-                            <i style="font-size:25px;" class="ri-thumb-up-line"></i>
-                        {% endif %}
-                            
-                            <span class="num_of_upvotes" id='num'>{{problem.upvotes.count}}</span>
-                        </button>
-                        <button class="down-count">
-                            <i style="font-size:25px;" class="ri-thumb-down-line"></i>
-                            <span >456</span>
-                        </button>
+                    <button class="up-count" data-id="{{ problem.id }}" data-action="upvote?id={{ problem.id }}&action=upvote">
+                        {% csrf_token %}
+                        <i style="font-size:25px;" class="ri-thumb-up-line"></i>
+                        <span>{{ problem.upvotes.count }}</span>
+                    </button>
+                    
+                    <button class="down-count" data-id="{{ problem.id }}" data-action="downvote?id={{ problem.id }}&action=downvote">
+                        {% csrf_token %}
+                        <i style="font-size:25px;" class="ri-thumb-down-line"></i>
+                        <span>{{ problem.downvotes.count }}</span>
+                    </button>
+                    
+                    
                 
                 
                     <button class="idea-count">
@@ -139,78 +139,50 @@
 
     </main>
 </section>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('.up-count, .down-count').click(function() {
+          var id = $(this).data('id');
+          var type = $(this).data('type');
+          var action = $(this).data('action');
+          var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
+          var url = "/problem/upvote-downvote/";
 
-
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-          const cookies = document.cookie.split(';');
-          for (let i = 0; i < cookies.length; i++) {
-              const cookie = cookies[i].trim();
-              // Does this cookie string begin with the name we want?
-              if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                  break;
+      
+          $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+              'id': id,
+              'type': type,
+              'action': action,
+              'csrfmiddlewaretoken': csrfToken
+            },
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function(response) {
+              $('.up-count span').html(response.upvotes);
+              $('.down-count span').html(response.downvotes);
+      
+              if (action == 'upvote') {
+                $('.up-count i').removeClass('ri-thumb-up-line').addClass('ri-thumb-up-fill');
+                $('.down-count i').removeClass('ri-thumb-down-fill').addClass('ri-thumb-down-line');
+              } else if (action == 'downvote') {
+                $('.down-count i').removeClass('ri-thumb-down-line').addClass('ri-thumb-down-fill');
+                $('.up-count i').removeClass('ri-thumb-up-fill').addClass('ri-thumb-up-line');
               }
-          }
-      }
-      return cookieValue;
-  }
-  const csrftoken = getCookie('csrftoken');
-  
-  
-  
-  
-  
-    let btn = document.querySelector("i")
-    let num_of_likes = document.getElementById("num")
-    let upvoted_problems_id = "{{upvoted_problems.id}}"
-  
-    btn.addEventListener("click", upvoteProblem)
-  
-    function upvoteProblem(e){
-      let url = "{% url 'ecoplatform:upvote' %}"
-      const data = {id:upvoted_problems_id}
-  
-      fetch(url, {
-        method: 'POST',
-        headers: {"Content-Type": "application/json",
-        'X-CSRFToken': csrftoken
-      },
-        body : JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-  
-        if(data["check"] == 1){
-          btn.classList.remove("ri-thumb-up-line")
-          btn.classList.add('ri-thumb-up-fill')
-        }
-  
-        else if(data["check"] == 0){
-          btn.classList.add("ri-thumb-up-line")
-          btn.classList.remove('ri-thumb-up-fill')
-        }
-  
-        else{
-          alert("you need to login")
-        }
-  
-        num_of_likes.innerHTML = data["num_of_upvotes"]
+            },
+            error: function(response) {
+              console.log(response);
+            }
+          });
+        });
+      });
+</script>
 
   
-  
-  
-      })
-  
-  
-    }
-  
-  </script>
-
 <script>
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(button => {
