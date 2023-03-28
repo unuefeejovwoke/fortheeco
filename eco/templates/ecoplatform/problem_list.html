@@ -142,37 +142,49 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.up-count, .down-count').click(function() {
-          var id = $(this).data('id');
-          var type = $(this).data('type');
-          var action = $(this).data('action');
-          var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
-          var url = "/problem/upvote-downvote/";
-
-      
+        $('.upvote-btn').click(function(e) {
+          e.preventDefault();
+          var category = $(this).data('category');
+          var post_id = $(this).data('post_id');
+          var upvoteurl = $(this).data('upvoteurl');
+          var downvoteurl = $(this).data('downvoteurl');
+          var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
           $.ajax({
-            url: url,
-            type: "POST",
+            type: 'POST',
+            url: upvoteurl,
             data: {
-              'id': id,
-              'type': type,
-              'action': action,
-              'csrfmiddlewaretoken': csrfToken
-            },
-            headers: {
-                'X-CSRFToken': csrfToken
+              'post_id': post_id,
+              'category': category,
+              'csrfmiddlewaretoken': csrfmiddlewaretoken
             },
             success: function(response) {
-              $('.up-count span').html(response.upvotes);
-              $('.down-count span').html(response.downvotes);
+              $('.upvote-count').html(response['upvotes']);
+              $('.downvote-count').html(response['downvotes']);
+            },
+            error: function(response) {
+              console.log(response);
+            }
+          });
+        });
       
-              if (action == 'upvote') {
-                $('.up-count i').removeClass('ri-thumb-up-line').addClass('ri-thumb-up-fill');
-                $('.down-count i').removeClass('ri-thumb-down-fill').addClass('ri-thumb-down-line');
-              } else if (action == 'downvote') {
-                $('.down-count i').removeClass('ri-thumb-down-line').addClass('ri-thumb-down-fill');
-                $('.up-count i').removeClass('ri-thumb-up-fill').addClass('ri-thumb-up-line');
-              }
+        $('.downvote-btn').click(function(e) {
+          e.preventDefault();
+          var category = $(this).data('category');
+          var post_id = $(this).data('post_id');
+          var upvoteurl = $(this).data('upvoteurl');
+          var downvoteurl = $(this).data('downvoteurl');
+          var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
+          $.ajax({
+            type: 'POST',
+            url: downvoteurl,
+            data: {
+              'post_id': post_id,
+              'category': category,
+              'csrfmiddlewaretoken': csrfmiddlewaretoken
+            },
+            success: function(response) {
+              $('.upvote-count').html(response['upvotes']);
+              $('.downvote-count').html(response['downvotes']);
             },
             error: function(response) {
               console.log(response);
@@ -180,6 +192,8 @@
           });
         });
       });
+      
+      
 </script>
 
   

@@ -7,7 +7,8 @@ urlpatterns = [
     path('project/', views.projectListView, name='project_list'),
     path('problem/', views.problemListView, name='problem_list'),
     path('problem/<slug:category_slug>/', views.problemListView, name='problem_list_category'),
-    path('problem/upvote-downvote/', views.upvote_downvote, name='upvote_downvote'),
+    path('problem/upvote/', views.upvote, name='upvote'),
+    path('problem/downvote/', views.downvote, name='downvote'),
 
     path('project/<slug:category_slug>/', views.projectListView, name='project_list_category'),
     path('problem/<pk>/', views.problemDetailView, name='problem_detail'),

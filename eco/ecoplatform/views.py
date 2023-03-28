@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 import json
 
@@ -61,33 +62,34 @@ def problemListView(request, category_slug=None):
     }
     return render(request, 'ecoplatform/problem_list.html', context)
 
-@login_required(login_url='ecousers:login')
-@csrf_exempt
-def upvote_downvote(request):
-    if request.method == 'GET':
-        id = request.GET.get('id')
-        action = request.GET.get('action')
-        problem = get_object_or_404(Problem, id=id)
-
-        if action == 'upvote':
-            problem.upvotes.add(request.user)
-            problem.downvotes.remove(request.user)
-        elif action == 'downvote':
-            problem.upvotes.remove(request.user)
-            problem.downvotes.add(request.user)
-
-        upvote_count = problem.upvotes.count()
-        downvote_count = problem.downvotes.count()
-
-        data = {
-            'upvotes': upvote_count,
-            'downvotes': downvote_count,
-        }
-        return JsonResponse(data)
+@require_POST
+def upvote(request):
+    problem_id = request.POST.get('problem_id')
+    category_id = request.POST.get('category_id')
+    if problem_id:
+        problem = get_object_or_404(Problem, id=problem_id)
+        problem.upvote()
+        if category_id:
+            category = get_object_or_404(Category, id=category_id)
+            category.upvote()
+        return JsonResponse({'success': True, 'votes': problem.votes})
     else:
-        return JsonResponse({'error': 'Invalid request'})
+        return JsonResponse({'success': False})
 
 
+@require_POST
+def downvote(request):
+    problem_id = request.POST.get('problem_id')
+    category_id = request.POST.get('category_id')
+    if problem_id:
+        problem = get_object_or_404(Problem, id=problem_id)
+        problem.downvote()
+        if category_id:
+            category = get_object_or_404(Category, id=category_id)
+            category.downvote()
+        return JsonResponse({'success': True, 'votes': problem.votes})
+    else:
+        return JsonResponse({'success': False})
 
 def search(request):
     category_list = Category.objects.annotate(total_problems=Count('problem'))
