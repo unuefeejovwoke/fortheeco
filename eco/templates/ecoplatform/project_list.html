@@ -2,37 +2,10 @@
 {% load static %}
 {% block title %}<title>Eco Projects </title> {% endblock title %}
 {% block content %}
-<section class="main-content">
-    <aside class="category">
-        <div class="cat-wrapper">
-            <h5>Category</h5>
-            <form class="radio">
-                <div>
-                    <label for="All">All</label>
-                    <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
-                </div>
-                {% for category in categories %}
-                <div>
-                    <label for="{{ category.slug }}">{{ category.name }}</label>
-                    <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
-                </div>
-                {% endfor %}
-            </form>
+
+ 
     
-            <h5>Based on location</h5>
-            <form class="cat-search" action="{% url 'ecoplatform:project_list' %}">
-                <input type="text" name="location_query" placeholder="Enter search location..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-            <h5>Based on host</h5>
-            <form class="cat-search" action="{% url 'ecoplatform:project_list' %}">
-                <input type="text" name="user_query" placeholder="Search host name..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-        </div>
-    </aside>
-    
-    <main class="card-main">
+    <main class="">
         <div class="heading">
             <h5>Projects Posted on The ECO</h5>
             <div class="search">
@@ -118,7 +91,7 @@
         {% endif %}
         
     </main>
-</section>
+
 <script>
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(button => {

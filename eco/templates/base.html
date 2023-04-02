@@ -18,6 +18,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{% static 'scss/main.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.8.6" integrity="sha384-Bj8qm/6B+71E6FQSySofJOUjA/gq330vEqjFx9LakWybUySyI1IQHwPtbTU7bNwx" crossorigin="anonymous"></script>
 
      <!--OWL CAROUSEL CSS CDN-->
      <link rel="stylesheet" type="text/css"
@@ -32,9 +33,42 @@
     
         <div class="body-wrapper">
             {% include 'components/navbar.html' %}
-
-            {% block content %}
-            {% endblock content %}
+            <section class="main-content">
+                <aside class="category">
+                    <div class="cat-wrapper">
+                        <h5>Category</h5>
+                        <form class="radio">
+                            <div>
+                                <label for="All">All</label>
+                                <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
+                            </div>
+                            {% for category in categories %}
+                            <div>
+                                <label for="{{ category.slug }}">{{ category.name }}</label>
+                                <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
+                            </div>
+                            {% endfor %}
+                        </form>
+                
+                        <h5>Based on location</h5>
+                        <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                            <input type="text" name="location_query" placeholder="Enter search location..">
+                            <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                        </form>
+                        <h5>Based on host</h5>
+                        <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+                            <input type="text" name="user_query" placeholder="Search host name..">
+                            <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                        </form>
+                    </div>
+                </aside>
+                <main class="card-main">
+                    <div class="heading">
+                        {% block content %}
+                        {% endblock content %} 
+                </main>
+            </section>
+         
             {% include 'components/alerts.html' %}
             
         </div>

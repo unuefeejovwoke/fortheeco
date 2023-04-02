@@ -2,143 +2,101 @@
 {% load static %}
 {% block title %}<title>Eco Problems </title> {% endblock title %}
 {% block content %}
-<section class="main-content">
-    <aside class="category">
-        <div class="cat-wrapper">
-            <h5>Category</h5>
-            <form class="radio">
-                <div>
-                    <label for="All">All</label>
-                    <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
-                </div>
-                {% for category in categories %}
-                <div>
-                    <label for="{{ category.slug }}">{{ category.name }}</label>
-                    <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
-                </div>
-                {% endfor %}
-            </form>
-    
-            <h5>Based on location</h5>
-            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
-                <input type="text" name="location_query" placeholder="Enter search location..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-            <h5>Based on host</h5>
-            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
-                <input type="text" name="user_query" placeholder="Search host name..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-        </div>
-    </aside>
-    <main class="card-main">
-        <div class="heading">
-            <h5>Problems Posted on The ECO</h5>
 
-            <div class="search">
-                <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
-                    <input type="text" name="user_query" placeholder="Search..">
-                    <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-                </form>
-                <!-- <button class="filter-btn d-none">
-                    <img src="images/filter-square.png" alt="filter button">
-                </button> -->
-            </div>
+<h5>Problems Posted on The ECO</h5>
             
+<div class="search">
+    <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+        <input type="text" name="user_query" placeholder="Search..">
+        <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+    </form>
+    <!-- <button class="filter-btn d-none">
+        <img src="images/filter-square.png" alt="filter button">
+    </button> -->
+</div>
+</div>
+<aside class="mob-cat" id="">
+    <div class="cat-wrapper">
+        <h5>Category</h5>
+    <form class="radio">
+        <div>
+            <label for="All">All</label>
+            <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
         </div>
-        <aside class="mob-cat" id="">
-            <div class="cat-wrapper">
-                <h5>Category</h5>
-            <form class="radio">
-                <div>
-                    <label for="All">All</label>
-                    <input type="radio" name="category" id="All" value="" {% if not selected_category %}checked{% endif %}>
-                </div>
-                {% for category in categories %}
-                <div>
-                    <label for="{{ category.slug }}">{{ category.name }}</label>
-                    <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
-                </div>
-                {% endfor %}
-            </form>
-    
-            <h5>Based on location</h5>
-            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
-                <input type="text" name="location_query" placeholder="Enter search location..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-            <h5>Based on host</h5>
-            <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
-                <input type="text" name="user_query" placeholder="Search host name..">
-                <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
-            </form>
-
-            </div>
-        </aside>
-        {% if problems %}
-        {% for problem in problems %}
-         <div class="card">
-            <div class="card-wrapper">
-                <div class="card-header">
-                    <div class="post-location">
-                        {{problem.user.full_name|capfirst}} |  <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
-                    </div>
-                    <div class="eco-cat">
-                        <p class="text-fix">Eco Community: <a href="">{{problem.category}}</a></p>
-                    </div>
-                    <div class="goal">
-                        <p class="text-fix">UNSdg Goal: </p><img src="{% static 'images/card/eco.png' %}" alt="">
-                    </div>
-                </div>
-                <hr>
-                <div class="card-details">
-                    <p>{{problem.description}}</p>
-                    <div class="detail-img">
-                        <img style="border-radius: 8px;" src="{{problem.problem_photo_main.url}}" alt="" class="first">
-                        <div class="second">
-                            <img style="border-radius: 8px; margin-bottom:5px;" src="{{problem.problem_photo_1.url}}" alt="">
-                            <img style="border-radius: 8px;" src="{{problem.problem_photo_2.url}}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="up-count" data-id="{{ problem.id }}" data-action="upvote?id={{ problem.id }}&action=upvote">
-                        {% csrf_token %}
-                        <i style="font-size:25px;" class="ri-thumb-up-line"></i>
-                        <span>{{ problem.upvotes.count }}</span>
-                    </button>
-                    
-                    <button class="down-count" data-id="{{ problem.id }}" data-action="downvote?id={{ problem.id }}&action=downvote">
-                        {% csrf_token %}
-                        <i style="font-size:25px;" class="ri-thumb-down-line"></i>
-                        <span>{{ problem.downvotes.count }}</span>
-                    </button>
-                    
-                    
-                
-                
-                    <button class="idea-count">
-                        <img src="{% static 'images/card/idea.png' %}" alt="">
-                        <span>456</span>
-                    </button>
-
-                    <a href="details-page.html" class="card-link">
-                        Link to problem
-                    </a>
-                </div>
-            </div>
-
+        {% for category in categories %}
+        <div>
+            <label for="{{ category.slug }}">{{ category.name }}</label>
+            <input type="radio" name="category" id="{{ category.slug }}" value="{{ category.slug }}" {% if selected_category == category.slug %}checked{% endif %}>
         </div>
         {% endfor %}
-        
-        {% else %}
-        <p style="text-align:center">No posted problem for query</p>
-        {% endif %}
-       
-       
+    </form>
 
-    </main>
-</section>
+    <h5>Based on location</h5>
+    <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+        <input type="text" name="location_query" placeholder="Enter search location..">
+        <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+    </form>
+    <h5>Based on host</h5>
+    <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
+        <input type="text" name="user_query" placeholder="Search host name..">
+        <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+    </form>
+
+    </div>
+</aside>
+{% if problems %}
+{% for problem in problems %}
+ <div class="card">
+    <div class="card-wrapper">
+        <div class="card-header">
+            <div class="post-location">
+                {{problem.user.full_name|capfirst}} |  <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
+            </div>
+            <div class="eco-cat">
+                <p class="text-fix">Eco Community: <a href="">{{problem.category}}</a></p>
+            </div>
+            <div class="goal">
+                <p class="text-fix">UNSdg Goal: </p><img src="{% static 'images/card/eco.png' %}" alt="">
+            </div>
+        </div>
+        <hr>
+        <div class="card-details">
+            <p>{{problem.description}}</p>
+            <div class="detail-img">
+                <img style="border-radius: 8px;" src="{{problem.problem_photo_main.url}}" alt="" class="first">
+                <div class="second">
+                    <img style="border-radius: 8px; margin-bottom:5px;" src="{{problem.problem_photo_1.url}}" alt="">
+                    <img style="border-radius: 8px;" src="{{problem.problem_photo_2.url}}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="up-count" hx-get="{% url 'ecoplatform:upvotes' problem.id %}">
+                <img src="{% static 'images/card/upvote.png' %}" alt="">
+                <span hx-get="{% url 'ecoplatform:upvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.upvotes.count }}</span>
+            </button>
+            <button class="down-count" hx-get="{% url 'ecoplatform:downvotes' problem.id %}">
+                <img src="{% static 'images/card/downvote.png' %}" alt="">
+                <span hx-get="{% url 'ecoplatform:downvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.downvotes.count }}</span>
+            </button>
+            <button class="idea-count">
+                <img src="assets/images/card/idea.png" alt="">
+                <span>456</span>
+            </button>
+        
+            <a href="{% url 'ecoplatform:problem-detail' problem.id %}" class="card-link">
+                View problem
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endfor %}
+
+{% else %}
+<p style="text-align:center">No posted problem for query</p>
+{% endif %}
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {

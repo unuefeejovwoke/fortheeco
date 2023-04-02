@@ -62,6 +62,15 @@ def problemListView(request, category_slug=None):
     }
     return render(request, 'ecoplatform/problem_list.html', context)
 
+
+#detail view for the problem
+def problem_detail(request, pk):
+    context = {'problem': Problem.objects.get(pk=pk)}
+    return render(request, 'ecoplatform/problem_detail.html', context )
+
+
+
+
 @require_POST
 def upvote(request):
     problem_id = request.POST.get('problem_id')
@@ -107,10 +116,7 @@ def search(request):
             })
     return render(request, 'ecoplatform/problem_list.html', context)
 
-#detail view for the problem
-def problemDetailView(request, pk):
-    context = {'problem_detail': Problem.objects.get(pk=pk)}
-    return render(request, 'ecoplatform/problem_detail.html', context)
+
 
 #list view for the projects
 def projectListView(request):
@@ -147,3 +153,27 @@ def projectListView(request):
 def projectDetailView(request, pk):
     context = {'project_detail': Project.objects.get(pk=pk)}
     return render(request, 'ecoplatform/project_detail.html', context)
+
+
+
+def upvotes(request, pk):
+    problem = Problem.objects.get(id=pk)
+    problem.downvotes.remove(request.user)
+    problem.upvotes.add(request.user)
+
+
+def upvotes_count(request, pk):
+    problem = Problem.objects.get(id=pk)
+    return render(request, "load/upvote.html", {"problem":problem})
+
+
+def downvotes(request, pk):
+    problem = Problem.objects.get(id=pk)
+    problem.upvotes.remove(request.user)
+    problem.downvotes.add(request.user)
+
+def downvotes_count(request, pk):
+    problem = Problem.objects.get(id=pk)
+    return render(request, "load/downvote.html", {"problem":problem})
+   
+    
