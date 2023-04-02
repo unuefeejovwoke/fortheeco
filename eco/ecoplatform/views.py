@@ -25,6 +25,7 @@ def index(request):
         'category_list':category_list,
         'total_problems': total_problems,
         'total_projects': total_projects,
+        "home":"home"
     }
     return render(request,'ecoplatform/index.html',context)
 
