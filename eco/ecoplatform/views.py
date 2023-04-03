@@ -34,6 +34,7 @@ def index(request):
 #list view for the problems
 # list view for the problems
 def problemListView(request, category_slug=None):
+    category_slug = request.GET.get('category')
     user_query = request.GET.get('user_query')
     location_query = request.GET.get('location_query')
 
@@ -179,3 +180,6 @@ def downvotes_count(request, pk):
     return render(request, "load/downvote.html", {"problem":problem})
    
     
+
+
+    # forms
