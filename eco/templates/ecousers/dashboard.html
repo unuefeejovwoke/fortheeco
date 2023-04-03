@@ -1,54 +1,143 @@
-<section class="section-conten padding-y bg">
-  
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} <title>User Profile | Problems</title> {% endblock title %}
+{% block content %}
+{% include 'components/alerts.html' %}
+    <section class="main-content">
+        <aside class="profile">
+            <div class="profile--card">
+                <img
+                    class="profile--img"
+                    src="{{userprofile.profile_picture.url}}"
+                    alt="user profile image"
+                />
+                <div class="user--info">
+                    <h4 class="username" id="name">{{user.full_name}}</h4>
 
-    <div class="container">
-        <div class="row">
-       
-        <main class="col-md-9">
-            <article class="card">
-            <header class="card-header">
-                <strong class="d-inline-block mr-3">Logged in as:</strong>
-                <span>{{user.full_name}}</span>
-                <a href="{% url 'ecousers:logout' %}" style="background-color: green; padding: 20px; margin: 20px; color: white; font-weight: 600;">Logout</a>
-            </header>
-            {% include 'components/alerts.html' %}
-            <div class="card-body">
-                <div class="row">
-    
-                <div class="col-md-6">
-                    <div class="card" style="text-align:center;">
-                        <div class="card-body">
-                            <h5 class="card-title">Total Projects Posted</h5>
-                            <h4>{{projects_count}}</h4>
-                            <p><a href={% url 'ecoplatform:project_list'  %}>View allprojects here...</a></p>
-                        </div>
+                    <p class="user-role" id="role">community ambassador</p>
+                </div>
+                <div class="user-contact">
+                    <p class="user-email" id="email">{{user.email}}</p>
+                    <p class="user-mobile" id="mobile">{{user.phone_number}}</p>
+                </div>
+                <a href="{% url 'ecousers:edit_profile' %}" class="edit-profile">
+                    <img
+                        src="/assets/icons/edit.svg"
+                        class="icon"
+                        alt=""
+                        aria-hidden="true"
+                    />
+                    <span>edit profile</span>
+                </a>
+            </div>
+            <button class="ambassador-btn">
+                <img
+                    src="/assets/icons/star.svg"
+                    class="icon"
+                    alt=""
+                    aria-hidden="true"
+                />
+                <span>Become an ambassador</span>
+            </button>
+            <div class="account-action">
+                <a href="{% url 'ecousers:change_password' %}" class="link-text">change password</a>
+                <a href="{% url 'ecousers:logout' %}" class="logout-btn">Log Out</a>
+            </div>
+        </aside>
+        <main class="card-main">
+            <section class="profile--nav">
+                <a href="/profile.html" class="profile--nav-link active"
+                    >problems</a
+                >
+                <a href="/profile-projects.html" class="profile--nav-link"
+                    >projects</a
+                >
+                <a href="/profile-ideas.html" class="profile--nav-link">ideas</a>
 
-                        <div class="card-body">
-                            <h5 class="card-title">Total Problems Posted</h5>
-                            <h4>{{problems_count}}</h4>
-                            <p><a href={% url 'ecoplatform:problem_list'  %}>View all problems here...</a></p>
-                        </div>
+                <button class="profile--nav-link search-btn">
+                    <img
+                        class="search-icon"
+                        src="{% static 'images/category/search.png' %}"
+                        alt="search button"
+                    />
+                </button>
+            </section>
+            <section class="stats">
+                <h5 class="stats-heading">
+                    Problems posted <span id="problem_count">({{problems_count}})</span>
+                </h5>
+                <div class="stats--wrapper">
+                    <span class="stats--com">70%</span>
+                    <span class="stats--org">20%</span>
+                    <span class="stats--env">10%</span>
+                </div>
+                <div class="stats--legend">
+                    <div class="legend--wrapper">
+                        <div class="legend--item env"></div>
+                        <span class="legend-label">environment</span>
+                    </div>
+                    <div class="legend--wrapper">
+                        <div class="legend--item com"></div>
+                        <span class="legend-label">community</span>
+                    </div>
+                    <div class="legend--wrapper">
+                        <div class="legend--item org"></div>
+                        <span class="legend-label">organization</span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card" style="text-align:center;">
-                        <div class="card-body">
-                            <img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
-                            <p class="mb-0">Email Address: {{user.email}}</p>
-                            <p>Phone Number: {{user.phone_number}}</p>
+            </section>
+
+            <div class="card">
+                <div class="card-wrapper">
+                    <div class="card-header">
+
+                        <div class="eco-cat card-header--item">
+                            <p class="text-fix">
+                                Eco Category: <a class="category-tag" href="">Community</a>
+                            </p>
                         </div>
-                        <a  style="background-color: black; padding: 20px; margin: 100px; color: white; font-weight: 600;" href="{% url 'ecousers:edit_profile' %}" > Edit Profile </a>
-                        <a style="background-color: blue; padding: 20px; margin: 100px; color: white; font-weight: 600;" href="{% url 'ecousers:change_password' %}"> Change Password </a>
+                        <div class="goal card-header--item">
+                            <p class="text-fix">UNSdg Goal:</p>
+                            <img class="icon" src="{% static 'images/card/eco.png' %}" alt="" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="card-details">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
+                            minus delectus aliquam optio sunt ab. Explicabo magnam natus,
+                            eius officia et perferendis, aperiam molestiae libero numquam
+                            maxime ab dolorum hic. Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Molestias odit obcaecati libero ex rerum
+                            voluptates quibusdam at veritatis iure. Dolorem maxime fugiat
+                            omnis dolorum excepturi quaerat itaque facilis tempora natus!
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="details-page.html" class="secondary-btn">
+                            <img
+                                src="{% static 'icons/edit.svg' %}"
+                                class="icon"
+                                alt=""
+                                aria-hidden="true"
+                            />
+                            <span>Edit problem</span>
+                        </a>
+                        <button class="danger-btn">
+                            <img
+                                src="{% static 'icons/trash.svg' %}"
+                                alt="delete problem"
+                                class="trash-icon icon"
+                            />
+                            <a href="#">Delete problem</a>
+                        </button>
                     </div>
                 </div>
-    
-                </div> <!-- row.// -->
-            </div> <!-- card-body .// -->
-    
-            </article> <!-- order-group.// -->
+            </div>
+            
         </main>
-    </div> <!-- row.// -->
-    </div>
-    
-    
+        <aside class="sidebar form"></aside>
     </section>
+
+    <script src="/assets/js/nav.js" defer></script>
+    {% endblock content %}

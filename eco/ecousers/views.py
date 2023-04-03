@@ -1,8 +1,5 @@
-from email.policy import default
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-
-
+from django.contrib.sites.models import Site
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -124,6 +121,7 @@ def activate(request, uidb64, token):
     
 @login_required(login_url = 'ecousers:login')
 def dashboard(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
     projects = Project.objects.order_by('-created').filter(user_id=request.user.id)
     projects_count = projects.count()
     
@@ -133,6 +131,7 @@ def dashboard(request):
     context = {
         'projects_count': projects_count,
         'problems_count':problems_count,
+        'userprofile':userprofile,
     
     }
     return render(request, 'ecousers/dashboard.html', context)

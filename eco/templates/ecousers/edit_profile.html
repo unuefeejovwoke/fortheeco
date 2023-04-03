@@ -1,79 +1,164 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}<title>Edit Profile</title>{% endblock title %}
+{% block content %}
+{% include 'components/alerts.html' %}
 
+<section class="main-content">
+	<aside class="profile display-on-desktop">
+		<div class="profile--card">
+			<img
+				class="profile--img"
+				src="{{userprofile.profile_picture.url}}"
+				alt="user profile image"
+			/>
+			<div class="user--info">
+				<h4 class="username" id="name">{{user.full_name}}</h4>
 
-<section class="section-conten padding-y bg">
-
-
-<div class="container">
-	<div class="row">
-	
-	<main class="col-md-9">
-		<article class="card">
-		<header class="card-header">
-			<strong class="d-inline-block mr-3">Edit your profile</strong>
-
-		</header>
-		<div class="card-body">
-			<div class="text-right">
-				<img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" width="100" style="border-radius:50px;">
+				<p class="user-role" id="role">community ambassador</p>
 			</div>
-			<div class="row">
-			<div class="col-md-12">
-				<form action="{% url 'ecousers:edit_profile' %}" method="POST" enctype="multipart/form-data">
-					{% csrf_token %}
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label>First Name</label>
-							{{user_form.first_name}}
-						</div>
-						<div class="form-group col-md-6">
-							<label>Last Name</label>
-							{{user_form.last_name}}
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label>Phone Number</label>
-							{{user_form.phone_number}}
-						</div>
-						<div class="form-group col-md-6">
-							<label>Profile Picture</label>
-							{{profile_form.profile_picture}}
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Address Line 1</label>
-						{{profile_form.address_line_1}}
-					</div>
-					<div class="form-group">
-						<label>Address Line 2</label>
-						{{profile_form.address_line_2}}
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-4">
-							<label>City</label>
-							{{profile_form.city}}
-						</div>
-						<div class="form-group col-md-4">
-							<label>State</label>
-							{{profile_form.state}}
-						</div>
-						<div class="form-group col-md-4">
-							<label>Country</label>
-							{{profile_form.country}}
-						</div>
-					</div>
-					<input type="submit" value="Save" class="btn btn-primary">
-				</form>
+			<div class="user-contact">
+				<p class="user-email" id="email">{{user.email}}</p>
+				<p class="user-mobile" id="mobile">{{user.phone_number}}</p>
 			</div>
-            <a  href="{% url 'ecousers:dashboard' %}" > My dashboard </a>
+			<a href="{% url 'ecousers:edit_profile' %}" class="edit-profile">
+				<img
+					src="/assets/icons/edit.svg"
+					class="icon"
+					alt=""
+					aria-hidden="true"
+				/>
+				<span>edit profile</span>
+			</a>
+		</div>
+		<button class="ambassador-btn">
+			<img
+				src="/assets/icons/star.svg"
+				class="icon"
+				alt=""
+				aria-hidden="true"
+			/>
+			<span>Become an ambassador</span>
+		</button>
+		<div class="account-action">
+			<a href="{% url 'ecousers:change_password' %}" class="link-text">change password</a>
+			<a href="{% url 'ecousers:logout' %}" class="logout-btn">Log Out</a>
+		</div>
+	</aside>
+	<main class="card-main profile-edit">
+		<section class="profile--nav">
+			<p class="profile--nav-link">Edit Profile</p>
+		</section>
+		<section class="profile-edit--container">
+			<form action="{% url 'ecousers:edit_profile' %}" method="POST" enctype="multipart/form-data" class="card edit-form">
+				{% csrf_token %}
+				<label class="user-avatar--container">
+					<img
+						class="user-avatar--img"
+						src="{{userprofile.profile_picture.url}}"
+						alt="profile avatar"
+						aria-hidden="true"
+					/>
+					<span class="user-avatar">
+						{{profile_form.profile_picture}}
+						<img
+							class="user-avatar--icon"
+							src="{% static 'images/form/edit-no-bg.svg' %}"
+							alt=""
+						/>
+					</span>
+				</label>
 
-			</div> <!-- row.// -->
-		</div> <!-- card-body .// -->
-		{% include 'components/alerts.html' %}
-		</article> <!-- order-group.// -->
+				<label for="Email">First name</label>
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/sms.png"
+						alt=""
+					/>
+					{{user_form.first_name}}
+				</div>
+
+				<label for="fullName">Last Name</label>
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/profile.png"
+						alt=""
+					/>
+					{{user_form.last_name}}
+				</div>
+
+				<label for="phoneNumber">Phone Number</label> <br />
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/call.svg"
+						alt=""
+					/>
+					{{user_form.phone_number}}
+				</div>
+				<label for="location">Address 1</label> <br />
+
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/location.svg"
+						alt=""
+					/>
+					{{profile_form.address_line_1}}
+				</div>
+
+				<label for="location">Address 2 (Optional)</label> <br />
+
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/location.svg"
+						alt=""
+					/>
+					{{profile_form.address_line_2}}
+				</div>
+
+				<label for="location">City</label> <br />
+
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/location.svg"
+						alt=""
+					/>
+					{{profile_form.city}}
+				</div>
+
+				<label for="location">City</label> <br />
+
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/location.svg"
+						alt=""
+					/>
+					{{profile_form.state}}
+				</div>
+
+				<label for="location">City</label> <br />
+
+				<div class="var-input">
+					<img
+						class="input-icon"
+						src="assets/images/form/location.svg"
+						alt=""
+					/>
+					{{profile_form.country}}
+				</div>
+
+				<div class="submit-btn">
+					<button type="submit">Save Changes</button>
+				</div>
+			</form>
+		</section>
 	</main>
-</div> <!-- row.// -->
-</div>
-
-
+	<aside class="sidebar form"></aside>
 </section>
+{% endblock content %}

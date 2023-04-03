@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-es6+c*qf#()*e!!w@p)6*kpxk7&csdvjt=f&#0@ho#e5%jrjli
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -171,6 +169,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 # SMTP configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "ECOdataism@gmail.com"
@@ -198,7 +197,8 @@ AUTHENTICATION_BACKENDS = [
     
 ]
 
-SITE_ID = 1
+SITE_ID = 4
+
 SOCIALACCOUNT_LOGIN_ON_Get=True
 
 

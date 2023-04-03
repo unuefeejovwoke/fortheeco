@@ -975,7 +975,9 @@ nav .connect #create1:hover {
 .profile--img {
   width: 80%;
   aspect-ratio: 1/1;
-  border-radius: 1rem;
+  border-radius: 50%;
+  object-fit: cover;
+  -o-object-fit: cover;
 }
 .profile .username {
   font-size: 1em;
@@ -1005,7 +1007,7 @@ nav .connect #create1:hover {
   width: 1rem;
   aspect-ratio: 1/1;
   display: inline-block;
-  margin-right: 0.1rem;
+  margin-right: 0.2rem;
 }
 .profile .link-text {
   color: rgb(4, 30, 14);
@@ -1028,7 +1030,7 @@ nav .connect #create1:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem;
   border-radius: 0.4rem;
   width: 95%;
   margin-inline: auto;
@@ -1049,10 +1051,18 @@ nav .connect #create1:hover {
   display: inline-block;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .profile {
     width: 28%;
   }
+  .profile .user-mobile {
+    font-size: 0.7rem;
+  }
+  .profile .ambassador-btn {
+    font-size: 0.6rem;
+  }
+}
+@media screen and (max-width: 800px) {
   .profile .ambassador-btn {
     font-size: 0.6rem;
   }
@@ -1072,17 +1082,13 @@ nav .connect #create1:hover {
     display: none;
   }
   .profile--card {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-end;
     box-shadow: none;
     border: unset;
     border-radius: 0;
     position: relative;
   }
   .profile--img {
-    width: 40%;
+    margin-block: 2rem 1rem;
   }
   .profile .username {
     font-size: 2rem;
@@ -1102,7 +1108,7 @@ nav .connect #create1:hover {
   .profile .edit-profile {
     font-size: 0.8em;
     position: absolute;
-    top: 2rem;
+    top: 0;
     right: 0;
   }
   .profile .ambassador-btn {
@@ -1120,6 +1126,14 @@ nav .connect #create1:hover {
   }
   .profile .user-role {
     font-size: 1rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  .profile .user-mobile {
+    font-size: 0.7rem;
+  }
+  .profile .ambassador-btn {
+    font-size: 0.6rem;
   }
 }
 .main-content {
@@ -2043,13 +2057,14 @@ nav .connect #create1:hover {
   }
 }
 /*======END OF ADD PROJECT AND PROBLEM PAGES STYLING======*/
-.problem--profile {
+/*==============PROFILE PAGES STYLING====================*/
+.user--profile {
   /*======PROFILE NAVIGATION STYLING======*/
 }
-.problem--profile .search {
+.user--profile .search {
   justify-content: flex-end;
 }
-.problem--profile .sidebar {
+.user--profile .sidebar {
   width: 23%;
   background-color: white;
   border-radius: 0.8rem 0.8rem 0rem 0rem;
@@ -2057,13 +2072,16 @@ nav .connect #create1:hover {
   position: sticky;
   top: 7.5rem;
 }
-.problem--profile .card-main {
+.user--profile .card-main {
   width: 50%;
   margin-top: 0;
   padding: 1rem 0.5rem;
-  box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.08);
+  border-radius: 0.8rem;
+  background-color: #f9fffb;
+  border-top: 4px solid #32d272;
+  box-shadow: -19px 376px 150px rgba(0, 0, 0, 0.01), -10px 211px 127px rgba(0, 0, 0, 0.03), -5px 94px 94px rgba(0, 0, 0, 0.04), -1px 23px 52px rgba(0, 0, 0, 0.05), 0px 0px 0px rgba(0, 0, 0, 0.05);
 }
-.problem--profile .profile--nav {
+.user--profile .profile--nav {
   width: 100%;
   display: flex;
   align-items: center;
@@ -2071,32 +2089,34 @@ nav .connect #create1:hover {
   padding: 1rem;
   border-bottom: 2px solid rgba(84, 84, 84, 0.2);
 }
-.problem--profile .profile--nav-link {
+.user--profile .profile--nav-link {
   text-transform: capitalize;
   color: rgb(84, 84, 84);
   display: inline-block;
   margin-right: 1rem;
 }
-.problem--profile .profile--nav .active {
+.user--profile .profile--nav .active {
   color: rgb(4, 30, 14);
   font-weight: 600;
 }
-.problem--profile .search-btn {
+.user--profile .search-btn {
   display: none;
 }
 
 /*======PROFILE STATS STYLING======*/
 .stats {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   border-bottom: 2px solid rgba(84, 84, 84, 0.2);
 }
 .stats-heading {
   font-weight: 600;
+  margin-block: 1rem 0.5rem;
 }
 .stats--wrapper {
   width: 100%;
   height: 2rem;
+  font-size: 0.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2137,6 +2157,7 @@ nav .connect #create1:hover {
   width: 10%;
   height: 100%;
   background-color: rgb(29, 181, 89);
+  padding-inline: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2196,14 +2217,13 @@ nav .connect #create1:hover {
 }
 .card-header--item {
   margin-right: 1.5px;
-}
-.card-header .location-icon {
-  height: 0.5rem;
-  margin-right: 1.5px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  font-size: 0.65rem;
 }
 .card-header .category-tag {
   color: rgb(46, 162, 207);
+  font-size: 0.8rem;
 }
 .card .post__user {
   display: flex;
@@ -2217,49 +2237,47 @@ nav .connect #create1:hover {
   object-fit: contain;
   -o-object-fit: contain;
 }
-.card .post__user--name {
-  text-transform: capitalize;
-}
 .card-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-}
-.card-footer .primary-btn {
-  width: 40%;
-  background-color: rgb(29, 181, 89);
-  padding: 0.5rem;
-  margin-top: 0;
-  transition: all 0.2s ease-in-out;
-}
-.card-footer .primary-btn:hover {
-  background-color: rgb(46, 162, 207);
+  margin-block: 1rem 0;
 }
 .card-footer .secondary-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 2px solid rgb(29, 181, 89);
   border-radius: 0.5rem;
-  width: 40%;
+  min-width: 40%;
   text-align: center;
   padding: 0.5rem;
   transition: all 0.2s ease-in-out;
 }
+.card-footer .secondary-btn .icon {
+  margin-block: 0;
+  margin-right: 0.5rem;
+}
 .card-footer .secondary-btn:hover {
   border-color: rgb(46, 162, 207);
 }
-.card-footer .primary-btn:active,
-.card-footer .secondary-btn:active {
-  transform: translateY(0.25rem);
-}
 .card-footer .danger-btn {
-  background-color: red;
-  padding: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: red;
+  color: #fff;
+  padding: 0.5rem;
   border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+.card-footer .danger-btn:active,
+.card-footer .secondary-btn:active {
+  transform: translateY(0.25rem);
 }
 .card-footer .trash-icon {
   width: 1.5rem;
+  margin-right: 0.5rem;
   aspect-ratio: 1/1;
   object-position: center;
   -o-object-position: center;
@@ -2307,27 +2325,14 @@ nav .connect #create1:hover {
 }
 
 @media screen and (max-width: 920px) {
-  .problem--profile .card-main {
+  .user--profile .card-main {
     width: 60%;
     margin-right: 1rem;
   }
-  .problem--profile .card-header--item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .problem--profile .location-icon {
-    height: 1rem;
-    margin-inline: auto;
-  }
-  .problem--profile .eco-cat {
-    max-width: 6rem;
-  }
-  .problem--profile .goal {
-    flex-direction: column;
+  .user--profile .goal {
     margin-right: 0;
   }
-  .problem--profile .goal .text-fix {
+  .user--profile .goal .text-fix {
     width: -moz-max-content;
     width: max-content;
   }
@@ -2336,21 +2341,13 @@ nav .connect #create1:hover {
   }
 }
 @media screen and (max-width: 800px) {
-  .problem--profile .sidebar {
+  .user--profile .sidebar {
     display: none;
   }
-  .problem--profile .card-main {
+  .user--profile .card-main {
     width: 70%;
   }
-  .problem--profile .post-location {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .problem--profile .post__user--img {
-    display: none;
-  }
-  .problem--profile .post__user--name {
+  .user--profile .post__user--name {
     width: -moz-max-content;
     width: max-content;
   }
@@ -2359,13 +2356,13 @@ nav .connect #create1:hover {
   }
 }
 @media screen and (max-width: 650px) {
-  .problem--profile .heading {
+  .user--profile .heading {
     display: none;
   }
-  .problem--profile .profile--nav {
+  .user--profile .profile--nav {
     justify-content: space-between;
   }
-  .problem--profile .search-btn {
+  .user--profile .search-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2373,55 +2370,51 @@ nav .connect #create1:hover {
     border-radius: 0.5rem;
     background-color: rgb(29, 181, 89);
   }
-  .problem--profile .search-btn .search-img {
+  .user--profile .search-btn .search-img {
     width: 1rem;
   }
-  .problem--profile .post__user--img {
+  .user--profile .post__user--img {
     display: inline-block;
     width: 2rem;
   }
-  .problem--profile .main-content {
+  .user--profile .main-content {
     flex-direction: column;
   }
-  .problem--profile .legend--item {
+  .user--profile .legend--item {
     width: 1rem;
     margin-right: 0.5rem;
   }
-  .problem--profile .card-main {
-    width: 100%;
+  .user--profile .legend--wrapper {
+    font-size: 0.7rem;
+  }
+  .user--profile .card-main {
+    width: 90%;
     margin-inline: auto;
   }
-  .problem--profile .card-header {
+  .user--profile .card-header {
     align-items: flex-end;
     justify-content: space-between;
     gap: 0.5rem;
   }
-  .problem--profile .card-header--item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 0.5rem;
-  }
-  .problem--profile .card-header--item .text-fix {
+  .user--profile .card-header--item {
     font-size: 0.8rem;
+  }
+  .user--profile .card-header--item .text-fix {
     width: -moz-fit-content;
     width: fit-content;
   }
-  .problem--profile .card-header--item .icon {
+  .user--profile .card-header--item .icon {
     width: 1rem;
   }
-  .problem--profile .card-header .goal {
-    width: 30%;
-  }
-  .problem--profile .card-header .goal .text-fix {
+  .user--profile .card-header .text-fix {
     width: -moz-max-content;
     width: max-content;
   }
-  .problem--profile .card .location-icon {
-    height: 1rem;
-  }
-  .problem--profile .sidebar {
+  .user--profile .sidebar {
     display: none;
+  }
+  .card {
+    width: 95%;
   }
   .card .display-on-desktop {
     display: none !important;
@@ -2429,41 +2422,15 @@ nav .connect #create1:hover {
   .card .display-on-mobile {
     display: flex !important;
   }
-  .mobile-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: relative;
-    margin-left: auto;
-  }
-  .mobile-nav--icon {
-    height: 1rem;
-  }
-  .mobile-nav--group {
-    position: absolute;
-    top: 1.5rem;
-    width: -moz-max-content;
-    width: max-content;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    z-index: 10;
-  }
-  .mobile-nav--item {
-    background-color: #fff;
-    padding: 0.5rem;
-    border-radius: 0.2rem;
-    text-transform: capitalize;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
-  }
   .hidden {
     display: none;
   }
 }
 .profile-projects .hidden {
   display: none;
+}
+.profile-projects .card-header--item {
+  flex-direction: column;
 }
 .profile-projects .card-share {
   display: flex;
@@ -2485,11 +2452,6 @@ nav .connect #create1:hover {
 }
 
 @media screen and (max-width: 650px) {
-  .profile-projects .post__user--name {
-    font-size: 0.6rem;
-    width: -moz-max-content;
-    width: max-content;
-  }
   .profile-projects .card-share {
     flex-direction: column;
   }
@@ -2516,23 +2478,18 @@ nav .connect #create1:hover {
   background-color: #f1faf4;
   border-radius: 1rem;
 }
-.profile-ideas--container .card-header {
-  justify-content: flex-start;
-  align-items: center;
-}
 .profile-ideas--container .card-header--item {
   font-size: 0.8rem;
 }
 .profile-ideas--container .card .post__user--img {
   width: 2rem;
 }
-.profile-ideas--container .card .post__user--name {
-  font-size: 1rem;
-  margin-inline: 0.5rem 1rem;
-  font-weight: 600;
-}
 .profile-ideas--container .card .post-date {
   color: rgba(44, 44, 44, 0.5);
+}
+.profile-ideas--container .card .text-fix {
+  margin-right: 0.2rem;
+  font-weight: bold;
 }
 @media screen and (max-width: 650px) {
   .profile-ideas .card-header--item {
@@ -2540,10 +2497,6 @@ nav .connect #create1:hover {
   }
   .profile-ideas .card .post__user--img {
     display: inline-block;
-  }
-  .profile-ideas .card .post__user--name {
-    font-size: 0.7rem;
-    margin-inline: 0;
   }
 }
 

@@ -28,7 +28,9 @@
 	&--img {
 		width: 80%;
 		aspect-ratio: 1/1;
-		border-radius: 1rem;
+		border-radius: 50%;
+		object-fit: cover;
+		-o-object-fit: cover;
 	}
 
 	.username {
@@ -63,7 +65,7 @@
 		width: 1rem;
 		aspect-ratio: 1/1;
 		display: inline-block;
-		margin-right: 0.1rem;
+		margin-right: 0.2rem;
 	}
 
 	.link-text {
@@ -90,7 +92,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 0.8rem 1rem;
+	padding: 0.8rem;
 	border-radius: 0.4rem;
 	width: 95%;
 	margin-inline: auto;
@@ -113,10 +115,21 @@
 }
 
 // ===================== MEDIA QUERIES ==========================
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
 	.profile {
 		width: 28%;
 
+		.user-mobile {
+			font-size: 0.7rem;
+		}
+		.ambassador-btn {
+			font-size: 0.6rem;
+		}
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.profile {
 		.ambassador-btn {
 			font-size: 0.6rem;
 		}
@@ -139,10 +152,6 @@
 		}
 
 		&--card {
-			flex-direction: row;
-			flex-wrap: wrap;
-			justify-content: flex-start;
-			align-items: flex-end;
 			box-shadow: none;
 			border: unset;
 			border-radius: 0;
@@ -150,7 +159,7 @@
 		}
 
 		&--img {
-			width: 40%;
+			margin-block: 2rem 1rem;
 		}
 
 		.username {
@@ -175,7 +184,7 @@
 		.edit-profile {
 			font-size: 0.8em;
 			position: absolute;
-			top: 2rem;
+			top: 0;
 			right: 0;
 		}
 
@@ -199,6 +208,17 @@
 
 		.user-role {
 			font-size: 1rem;
+		}
+	}
+}
+
+@media screen and (max-width: 375px) {
+	.profile {
+		.user-mobile {
+			font-size: 0.7rem;
+		}
+		.ambassador-btn {
+			font-size: 0.6rem;
 		}
 	}
 }
