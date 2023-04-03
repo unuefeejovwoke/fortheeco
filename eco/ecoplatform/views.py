@@ -60,6 +60,7 @@ def problemListView(request, category_slug=None):
         'categories': categories,
         'selected_category': category_slug,
         'category': category,
+       
     }
     return render(request, 'ecoplatform/problem_list.html', context)
 

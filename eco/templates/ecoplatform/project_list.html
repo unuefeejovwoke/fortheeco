@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}<title>Eco Projects </title> {% endblock title %}
-{% block content %}
+{% block contents %}
 
  
     
-    <main class="">
-        <div class="heading">
+ 
             <h5>Projects Posted on The ECO</h5>
             <div class="search">
                 <form class="cat-search" action="{% url 'ecoplatform:project_list' %}">
@@ -90,7 +89,7 @@
         <p style="text-align:center">No projects found for this category.</p>
         {% endif %}
         
-    </main>
+
 
 <script>
     const radioButtons = document.querySelectorAll('input[type="radio"]');
