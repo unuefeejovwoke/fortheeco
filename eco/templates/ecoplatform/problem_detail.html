@@ -58,10 +58,14 @@
                 <img src="{% static 'images/card/downvote.png' %}" alt="">
                 <span hx-get="{% url 'ecoplatform:downvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.downvotes.count }}</span>
             </button>
-            <button class="idea-count">
-                <img src="assets/images/card/idea.png" alt="">
-                <span>456</span>
-            </button>
+            <a href="{% url 'ecoplatform:add_comment_to_problem' problem.pk %}">
+                <button class="idea-count">
+                    <img src="{% static 'images/card/idea.png' %}" alt="">
+                    <span>{{ problem.comments.count }}</span>
+                </button>
+            </a>
+            
+              
         
             <a href="{% url 'ecoplatform:problem-detail' problem.id %}" class="card-link">
                 Link to problem
@@ -70,36 +74,36 @@
 
         <div class="comment-section">
             <div class="date-posted">
-                <p>Posted: <span>11:34pm 02mar,2024</span></p>
+                <p>Posted: <span>{{problem.created}}</span></p>
             </div>
             <hr>
+            {% for comment in comments %}
             <div class="comment-card">
                 <div class="comment-wrapper">
                     <div class="comment-header">
                         <div class="user-profile">
                             <div class="user-img">
-                                <img src="assets/images/card/comment-card/Avatar Image.png" alt="">
+                                <img src="{{comment.user.userprofile.profile_picture.url}}" alt="" style="width:25px; height:25px">
                             </div>
-                            <p class="username">Gbenro Adams</p>
+                            <p class="username">{{comment.user.full_name}}</p>
                         </div>
 
                         <div class="date-posted">
-                            <p>Posted: <span>11:34pm 02mar,2024</span></p>
+                            <p>Posted: <span>{{comment.created}}</span></p>
                         </div>
                     </div>
 
                     <div class="comment-text">
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magnam placeat tempore nihil obcaecati facere quisquam, 
-                            accusamus nesciunt corporis ipsum rerum error suscipit rem illum magni nulla a tenetur ad?</p>
+                        <p>{{comment.text}}</p>
                     </div>
 
                     <div class="comment-footer">
                         <button class="up-count">
-                            <img src="assets/images/card/upvote.png" alt="">
+                            <img src="{% static 'images/card/upvote.png' %}" alt="">
                             <span>1,354</span>
                         </button>
                         <button class="down-count">
-                            <img src="assets/images/card/downvote.png" alt="">
+                            <img src="{% static 'images/card/downvote.png' %}" alt="">
                             <span>456</span>
                         </button>
                        
@@ -107,74 +111,8 @@
                 </div>
                 
             </div>
-            <div class="comment-card">
-                <div class="comment-wrapper">
-                    <div class="comment-header">
-                        <div class="user-profile">
-                            <div class="user-img">
-                                <img src="assets/images/card/comment-card/Avatar Image.png" alt="">
-                            </div>
-                            <p class="username">Gbenro Adams</p>
-                        </div>
-
-                        <div class="date-posted">
-                            <p>Posted: <span>11:34pm 02mar,2024</span></p>
-                        </div>
-                    </div>
-
-                    <div class="comment-text">
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magnam placeat tempore nihil obcaecati facere quisquam, 
-                            accusamus nesciunt corporis ipsum rerum error suscipit rem illum magni nulla a tenetur ad?</p>
-                    </div>
-
-                    <div class="comment-footer">
-                        <button class="up-count">
-                            <img src="assets/images/card/upvote.png" alt="">
-                            <span>1,354</span>
-                        </button>
-                        <button class="down-count">
-                            <img src="assets/images/card/downvote.png" alt="">
-                            <span>456</span>
-                        </button>
-                       
-                    </div>
-                </div>
-                
-            </div>
-            <div class="comment-card">
-                <div class="comment-wrapper">
-                    <div class="comment-header">
-                        <div class="user-profile">
-                            <div class="user-img">
-                                <img src="assets/images/card/comment-card/Avatar Image.png" alt="">
-                            </div>
-                            <p class="username">Gbenro Adams</p>
-                        </div>
-
-                        <div class="date-posted">
-                            <p>Posted: <span>11:34pm 02mar,2024</span></p>
-                        </div>
-                    </div>
-
-                    <div class="comment-text">
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magnam placeat tempore nihil obcaecati facere quisquam, 
-                            accusamus nesciunt corporis ipsum rerum error suscipit rem illum magni nulla a tenetur ad?</p>
-                    </div>
-
-                    <div class="comment-footer">
-                        <button class="up-count">
-                            <img src="assets/images/card/upvote.png" alt="">
-                            <span>1,354</span>
-                        </button>
-                        <button class="down-count">
-                            <img src="assets/images/card/downvote.png" alt="">
-                            <span>456</span>
-                        </button>
-                       
-                    </div>
-                </div>
-                
-            </div>
+            {% endfor %}
+            
         </div>
 
     </div>

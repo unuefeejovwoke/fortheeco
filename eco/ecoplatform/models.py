@@ -103,3 +103,18 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name 
+    
+
+class Comment(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField(max_length=500)
+    created = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+    def __str__(self):
+        return f"{self.user} - {self.problem.title}"

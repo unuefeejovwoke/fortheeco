@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<section class="project-page" id="root">
+    <article class="project_modal--wrapper">
+        <a href="{% url 'ecoplatform:problem_list' %}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
+        <h5>Suggest an Idea</h5>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="text-field">
+                <label for="{{ form.text.id_for_label }}">Idea suggestion</label>
+                {{ form.text }}
+                {% if form.text.errors %}
+                    <span class="error-message">{{ form.text.errors.as_text }}</span>
+                {% endif %}
+            </div>
+
+            <span><button type="submit" class="btn">Send Suggestion</button></span>
+        </form>
+    </article>
+</section>
+{% endblock content %}

@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Project, Problem, Category
+from .models import Project, Problem, Category, Comment
+from django.contrib import messages, auth
+
+from .forms import CommentForm
 from django.db.models import Q
 from .filters import ProblemFilter, ProjectFilter
 from django.db.models import Count
@@ -68,10 +71,33 @@ def problemListView(request, category_slug=None):
 
 #detail view for the problem
 def problem_detail(request, pk):
-    context = {'problem': Problem.objects.get(pk=pk)}
-    return render(request, 'ecoplatform/problem_detail.html', context )
+    problem = get_object_or_404(Problem, pk=pk)
+    comments = problem.comments.all()
 
 
+    context = {
+        'problem': problem,
+        'comments': comments,
+    }
+    return render(request, 'ecoplatform/problem_detail.html', context)
+
+@login_required(login_url="ecousers:login")
+def add_comment(request, pk):
+    problem = get_object_or_404(Problem, pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user  # Set the user field to the currently logged-in user
+            comment.problem = problem
+            comment.save()
+            messages.success(request, 'Your comment was made successfully')
+            return redirect('ecoplatform:problem-detail', pk=problem.pk)
+    else:
+        form = CommentForm()
+
+    return render(request, 'ecoplatform/add_comment_to_problem.html', {'form': form})
 
 
 @require_POST
