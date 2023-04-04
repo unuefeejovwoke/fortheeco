@@ -20,6 +20,9 @@ urlpatterns = [
     
     path('problems/<slug:slug>/delete/', views.delete_problem, name='problem_delete'),
     path('projects/<slug:slug>/delete/', views.delete_project, name='project_delete'),
+    path('<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
+    
+    path('comment/<int:comment_id>/edit/', views.edit_comment, name='edit_comment'),
     
     path('change_password/', views.change_password, name='change_password'),
     path('social/signup/', views.signup_redirect,name='signup_redirect'),

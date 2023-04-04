@@ -9,8 +9,9 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from .models import Account, UserProfile
 from .forms import RegistrationForm, UserForm, UserProfileForm
+from ecoplatform.forms import CommentForm
 
-from ecoplatform.models import Problem, Project
+from ecoplatform.models import Problem, Project, Comment
 from django.urls import reverse
 #email verify
 from django.contrib.sites.shortcuts import get_current_site
@@ -191,15 +192,42 @@ def userIdea(request):
     problems = Problem.objects.order_by('-created').filter(user_id=request.user.id)
     problems_count = problems.count()
     
+    comments = Comment.objects.order_by('-created').filter(user_id=request.user.id)
+    comments_count = comments.count()
+    
     context = {
         'projects_count': projects_count,
         'problems_count':problems_count,
         'userprofile':userprofile,
         'problems':problems,
         'projects':projects,
+        'comments_count': comments_count,
+        'comments':comments,
     
     }
     return render(request, 'ecousers/user_ideas.html', context)
+
+@login_required(login_url = 'ecousers:login')
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.user != request.user:
+        return redirect('ecousers:user_ideas')
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('ecousers:user_ideas')
+    return render(request, 'comment_delete.html', {'comment': comment})
+
+def edit_comment(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your comment has been updated.')
+            return redirect(request.GET.get('next', 'ecousers:user_ideas'))
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'ecousers/edit_comment.html', {'form': form})
 
 def forgotPassword(request):
     if request.method == 'POST':

@@ -66,50 +66,43 @@
                 <p class="ideas-heading display-on-desktop">
                     Link to where the problem was dropped
                 </p>
-
+                
+                {% for comment in comments %}
                 <div class="card">
                     <div class="card-wrapper">
                         <div class="card-header">
                             
                             <div class="post-date card-header--item">
                                 <span class="text-fix">Posted: </span>
-                                <span class="idea-date">11:34pm 02mar,2024</span>
+                                <span class="idea-date">{{comment.created}}</span>
                             </div>
                         </div>
                         <hr />
                         <div class="card-details">
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
-                                minus delectus aliquam optio sunt ab. Explicabo magnam
-                                natus, eius officia et perferendis, aperiam molestiae libero
-                                numquam maxime ab dolorum hic. Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Molestias odit obcaecati
-                                libero ex rerum voluptates quibusdam at veritatis iure.
-                                Dolorem maxime fugiat omnis dolorum excepturi quaerat itaque
-                                facilis tempora natus!
+                                {{comment.text}}
                             </p>
                         </div>
                         <div class="card-footer">
-                            <a href="details-page.html" class="secondary-btn">
-                                <img
-                                    src="{% static 'icons/edit.svg' %}"
-                                    class="icon"
-                                    alt=""
-                                    aria-hidden="true"
-                                />
+                            <a href="{% url 'ecousers:edit_comment' comment.id %}" class="secondary-btn">
+                                <img src="{% static 'icons/edit.svg' %}" class="icon" alt="" aria-hidden="true" />
                                 <span>Edit idea</span>
                             </a>
-                            <button class="danger-btn">
-                                <img
-                                    src="{% static 'icons/trash.svg' %}"
-                                    alt="delete problem"
-                                    class="trash-icon icon"
-                                />
-                                <a href="#">Delete idea</a>
-                            </button>
+                            
+                            <form id="delete-comment-form-{{ comment.id }}" method="POST" action="{% url 'ecousers:delete_comment' comment.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="danger-btn" onclick="confirmDelete(event, {{ comment.id }})">
+                                    <img src="{% static 'icons/trash.svg' %}" alt="delete comment" class="trash-icon icon">
+                                    Delete comment
+                                </button>
+                            </form>
+                            
+                            
+                            
                         </div>
                     </div>
                 </div>
+                {% endfor %}
                 
             </section>
             
@@ -119,4 +112,12 @@
     </section>
 
     <script src="{% static 'js/nav.js' %}" defer></script>
+    <script>
+        function confirmDelete(event, commentId) {
+            event.preventDefault();
+            if (confirm("Are you sure you want to delete this comment?")) {
+                document.getElementById("delete-comment-form-" + commentId).submit();
+            }
+        }
+        </script>
     {% endblock profile %}
