@@ -46,7 +46,7 @@
         </aside>
         <main class="card-main">
             <section class="profile--nav">
-                <a href="/profile.html" class="profile--nav-link active"
+                <a href="{% url 'ecousers:dashboard' %}" class="profile--nav-link active"
                     >problems</a
                 >
                 <a href="/profile-projects.html" class="profile--nav-link"
@@ -117,17 +117,18 @@
                             />
                             <span>Edit problem</span>
                         </a>
-                        <button class="danger-btn">
-                            <img
-                                src="{% static 'icons/trash.svg' %}"
-                                alt="delete problem"
-                                class="trash-icon icon"
-                            />
-                            <a href="#">Delete problem</a>
-                        </button>
+                        <form action="{% url 'ecousers:problem_delete' problem.slug %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="danger-btn">
+                                <img src="{% static 'icons/trash.svg' %}" alt="delete problem" class="trash-icon icon" />
+                                <span>Delete problem</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <p style="text-align:center; margin:5px;"> You have'nt posted a problem</p>
             {% endfor %}
             
         </main>

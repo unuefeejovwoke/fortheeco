@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<section class="project-page" id="root">
+    <article class="project_modal--wrapper">
+        <a href="{% url 'ecousers:dashboard' %}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
+        <h5>Delete Problem</h5>
+        <p>Are you sure you want to delete this problem?</p>
+        <form action="{% url 'problem_delete' problem.slug %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn">Delete</button>
+            <a href="{% url 'ecousers:dashboard' %}" class="btn">Cancel</a>
+        </form>
+    </article>
+</section>
+{% endblock content %}

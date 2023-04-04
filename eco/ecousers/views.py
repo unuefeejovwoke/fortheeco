@@ -3,6 +3,8 @@ from django.contrib.sites.models import Site
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.http import Http404
+
 
 from django.contrib.auth.decorators import login_required
 from .models import Account, UserProfile
@@ -141,11 +143,33 @@ def dashboard(request):
 
 @login_required(login_url = 'ecousers:login')
 def delete_problem(request, slug):
-    problem = get_object_or_404(Problem, slug=slug)
-    if request.method == 'POST':
+    problems = Problem.objects.filter(slug=slug, user=request.user)
+    if not problems.exists():
+        raise Http404("Problem does not exist")
+    problem = problems.first()
+    if request.method == 'POST' and problem.slug == slug and problem.user == request.user:
         problem.delete()
         return redirect(reverse('ecousers:dashboard'))
-    return render(request, 'problem_delete.html', {'problem': problem})
+    return render(request, 'ecousers/problem_delete.html', {'problem': problem})
+
+@login_required(login_url = 'ecousers:login')
+def userProject(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    projects = Project.objects.order_by('-created').filter(user_id=request.user.id)
+    projects_count = projects.count()
+    
+    problems = Problem.objects.order_by('-created').filter(user_id=request.user.id)
+    problems_count = problems.count()
+    
+    context = {
+        'projects_count': projects_count,
+        'problems_count':problems_count,
+        'userprofile':userprofile,
+        'problems':problems,
+        'projects':projects,
+    
+    }
+    return render(request, 'ecousers/user_project.html', context)
 
 def forgotPassword(request):
     if request.method == 'POST':
