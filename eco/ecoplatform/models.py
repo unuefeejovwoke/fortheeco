@@ -110,6 +110,9 @@ class Comment(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField(max_length=500)
     created = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(Account, related_name='liked_comments')
+    dislikes = models.ManyToManyField(Account, related_name='disliked_comments')
+
 
     class Meta:
         ordering = ['-created']

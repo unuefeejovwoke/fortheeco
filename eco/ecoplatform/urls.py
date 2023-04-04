@@ -13,6 +13,8 @@ urlpatterns = [
     path('project/<slug:category_slug>/', views.projectListView, name='project_list_category'),
     path('problem-detail/<str:pk>/', views.problem_detail, name='problem-detail'),
     path('problem/add_comment_to_problem/<int:pk>/', views.add_comment, name='add_comment_to_problem'),
+    path('comment/<int:pk>/like/', views.like_comment, name='like-comment'),
+    path('comment/<int:pk>/dislike/', views.dislike_comment, name='dislike-comment'),
 
     path('project/<pk>/', views.projectDetailView, name='project_detail'),
     

@@ -24,12 +24,12 @@
         <div class="card-header">
             <div class="user-profile">
                 <div class="user-img">
-                    <img src="assets/images/card/comment-card/Avatar Image.png" alt="">
+                    <img src="{{problem.user.userprofile.profile_picture.url}}">
                 </div>
-                <p class="username">Gbenro Adams</p>
+                <p class="username">{{problem.user.full_name|capfirst}} </p>
             </div>
             <div class="post-location">
-                {{problem.user.full_name|capfirst}} |  <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
+                 <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
             </div>
             <div class="eco-cat">
                 <p class="text-fix">Eco Community: <a href="">{{problem.category}}</a></p>
@@ -42,10 +42,10 @@
         <div class="card-details">
             <p>{{problem.description}}</p>
             <div class="detail-img">
-                <img src="assets/images/card/Rectangle 574(1).png" alt="" class="first">
+                <img style="border-radius: 8px;" src="{{problem.problem_photo_main.url}}" alt="" class="first">
                 <div class="second">
-                    <img src="assets/images/card/lake.png" alt="">
-                    <img src="assets/images/card/waterbottle.png" alt="">
+                    <img style="border-radius: 8px; margin-bottom:5px;" src="{{problem.problem_photo_1.url}}" alt="">
+                    <img style="border-radius: 8px;" src="{{problem.problem_photo_2.url}}" alt="">
                 </div>
             </div>
         </div>
@@ -78,39 +78,34 @@
             </div>
             <hr>
             {% for comment in comments %}
-            <div class="comment-card">
-                <div class="comment-wrapper">
-                    <div class="comment-header">
-                        <div class="user-profile">
-                            <div class="user-img">
-                                <img src="{{comment.user.userprofile.profile_picture.url}}" alt="" style="width:25px; height:25px">
+                <div class="comment-card">
+                    <div class="comment-wrapper">
+                        <div class="comment-header">
+                            <div class="user-profile">
+                                <div class="user-img">
+                                    <img src="{{comment.user.userprofile.profile_picture.url}}" alt="" style="width:25px; height:25px">
+                                </div>
+                                <p class="username">{{comment.user.full_name}}</p>
                             </div>
-                            <p class="username">{{comment.user.full_name}}</p>
+                            <div class="date-posted">
+                                <p>Posted: <span>{{comment.created}}</span></p>
+                            </div>
                         </div>
-
-                        <div class="date-posted">
-                            <p>Posted: <span>{{comment.created}}</span></p>
+                        <div class="comment-text">
+                            <p>{{comment.text}}</p>
                         </div>
-                    </div>
-
-                    <div class="comment-text">
-                        <p>{{comment.text}}</p>
-                    </div>
-
-                    <div class="comment-footer">
-                        <button class="up-count">
-                            <img src="{% static 'images/card/upvote.png' %}" alt="">
-                            <span>1,354</span>
-                        </button>
-                        <button class="down-count">
-                            <img src="{% static 'images/card/downvote.png' %}" alt="">
-                            <span>456</span>
-                        </button>
-                       
+                        <div class="comment-footer">
+                            <button class="up-count" onclick="likeComment({{ comment.id }})">
+                                <img src="{% static 'images/card/upvote.png' %}" alt="">
+                                <span>{{ comment.likes.count }}</span>
+                            </button>
+                            <button class="down-count" onclick="dislikeComment({{ comment.id }})">
+                                <img src="{% static 'images/card/downvote.png' %}" alt="">
+                                <span>{{ comment.dislikes.count }}</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-            </div>
             {% endfor %}
             
         </div>
@@ -118,4 +113,32 @@
     </div>
 
 </div>
+<script>
+    function likeComment(commentId) {
+        $.ajax({
+            url: "{% url 'ecoplatform:like-comment' 0 %}".replace('0', commentId),
+            type: "POST",
+            headers: { "X-CSRFToken": "{{ csrf_token }}" },
+            success: function(data) {
+                location.reload();
+            }
+        });
+    }
+
+    function dislikeComment(commentId) {
+        $.ajax({
+            url: "{% url 'ecoplatform:dislike-comment' 0 %}".replace('0', commentId),
+            type: "POST",
+            headers: { "X-CSRFToken": "{{ csrf_token }}" },
+            success: function(data) {
+                location.reload();
+            }
+        });
+    }
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 {% endblock contents %}

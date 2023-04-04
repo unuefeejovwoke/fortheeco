@@ -99,6 +99,30 @@ def add_comment(request, pk):
 
     return render(request, 'ecoplatform/add_comment_to_problem.html', {'form': form})
 
+@login_required(login_url="ecousers:login")
+def like_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if comment.likes.filter(id=request.user.id).exists():
+        comment.likes.remove(request.user)
+    else:
+        comment.likes.add(request.user)
+
+    return redirect('ecoplatform:problem-detail', pk=comment.problem.pk)
+
+
+@login_required(login_url="ecousers:login")
+def dislike_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if comment.dislikes.filter(id=request.user.id).exists():
+        comment.dislikes.remove(request.user)
+    else:
+        comment.dislikes.add(request.user)
+
+    return redirect('ecoplatform:problem-detail', pk=comment.problem.pk)
+
+
 
 @require_POST
 def upvote(request):
