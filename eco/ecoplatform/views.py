@@ -130,9 +130,9 @@ def projectListView(request):
     # Filter by category
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        projects = Project.objects.filter(category=category)
+        projects = Project.objects.order_by('-created').filter(category=category)
     else:
-        projects = Project.objects.all()
+        projects = Project.objects.order_by('-created').all()
 
     # Filter by user query
     if user_query:

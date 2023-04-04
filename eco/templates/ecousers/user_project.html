@@ -46,10 +46,10 @@
         </aside>
         <main class="card-main">
             <section class="profile--nav">
-                <a href="{% url 'ecousers:dashboard' %}" class="profile--nav-link active"
+                <a href="{% url 'ecousers:dashboard' %}" class="profile--nav-link"
                     >problems</a
                 >
-                <a href="{% url 'ecousers:user_project' %}" class="profile--nav-link"
+                <a href="{% url 'ecousers:user_project' %}" class="profile--nav-link active"
                     >projects</a
                 >
                 <a href="{% url 'ecousers:user_ideas' %}" class="profile--nav-link">ideas</a>
@@ -64,7 +64,7 @@
             </section>
             <section class="stats">
                 <h5 class="stats-heading">
-                    Problems posted <span id="problem_count">({{problems_count}})</span>
+                    Projects posted <span id="problem_count">({{projects_count}})</span>
                 </h5>
                 <div class="stats--wrapper">
                     <span class="stats--com">70%</span>
@@ -86,14 +86,14 @@
                     </div>
                 </div>
             </section>
-            {% for problem in problems %}
+            {% for project in projects %}
             <div class="card">
                 <div class="card-wrapper">
                     <div class="card-header">
 
                         <div class="eco-cat card-header--item">
                             <p class="text-fix">
-                                Eco Category: <a class="category-tag" href="">{{problem.category}}</a>
+                                Eco Category: <a class="category-tag" href="">{{project.category}}</a>
                             </p>
                         </div>
                         <div class="goal card-header--item">
@@ -104,7 +104,7 @@
                     <hr />
                     <div class="card-details">
                         <p>
-                            {{problem.description}}
+                            {{project.description}}
                         </p>
                     </div>
                     <div class="card-footer">
@@ -115,20 +115,20 @@
                                 alt=""
                                 aria-hidden="true"
                             />
-                            <span>Edit problem</span>
+                            <span>Edit project</span>
                         </a>
-                        <form action="{% url 'ecousers:problem_delete' problem.slug %}" method="post">
+                         <form action="{% url 'ecousers:project_delete' project.slug %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="danger-btn">
-                                <img src="{% static 'icons/trash.svg' %}" alt="delete problem" class="trash-icon icon" />
-                                <span>Delete problem</span>
+                                <img src="{% static 'icons/trash.svg' %}" alt="delete project" class="trash-icon icon" />
+                                <span>Delete project</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
             {% empty %}
-            <p style="text-align:center; margin:5px;"> You have'nt posted a problem</p>
+            <p style="text-align:center; margin:5px;"> You have'nt posted a project</p>
             {% endfor %}
             
         </main>

@@ -171,6 +171,36 @@ def userProject(request):
     }
     return render(request, 'ecousers/user_project.html', context)
 
+@login_required(login_url = 'ecousers:login')
+def delete_project(request, slug):
+    projects = Project.objects.filter(slug=slug, user=request.user)
+    if not projects.exists():
+        raise Http404("project does not exist")
+    project = projects.first()
+    if request.method == 'POST' and project.slug == slug and project.user == request.user:
+        project.delete()
+        return redirect(reverse('ecousers:user_project'))
+    return render(request, 'ecousers/project_delete.html', {'project': project})
+
+@login_required(login_url = 'ecousers:login')
+def userIdea(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    projects = Project.objects.order_by('-created').filter(user_id=request.user.id)
+    projects_count = projects.count()
+    
+    problems = Problem.objects.order_by('-created').filter(user_id=request.user.id)
+    problems_count = problems.count()
+    
+    context = {
+        'projects_count': projects_count,
+        'problems_count':problems_count,
+        'userprofile':userprofile,
+        'problems':problems,
+        'projects':projects,
+    
+    }
+    return render(request, 'ecousers/user_ideas.html', context)
+
 def forgotPassword(request):
     if request.method == 'POST':
         email = request.POST['email']
