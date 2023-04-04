@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block title %} <title>User Profile | Problems</title> {% endblock title %}
-{% block content %}
+{% block profile %}
 {% include 'components/alerts.html' %}
     <section class="main-content">
         <aside class="profile">
@@ -86,14 +86,14 @@
                     </div>
                 </div>
             </section>
-
+            {% for problem in problems %}
             <div class="card">
                 <div class="card-wrapper">
                     <div class="card-header">
 
                         <div class="eco-cat card-header--item">
                             <p class="text-fix">
-                                Eco Category: <a class="category-tag" href="">Community</a>
+                                Eco Category: <a class="category-tag" href="">{{problem.category}}</a>
                             </p>
                         </div>
                         <div class="goal card-header--item">
@@ -104,13 +104,7 @@
                     <hr />
                     <div class="card-details">
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
-                            minus delectus aliquam optio sunt ab. Explicabo magnam natus,
-                            eius officia et perferendis, aperiam molestiae libero numquam
-                            maxime ab dolorum hic. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Molestias odit obcaecati libero ex rerum
-                            voluptates quibusdam at veritatis iure. Dolorem maxime fugiat
-                            omnis dolorum excepturi quaerat itaque facilis tempora natus!
+                            {{problem.description}}
                         </p>
                     </div>
                     <div class="card-footer">
@@ -134,10 +128,11 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
             
         </main>
         <aside class="sidebar form"></aside>
     </section>
 
-    <script src="/assets/js/nav.js" defer></script>
-    {% endblock content %}
+    <script src="{% static 'js/nav.js' %}" defer></script>
+    {% endblock profile %}

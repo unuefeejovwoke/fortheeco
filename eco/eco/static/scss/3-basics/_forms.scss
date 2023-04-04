@@ -9,7 +9,7 @@
   font-size: $bodyFontSize;
 }
 
-textarea{
+textarea {
   display: block;
   border: 1px solid rgba(0, 0, 0, 1);
   border-radius: 8px;
@@ -22,7 +22,7 @@ textarea{
 }
 .form-background {
   height: 100vh;
-  background-image: url('/assets/images/form/Rectangle\(2\).png');
+  background-image: url("/assets/images/form/Rectangle\(2\).png");
 }
 
 .form-content {
@@ -38,142 +38,151 @@ textarea{
   .carousel-img {
     display: flex;
     justify-content: center;
-
   }
 }
 
-.form{
+.form {
   border-radius: 0.8rem;
-  background: #F9FFFB;
-  border-top: 4px solid #32D272;
-  box-shadow: -19px 376px 150px rgba(0, 0, 0, 0.01), -10px 211px 127px rgba(0, 0, 0, 0.03), -5px 94px 94px rgba(0, 0, 0, 0.04), -1px 23px 52px rgba(0, 0, 0, 0.05), 0px 0px 0px rgba(0, 0, 0, 0.05);
+  background: #f9fffb;
+  border-top: 4px solid #32d272;
+  box-shadow: -19px 376px 150px rgba(0, 0, 0, 0.01),
+    -10px 211px 127px rgba(0, 0, 0, 0.03), -5px 94px 94px rgba(0, 0, 0, 0.04),
+    -1px 23px 52px rgba(0, 0, 0, 0.05), 0px 0px 0px rgba(0, 0, 0, 0.05);
   // height: 60vh;
 }
-.form-wrapper{
+.form-wrapper {
   width: 100% !important;
   height: 100%;
   padding: 1.5rem;
-  background-image: url('/assets/images/form/bg-01\ 1.png');
+  background-image: url("/assets/images/form/bg-01\ 1.png");
   background-repeat: no-repeat;
-  p{
+  p {
     margin: 0.5rem;
   }
 }
-.form-switch{
+.form-switch {
   width: 100% !important;
   display: flex;
   justify-content: center;
-  button{
+  button {
     padding: 0.5rem;
     width: 35%;
-    background-color:  #E8FBEE;
+    background-color: #e8fbee;
     border-radius: 0.5rem;
     margin: 0.5rem 0;
     font-family: $fontFamily;
   }
-  .active{
-    background-color: #32D272;
+  .active {
+    background-color: #32d272;
     transition: background-color 1.5s;
   }
 }
-.options{
+.options {
   display: flex;
   width: 100% !important;
   justify-content: space-around;
   margin: 1rem 0;
-  img{
+  img {
     padding: 0.5rem;
     border-radius: 0.3rem;
     background-color: white;
-    border: 1px solid #32D272;
+    border: 1px solid #32d272;
   }
 }
 
-.form-variables{
+.form-variables {
   width: 100% !important;
   transition: display 2s;
-  form{
+  position: relative;
+  form {
     margin: 1.5rem 0;
   }
-  a{
-    color: #32D272;
+  a {
+    color: #32d272;
     font-size: 0.9rem;
   }
+  // #password{
+  //   position: relative;
+  // }
+  .pswd-reveal--toggle {
+    position: absolute;
+    right: 2%;
+    transform: translateY(-40px);
+    cursor: pointer;
+    padding: 2px;
+  }
 }
-.var-input{
+.var-input {
   display: flex;
   width: 100% !important;
-  background-color: #E8FBEE;
+  background-color: #e8fbee;
   border-radius: 0.8rem;
   padding: 0.6rem;
   margin-bottom: 0.5rem;
-  input{
+  input {
     border: 0;
-    background:transparent;
+    background: transparent;
     width: 70%;
     margin-left: 0.5rem;
   }
-  input:focus{
+  input:focus {
     outline: none;
   }
 }
-.submit-btn{
+.submit-btn {
   width: 30%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   text-align: center;
-  button{
+  button {
     padding: 0.5rem;
     margin: 1rem 0;
     border-radius: 0.5rem;
-    background-color: #32D272;
-    color: white ;
+    background-color: #32d272;
+    color: white;
     font-family: $fontFamily;
   }
 }
-.d-none{
+.d-none {
   display: none;
 }
-.d-show{
+.d-show {
   display: block;
-
 }
 
-@media only screen and (max-width: 770px){
-  .carousel-img{
+@media only screen and (max-width: 770px) {
+  .carousel-img {
     display: none !important;
   }
-  .form{
+  .form {
     width: 80% !important;
   }
 }
-@media only screen and (max-width: 480px){
-  .submit-btn button{
+@media only screen and (max-width: 480px) {
+  .submit-btn button {
     font-size: 0.8rem;
   }
 
-  .form-variables a{
+  .form-variables a {
     font-size: 0.6rem;
   }
-  .form-variables p{
+  .form-variables p {
     font-size: 0.6rem;
   }
 
-  .form-background{
+  .form-background {
     background-image: none !important;
   }
-  .form-content{
+  .form-content {
     margin: 1rem 0;
   }
 
-  .form{
+  .form {
     width: 100% !important;
     border-radius: 0;
-    background: #F9FFFB;
+    background: #f9fffb;
     border-top: 0;
     box-shadow: none;
-
   }
-
 }

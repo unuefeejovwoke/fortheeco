@@ -34,10 +34,14 @@
             {% block content %}
             {% endblock content %}
         </div>
+
+        {% block profile %}
+        {% endblock profile %}
   
 
 
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/nav.js' %}" defer></script>
     <script src="{% static 'js/form.js' %}"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
      <!--OWL CAROUSEL 2 CDN-->

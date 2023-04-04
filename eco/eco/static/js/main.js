@@ -1,29 +1,36 @@
-//registeration page
-const loginBtn = document.querySelector("#loginBtn");
-const signUpBtn = document.querySelector("#signUpBtn");
-const loginPage = document.querySelector("#Login");
-const signUpPage = document.querySelector("#Register");
+//script for nav dropdown
+const navToggle = document.querySelector(".menu");
+const navLinks = document.querySelector(".right-side__nav");
 
-setTimeout(() => {
-  loginBtn.addEventListener("click", () => {
-    loginPage.classList.add("d-show");
-    signUpPage.classList.remove("d-show");
-    signUpPage.classList.add("d-none");
-    loginBtn.classList.add("active");
-    signUpBtn.classList.remove("active");
-  });
-}, 2000);
+const navbarReveal = function () {
+  navLinks.classList.toggle("hidden");
+};
 
-setTimeout(() => {
-  signUpBtn.addEventListener("click", () => {
-    signUpPage.classList.remove("d-none");
-    signUpPage.classList.add("d-show");
-    loginPage.classList.remove("d-show");
-    loginPage.classList.add("d-none");
-    loginBtn.classList.remove("active");
-    signUpBtn.classList.add("active");
-  });
-}, 2000);
+navToggle.addEventListener("click", navbarReveal);
+
+//nav-dropdown
+const dropBtn = document.querySelector(".dropbtn");
+const dropContent = document.querySelector(".dropdown-content");
+
+dropBtn.addEventListener("click", (e) => {
+  if (e.target === dropBtn) {
+    dropContent.classList.remove("d-none");
+    dropContent.classList.add("d-show");
+  } else {
+    dropContent.add("d-none");
+  }
+
+  console.log("clicked dropdown");
+});
+// window.onclick = (function (e) {
+//   if (
+//     !e.target.matches(".dropbtn") &&
+//     dropContent.classList.contains("d-show")
+//   ) {
+//     dropContent.classList.remove("d-show");
+//     dropContent.classList.add("d-none");
+//   }
+// })
 
 ("use strict");
 
@@ -50,9 +57,9 @@ const openModal = function () {
 };
 
 const openProblemModal = function () {
-    problemModal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-  };
+  problemModal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
 
 const closeModal = function () {
   projectModal.classList.add("hidden");
@@ -67,3 +74,15 @@ for (let i = 0; i < btnCloseModal.length; i++) {
   btnCloseModal[i].addEventListener("click", closeModal);
 }
 overlay.addEventListener("click", closeModal);
+
+
+//alert message
+const alertMessage = document.querySelectorAll('.status-message');
+
+const messageDisappear = function(){
+  for (let i = 0; i<alertMessage.length; i++){
+    alertMessage[i].style.display = "none";
+  }
+}
+
+setTimeout(messageDisappear, 3500);

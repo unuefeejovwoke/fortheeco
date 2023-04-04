@@ -4,8 +4,15 @@
   .heading {
     margin-bottom: 1rem;
 
-    form {
+    .search{
+      display: flex;
       width: 30%;
+      input:focus {
+        outline: none;
+      }
+    }
+    form {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -18,6 +25,7 @@
       input {
         border: 0;
         background: transparent;
+        
       }
 
       button {
@@ -34,6 +42,18 @@
   }
 }
 
+
+.add-problems-btn{
+  display: flex;
+  justify-content: flex-end;
+  width: 89%;
+  margin-top: 1rem;
+
+  a{
+    color: #1DB559;
+  }
+}
+
 .card-wrapper {
   padding: 1rem;
 }
@@ -43,6 +63,7 @@
   width: 90%;
   border-radius: 0.7rem;
   box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.08);
+  margin-top: 0.5rem;
 }
 
 .card-header {
@@ -145,6 +166,17 @@
   }
 }
 
+#details-heading{
+  justify-content: flex-start;
+  a{
+    margin: 0 2rem;
+  }
+  h5{
+    margin: 0 5rem;
+    
+  }
+}
+
 .comment-text{
   margin: 1rem 0;
 }
@@ -219,7 +251,7 @@
     width: 100%;
   }
 
-  .heading form {
+  .search {
     width: 40% !important;
   }
 
@@ -236,8 +268,14 @@
   .heading {
     flex-direction: column;
 
-    form {
-      width: 70% !important;
+    .search {
+      width: 60% !important;
+    }
+  }
+  #details-heading{
+    flex-direction: row;
+    h5{
+      margin: 0 1rem;
     }
   }
 
@@ -255,6 +293,11 @@
 
 .text-fix2 {
   font-size: 0.5rem;
+}
+
+.filter-btn{
+  display: block !important;
+  margin-left: 0.3rem !important;
 }
 }
 

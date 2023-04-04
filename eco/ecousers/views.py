@@ -9,6 +9,7 @@ from .models import Account, UserProfile
 from .forms import RegistrationForm, UserForm, UserProfileForm
 
 from ecoplatform.models import Problem, Project
+from django.urls import reverse
 #email verify
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -132,9 +133,19 @@ def dashboard(request):
         'projects_count': projects_count,
         'problems_count':problems_count,
         'userprofile':userprofile,
+        'problems':problems,
+        'projects':projects,
     
     }
     return render(request, 'ecousers/dashboard.html', context)
+
+@login_required(login_url = 'ecousers:login')
+def delete_problem(request, slug):
+    problem = get_object_or_404(Problem, slug=slug)
+    if request.method == 'POST':
+        problem.delete()
+        return redirect(reverse('ecousers:dashboard'))
+    return render(request, 'problem_delete.html', {'problem': problem})
 
 def forgotPassword(request):
     if request.method == 'POST':
