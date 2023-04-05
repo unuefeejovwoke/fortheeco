@@ -102,27 +102,41 @@ def add_comment(request, pk):
 @login_required(login_url="ecousers:login")
 def like_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
+    user = request.user
 
-    if comment.likes.filter(id=request.user.id).exists():
-        comment.likes.remove(request.user)
+    if user in comment.dislikes.all():
+        comment.dislikes.remove(user)
+        comment.likes.add(user)
+    elif user in comment.likes.all():
+        comment.likes.remove(user)
     else:
-        comment.likes.add(request.user)
+        comment.likes.add(user)
 
-    return redirect('ecoplatform:problem-detail', pk=comment.problem.pk)
+    likes_count = comment.likes.count()
+    dislikes_count = comment.dislikes.count()
+    response_data = {'likes_count': likes_count, 'dislikes_count': dislikes_count}
+
+    return JsonResponse(response_data)
 
 
 @login_required(login_url="ecousers:login")
 def dislike_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
+    user = request.user
 
-    if comment.dislikes.filter(id=request.user.id).exists():
-        comment.dislikes.remove(request.user)
+    if user in comment.likes.all():
+        comment.likes.remove(user)
+        comment.dislikes.add(user)
+    elif user in comment.dislikes.all():
+        comment.dislikes.remove(user)
     else:
-        comment.dislikes.add(request.user)
+        comment.dislikes.add(user)
 
-    return redirect('ecoplatform:problem-detail', pk=comment.problem.pk)
+    likes_count = comment.likes.count()
+    dislikes_count = comment.dislikes.count()
+    response_data = {'likes_count': likes_count, 'dislikes_count': dislikes_count}
 
-
+    return JsonResponse(response_data)
 
 @require_POST
 def upvote(request):

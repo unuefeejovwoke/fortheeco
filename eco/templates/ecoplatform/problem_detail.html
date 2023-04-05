@@ -97,15 +97,21 @@
                         <div class="comment-footer">
                             <button class="up-count" onclick="likeComment({{ comment.id }})">
                                 <img src="{% static 'images/card/upvote.png' %}" alt="">
-                                <span>{{ comment.likes.count }}</span>
+                                <span id="likes-count-{{ comment.id }}">{{ comment.likes.count }}</span>
                             </button>
                             <button class="down-count" onclick="dislikeComment({{ comment.id }})">
                                 <img src="{% static 'images/card/downvote.png' %}" alt="">
-                                <span>{{ comment.dislikes.count }}</span>
+                                <span id="dislikes-count-{{ comment.id }}">{{ comment.dislikes.count }}</span>
                             </button>
                         </div>
+                        
+                        
+                        
                     </div>
                 </div>
+
+                {% empty %}
+                <p style="font-size:16px; font-weight:500; margin:10px;">Be the first to comment or drop an idea....</p>
             {% endfor %}
             
         </div>
@@ -119,23 +125,35 @@
             url: "{% url 'ecoplatform:like-comment' 0 %}".replace('0', commentId),
             type: "POST",
             headers: { "X-CSRFToken": "{{ csrf_token }}" },
-            success: function(data) {
-                location.reload();
+            success: function(response) {
+                var likesCount = response.likes_count;
+                var dislikesCount = response.dislikes_count;
+                var likesSpan = $("#likes-count-" + commentId);
+                var dislikesSpan = $("#dislikes-count-" + commentId);
+                likesSpan.text(likesCount);
+                dislikesSpan.text(dislikesCount);
             }
         });
     }
-
+    
     function dislikeComment(commentId) {
         $.ajax({
             url: "{% url 'ecoplatform:dislike-comment' 0 %}".replace('0', commentId),
             type: "POST",
             headers: { "X-CSRFToken": "{{ csrf_token }}" },
-            success: function(data) {
-                location.reload();
+            success: function(response) {
+                var likesCount = response.likes_count;
+                var dislikesCount = response.dislikes_count;
+                var likesSpan = $("#likes-count-" + commentId);
+                var dislikesSpan = $("#dislikes-count-" + commentId);
+                likesSpan.text(likesCount);
+                dislikesSpan.text(dislikesCount);
             }
         });
     }
+    
 </script>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
