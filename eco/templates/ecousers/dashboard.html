@@ -3,6 +3,67 @@
 {% block title %} <title>User Profile | Problems</title> {% endblock title %}
 {% block profile %}
 {% include 'components/alerts.html' %}
+<style>
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        pointer-events: none;
+    }
+    
+    #overlay.open {
+        opacity: 1;
+        pointer-events: all;
+    }
+    
+    .project_modal--wrapper {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        max-width: 90%;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        pointer-events: none;
+    }
+    
+    .project_modal--wrapper h5 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 0;
+    }
+    
+    .project_modal--wrapper p {
+        font-size: 16px;
+        margin: 20px 0;
+    }
+    
+    .project_modal--wrapper.open {
+        opacity: 1;
+        pointer-events: all;
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+</style>
     <section class="main-content">
         <aside class="profile">
             <div class="profile--card">
@@ -117,13 +178,28 @@
                             />
                             <span>Edit problem</span>
                         </a>
-                        <form action="{% url 'ecousers:problem_delete' problem.slug %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="danger-btn">
+                        <section class="project-page" id="root">
+                            <article class="project_modal--wrapper">
+                                <a href="{% url 'ecousers:dashboard' %}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
+                                
+                                <p style="font-size:15px;">Are you sure you want to delete this problem?</p>
+                                <form id="delete-form" action="{% url 'ecousers:problem_delete' problem.slug %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn" style="background-color:red;">Delete</button>
+                                    
+                                </form>
+                            </article>
+                            
+                            <button id="delete-btn" class="danger-btn">
                                 <img src="{% static 'icons/trash.svg' %}" alt="delete problem" class="trash-icon icon" />
                                 <span>Delete problem</span>
                             </button>
-                        </form>
+                            
+                            <div id="overlay"></div>
+                        </section>
+                        
+
+                        
                     </div>
                 </div>
             </div>
@@ -136,4 +212,21 @@
     </section>
 
     <script src="{% static 'js/nav.js' %}" defer></script>
+    <script>
+        const deleteBtn = document.querySelector('#delete-btn');
+        const modalWrapper = document.querySelector('.project_modal--wrapper');
+        const overlay = document.querySelector('#overlay');
+        
+        deleteBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            modalWrapper.classList.add('open');
+            overlay.classList.add('open');
+        });
+        
+        overlay.addEventListener('click', () => {
+            modalWrapper.classList.remove('open');
+            overlay.classList.remove('open');
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     {% endblock profile %}
