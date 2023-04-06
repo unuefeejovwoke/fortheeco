@@ -18,33 +18,16 @@ import json
 # Create your views here.
 
 def index(request):
-    if request.method == 'POST':
-        problem_id = request.POST.get('problem_id')
-        vote_type = request.POST.get('vote_type')
-        problem = Problem.objects.get(id=problem_id)
-        user = request.user
-
-        if vote_type == 'upvote':
-            if user in problem.upvotes.all():
-                problem.upvotes.remove(user)
-            else:
-                problem.upvotes.add(user)
-                if user in problem.downvotes.all():
-                    problem.downvotes.remove(user)
-        elif vote_type == 'downvote':
-            if user in problem.downvotes.all():
-                problem.downvotes.remove(user)
-            else:
-                problem.downvotes.add(user)
-            if user in problem.upvotes.all():
-                problem.upvotes.remove(user)
-
+    
     # Create a context dictionary with the data you want to pass to the template
     category_list = Category.objects.all()
+    
+    comments = Comment.objects.all()
     total_problems = Problem.objects.all().count()
     total_projects = Project.objects.all().count()
     projects = Project.objects.all()
     problems = Problem.objects.all()
+    
     context = {
         'category_list': category_list,
         'total_problems': total_problems,
@@ -52,14 +35,8 @@ def index(request):
         'projects': projects,
         'problems': problems,
         "home": "home",
+        'comments':comments,
     }
-
-    # Update the context dictionary with the upvotes and downvotes count for each problem
-    for problem in problems:
-        context.update({
-            f'upvotes_{problem.id}': problem.upvotes.all().count(),
-            f'downvotes_{problem.id}': problem.downvotes.all().count()
-        })
 
     # Render the template with the context dictionary and return the rendered HTML
     return render(request, 'ecoplatform/index.html', context)

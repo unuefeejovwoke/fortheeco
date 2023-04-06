@@ -31,72 +31,64 @@
                 {% for problem in problems %}
                     <main class="problem--card">
                         <div class="problem--card-container">
-                            <article class="project--info">
-                                <img src="{% static 'images/avatar.png' %}" alt="preview avatar image" class="profile-avatar">
-                                <div class="flash--card">
-                                    <img src="{% static 'images/zero-hunger-flier.png' %}" alt="flier for zero hunger">
-                                    <div class="zero--details">
-                                        <p>Goal 2</p>
-                                        <p class="semi-bold">No Hunger</p>
-                                    </div>
-                                </div>
-                                <div class="location--display">
-                                    <address>
-                                        <img src="{% static 'icons/location-icon.png' %}" alt="icon for location"
-                                            class="location-icon">
-                                        <p class="location">{{ problem.location }}</p>
-                                    </address>
-                                    <p class="category-tag">{{ problem.category }}</p>
-                                </div>
-                            </article>
+                        <article class="project--info">
+                            <img src="{% static 'images/avatar.png' %}" alt="preview avatar image" class="profile-avatar">
+                            <div class="flash--card">
+                            <img src="{% static 'images/zero-hunger-flier.png' %}" alt="flier for zero hunger">
+                            <div class="zero--details">
+                                <p>Goal 2</p>
+                                <p class="semi-bold">No Hunger</p>
+                            </div>
+                            </div>
+                            <div class="location--display">
+                            <address>
+                                <img src="{% static 'icons/location-icon.png' %}" alt="icon for location" class="location-icon">
+                                <p class="location">{{ problem.location }}</p>
+                            </address>
+                            <p class="category-tag">{{ problem.category }}</p>
+                            </div>
+                        </article>
 
-                            <hr>
-                            <article class="project--description">
-                                <p>{{ problem.description }}</p>
-                                <div class="img--container">
-                                    <img src="{{ problem.problem_photo_main.url }}" class="item1 img-item" alt="">
-                                    {% if problem.problem_photo_1 %}
-                                        <div class="img-group">
-                                            <img src="{{ problem.problem_photo_1.url }}" class="item2 img-item" alt="">
-                                            {% if problem.problem_photo_2 %}
-                                                <img src="{{ problem.problem_photo_2.url }}" class="item3 img-item" alt="">
-                                            {% endif %}
-                                            {% if problem.problem_photo_3 %}
-                                                <img src="{{ problem.problem_photo_3.url }}" class="item4 img-item" alt="">
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
+                        <hr>
+                        <article class="project--description">
+                            <p>{{ problem.description }}</p>
+                            <div class="img--container">
+                            <img src="{{ problem.problem_photo_main.url }}" class="item1 img-item" alt="">
+                            {% if problem.problem_photo_1 %}
+                                <div class="img-group">
+                                <img src="{{ problem.problem_photo_1.url }}" class="item2 img-item" alt="">
+                                {% if problem.problem_photo_2 %}
+                                    <img src="{{ problem.problem_photo_2.url }}" class="item3 img-item" alt="">
+                                {% endif %}
+                                {% if problem.problem_photo_3 %}
+                                    <img src="{{ problem.problem_photo_3.url }}" class="item4 img-item" alt="">
+                                {% endif %}
                                 </div>
-                            </article>
+                            {% endif %}
+                            </div>
+                        </article>
                         </div>
                         <div class="cta-buttons">
-                            <form method="POST" action="{% url 'ecoplatform:home' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="problem_id" value="{{ problem.id }}">
-                                <button type="submit" name="vote_type" value="upvote">
-                                    {% if request.user in problem.upvotes.all %}
-                                        <img src="{% static 'images/card/upvote.png' %}" alt="">
-                                    {% else %}
-                                        <img src="{% static 'images/card/upvote.png' %}" alt="">
-                                    {% endif %}
-                                    <span class="vote-count">{{ problem.upvotes.all.count }}</span>
+                            <button class="up-count" hx-get="{% url 'ecoplatform:upvotes' problem.id %}">
+                                <img src="{% static 'images/card/upvote.png' %}" alt="">
+                                <span hx-get="{% url 'ecoplatform:upvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.upvotes.count }}</span>
+                            </button>
+                            <button class="down-count" hx-get="{% url 'ecoplatform:downvotes' problem.id %}">
+                                <img src="{% static 'images/card/downvote.png' %}" alt="">
+                                <span hx-get="{% url 'ecoplatform:downvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.downvotes.count }}</span>
+                            </button>
+                            <a href="{% url 'ecoplatform:add_comment_to_problem' problem.pk %}">
+                                <button class="idea-count">
+                                    <img src="{% static 'images/card/idea.png' %}" alt="">
+                                    <span>Idea</span>
                                 </button>
-                                
-                                <button type="submit" name="vote_type" value="downvote">
-                                    {% if request.user in problem.downvotes.all %}
-                                        <img src="{% static 'images/card/downvote.png' %}" alt="">
-                                    {% else %}
-                                        <img src="{% static 'images/card/downvote.png' %}" alt="">
-                                    {% endif %}
-                                    <span class="vote-count">{{ problem.downvotes.all.count }}</span>
-                                </button>
-                                
-                            </form>
-                            <a href="idea.html"><button><img src="{% static 'images/card/idea.png' %}" alt=""></button></a>
+                            </a>
                         </div>
+                          
+                        
+                        
                     </main>
                 {% endfor %}
-
 
             </div>
         </section>
@@ -385,37 +377,8 @@
 
 <div class="copyright">&copy; 2023 Eco Africa. All rights reserved</div>
 </footer>
-<script>
-    $(document).ready(function() {
-      // Attach click event to like/dislike buttons
-      $('.like-button, .dislike-button').click(function(event) {
-        event.preventDefault();
-        var problem_id = $(this).data('problem-id');
-        var vote_type = $(this).data('vote-type');
-    
-        // Send AJAX request
-        $.ajax({
-          type: 'POST',
-          url: '{% url "ecoplatform:home" %}',
-          data: {
-            'problem_id': problem_id,
-            'vote_type': vote_type,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-          },
-          dataType: 'json',
-          success: function(response) {
-            // Update like/dislike count
-            $('.like-count-' + problem_id).text(response.upvotes_count);
-            $('.dislike-count-' + problem_id).text(response.downvotes_count);
-          },
-          error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-          }
-        });
-      });
-    });
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% endblock content %}
 
 
