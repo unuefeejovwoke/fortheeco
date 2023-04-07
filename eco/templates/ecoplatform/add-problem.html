@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco webisite</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!--Remix Icon CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/scss/main.css">
+
+
+</head>
+
+<body>
+    <section class="project-page" id="root">
+        <article class="project_modal--wrapper">
+            <a href="index.html"><img src="assets/images/project-modal/close-btn.png" alt="" class="close-btn"></a>
+            <h5>Add an ECO Problem</h5>
+
+            <form action="index.html" method="get">
+                <input type="text" class="input-field location-field" name="location" placeholder="Add Location">
+                <p>City, State</p>
+
+                <div class="project-category">
+                    <label for="category">Choose category</label>
+                    <select name="category" id="category" class="input-field">
+                        <option value="environment">Environment</option>
+                        <option value="community">Community</option>
+                        <option value="organization">Organization</option>
+                    </select>
+                </div>
+
+                <div class="projects-flier">
+                    <div class="data" id="environment">
+                        <input type="radio" name="environ" id="environ-water" class="input-hidden">
+                        <label for="environ-water">
+                            <img src="assets/images/project-modal/environ-water.png" alt="">
+                        </label>
+
+                        <input type="radio" name="environ" id="environ-energy" class="input-hidden">
+                        <label for="environ-energy">
+                            <img src="assets/images/project-modal/environ-energy.png" alt="">
+                        </label>
+
+                        <input type="radio" name="environ" id="environ-climate" class="input-hidden">
+                        <label for="environ-climate">
+                            <img src="assets/images/project-modal/environ-climate.png" alt="">
+                        </label>
+
+                        <input type="radio" name="environ" id="environ-marine" class="input-hidden">
+                        <label for="environ-marine">
+                            <img src="assets/images/project-modal/environ-marine.png" alt="">
+                        </label>
+
+                        <input type="radio" name="environ" id="environ-land" class="input-hidden">
+                        <label for="environ-land">
+                            <img src="assets/images/project-modal/environ-land.png" alt="">
+                        </label>
+                    </div>
+
+                    <div class="data" id="community">
+                        <input type="radio" name="community" id="community-poverty" class="input-hidden">
+                        <label for="community-poverty">
+                            <img src="assets/images/project-modal/community-poverty.png" alt="">
+                        </label>
+
+                        <input type="radio" name="community" id="community-hunger" class="input-hidden">
+                        <label for="community-hunger">
+                            <img src="assets/images/project-modal/community-hunger.png" alt="">
+                        </label>
+
+                        <input type="radio" name="community" id="community-health" class="input-hidden">
+                        <label for="community-health">
+                            <img src="assets/images/project-modal/community-health.png" alt="">
+                        </label>
+
+                        <input type="radio" name="community" id="community-education" class="input-hidden">
+                        <label for="community-education">
+                            <img src="assets/images/project-modal/community-education.png" alt="">
+                        </label>
+
+                        <input type="radio" name="community" id="community-sustainance" class="input-hidden">
+                        <label for="community-sustainance">
+                            <img src="assets/images/project-modal/community-sustainance.png" alt="">
+                        </label>
+
+                        <input type="radio" name="community" id="community-peace" class="input-hidden">
+                        <label for="community-peace">
+                            <img src="assets/images/project-modal/community-peace.png" alt="">
+                        </label>
+                    </div>
+
+                    <div class="data" id="organization">
+                        <input type="radio" name="organization" id="org-gender" class="input-hidden">
+                        <label for="org-gender">
+                            <img src="assets/images/project-modal/org-gender.png" alt="">
+                        </label>
+
+                        <input type="radio" name="organization" id="org-economy" class="input-hidden">
+                        <label for="org-economy">
+                            <img src="assets/images/project-modal/org-economy.png" alt="">
+                        </label>
+
+                        <input type="radio" name="organization" id="org-industry" class="input-hidden">
+                        <label for="org-industry">
+                            <img src="assets/images/project-modal/org-industry.png" alt="">
+                        </label>
+
+                        <input type="radio" name="organization" id="org-inequalities-reduced" class="input-hidden">
+                        <label for="org-inequalities-reduced">
+                            <img src="assets/images/project-modal/org-inequalities-reduced.png" alt="">
+                        </label>
+
+                        <input type="radio" name="organization" id="org-consumption" class="input-hidden">
+                        <label for="org-consumption">
+                            <img src="assets/images/project-modal/org-consumption.png" alt="">
+                        </label>
+
+                        <input type="radio" name="organization" id="org-partnership" class="input-hidden">
+                        <label for="org-partnership">
+                            <img src="assets/images/project-modal/org-partnership.png" alt="">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-field">
+                    <label for="problem-description">Problem Description</label>
+                    <textarea name="" id="" placeholder="Description of problem"></textarea>
+                </div>
+
+                <span><button type="submit" class="btn--without-bg">EcHo Problem</button></span>
+            </form>
+        </article>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#category').on('change', function () {
+                $(".data").hide();
+                $("#" + $(this).val()).fadeIn(700);
+            }).change();
+        });
+    </script>
+</body>
+
+</html>
