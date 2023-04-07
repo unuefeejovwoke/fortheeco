@@ -25,7 +25,11 @@ urlpatterns = [
     path('upvotes/<str:pk>/', views.upvotes, name="upvotes"),
     path('downvotes/<str:pk>/', views.downvotes, name="downvotes"),
     path('upvotes_count/<str:pk>/', views.upvotes_count, name="upvotes_count"),
-    path('downvotes_count/<str:pk>/', views.downvotes_count, name="downvotes_count")
+    path('downvotes_count/<str:pk>/', views.downvotes_count, name="downvotes_count"),
+
+
+    # add problem
+    path('add-problem', views.add_problem, name="add-problem")
 
    
 ]

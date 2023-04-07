@@ -247,3 +247,7 @@ def downvotes_count(request, pk):
 
 
     # forms
+
+
+def add_problem(request):
+    return render(request, "ecoplatform/add-problem.html")
