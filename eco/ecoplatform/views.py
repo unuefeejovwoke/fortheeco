@@ -18,21 +18,31 @@ import json
 # Create your views here.
 
 def index(request):
+    
+    # Create a context dictionary with the data you want to pass to the template
     category_list = Category.objects.all()
+    
+    comments = Comment.objects.all()
     total_problems = Problem.objects.all().count()
     total_projects = Project.objects.all().count()
     projects = Project.objects.all()
     problems = Problem.objects.all()
-
+    
     context = {
-        'category_list':category_list,
+        'category_list': category_list,
         'total_problems': total_problems,
         'total_projects': total_projects,
-        "home":"home"
+        'projects': projects,
+        'problems': problems,
+        "home": "home",
+        'comments':comments,
     }
-    return render(request,'ecoplatform/index.html',context)
 
-#list view for the problems
+    # Render the template with the context dictionary and return the rendered HTML
+    return render(request, 'ecoplatform/index.html', context)
+
+
+
 
 #list view for the problems
 # list view for the problems
