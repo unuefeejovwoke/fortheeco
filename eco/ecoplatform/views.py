@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 import json
+from .utils import create_problem
 
 
 # Create your views here.
@@ -271,4 +272,40 @@ def downvotes_count(request, pk):
 
 
 def add_problem(request):
+    if request.method == "POST":
+        user = request.user
+        location = request.POST.get("location")
+        description = request.POST.get("description")
+        first = request.FILES.get("first_image")
+        second = request.FILES.get("second_image")
+        third = request.FILES.get("third_image")
+        last = request.FILES.get("last_image")
+        category = request.POST.get("category")
+        category = Category.objects.get(name = category.capitalize())
+        # print(category)
+        # print(first)
+        #  environment
+        title = request.POST.get("title")
+        title = title.replace("_", " ")
+        # print(title)
+        create_problem(user, category, location, title, description, first, second, third, last)
+        messages.success(request, "Problem add successfully")
+        return redirect("ecoplatform:problem_list")
+
+
+        
+
+
+    else:
+        pass
     return render(request, "ecoplatform/add-problem.html")
+
+
+
+def form_display(request):
+    name=request.GET.get("category")
+    print(name)
+    context = {
+        "name" : name
+    }
+    return render(request, "ecoplatform/display.html", context)
