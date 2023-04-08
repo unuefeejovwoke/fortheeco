@@ -4,10 +4,46 @@
 
 {% block content %}
 
+<style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+      
+      .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+      }
+      
+      .hidden {
+        display: none;
+      }
+      
+</style>
+
 <section class="hero-section">
     <article class="text-description">
         <h1>Make your vote counts by developing with the PALs network</h1>
-        <a href="#"><button class="btn">Join the PALs network</button></a>
+        <div class="btn-group">
+            {% if user.is_authenticated %}
+            <button class="btn--without-bg secondary-cta" id="add-problem">Add Problem / Project</button>
+            {% else %}
+            <a href="{% url 'ecousers:register' %}"><button class="btn">Join The Pals Network</button></a>
+            {% endif %}
+        </div>
+        
 
         <div class="metric--container">
             <div class="metric">
@@ -99,24 +135,11 @@
 <section class="modal project-modal hidden">
     <div class="inner--modal">
         <article class="project_modal--wrapper">
-            <img src="assets/images/project-modal/close-btn.png" alt="" class="close-btn">
-            <h5>Add an ECO Project</h5>
+            <img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn">
+            <h5>Add an ECO Problem / Project</h5>
             <div class="btn-group">
-                <a href="add-project.html"><button class="btn">Post with Profile</button></a>
-                <a href="add-project-anon.html"><button class="btn--without-bg">Post anonymously</button></a>
-            </div>
-        </article>
-    </div>
-</section>
-
-<section class="modal problem-modal hidden">
-    <div class="inner--modal">
-        <article class="project_modal--wrapper">
-            <img src="assets/images/project-modal/close-btn.png" alt="" class="close-btn">
-            <h5>Add an ECO Problem</h5>
-            <div class="btn-group">
-                <a href="add-problem.html"><button class="btn">Post with Profile</button></a>
-                <a href="add-problem-anon.html"><button class="btn--without-bg">Post anonymously</button></a>
+                <a href="{% url 'ecoplatform:add-problem' %}"><button class="btn">Post Problem</button></a>
+                <a href="{% url 'ecoplatform:add-project' %}"><button class="btn--without-bg">Post Project</button></a>
             </div>
         </article>
     </div>
@@ -374,6 +397,34 @@
 
 <div class="copyright">&copy; 2023 Eco Africa. All rights reserved</div>
 </footer>
+
+<script>
+    const addProblemButton = document.getElementById('add-problem');
+    const overlay = document.querySelector('.overlay');
+    const modal = document.querySelector('.modal');
+    const closeBtn = document.querySelector('.close-btn');
+    
+    addProblemButton.addEventListener('click', function() {
+      overlay.classList.remove('hidden');
+      modal.classList.remove('hidden');
+    });
+    
+    overlay.addEventListener('click', function() {
+      overlay.classList.add('hidden');
+      modal.classList.add('hidden');
+    });
+    
+    closeBtn.addEventListener('click', function() {
+      overlay.classList.add('hidden');
+      modal.classList.add('hidden');
+    });
+    
+    modal.addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+    
+
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% endblock content %}

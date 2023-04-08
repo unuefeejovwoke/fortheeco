@@ -42,6 +42,7 @@ class Problem(models.Model):
     class Meta:
         verbose_name = 'Problem'
         verbose_name_plural = 'Problems'
+        ordering = ['-created']
         
         
 class Project(models.Model):

@@ -270,7 +270,7 @@ def downvotes_count(request, pk):
 
     # forms
 
-
+@login_required(login_url="ecousers:login")
 def add_problem(request):
     if request.method == "POST":
         user = request.user
@@ -296,7 +296,7 @@ def add_problem(request):
 
 
 
-
+@login_required(login_url="ecousers:login")
 def add_project(request):
     if request.method == "POST":
         location = request.POST.get("location")

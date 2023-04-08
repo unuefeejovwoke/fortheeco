@@ -217,6 +217,7 @@ def delete_comment(request, comment_id):
         return redirect('ecousers:user_ideas')
     return render(request, 'comment_delete.html', {'comment': comment})
 
+@login_required(login_url = 'ecousers:login')
 def edit_comment(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     if request.method == 'POST':
