@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+
     'django.contrib.staticfiles',
     'django.contrib.sites' ,
     'allauth',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'sass_processor',
     #local applications
+    
     'ecoplatform',
     'ecousers',
     

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block title %}<title>Eco Problems </title> {% endblock title %}
 {% block contents %}
 
@@ -72,17 +73,19 @@
         </div>
         <div class="card-footer">
             <button class="up-count" hx-get="{% url 'ecoplatform:upvotes' problem.id %}">
-                <img src="{% static 'images/card/upvote.png' %}" alt="">
+                <img style="width:28px; height:28px;" src="{% static 'images/card/upvote.png' %}" alt="">
                 <span hx-get="{% url 'ecoplatform:upvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.upvotes.count }}</span>
             </button>
             <button class="down-count" hx-get="{% url 'ecoplatform:downvotes' problem.id %}">
-                <img src="{% static 'images/card/downvote.png' %}" alt="">
+                <img style="width:28px; height:28px;" src="{% static 'images/card/downvote.png' %}" alt="">
                 <span hx-get="{% url 'ecoplatform:downvotes_count' problem.id %}" hx-trigger="every 1s">{{ problem.downvotes.count }}</span>
             </button>
-            <button class="idea-count">
-                <img src="assets/images/card/idea.png" alt="">
-                <span>456</span>
-            </button>
+            <a href="{% url 'ecoplatform:add_comment_to_problem' problem.pk %}">
+                <button class="idea-count">
+                    <img style="width:28px; height:28px;" src="{% static 'images/card/idea.png' %}" alt="">
+                    <span>{{ comments|dict_get:problem.id|default:0 }}<span>
+                </button>
+            </a>
         
             <a href="{% url 'ecoplatform:problem-detail' problem.id %}" class="card-link">
                 View problem

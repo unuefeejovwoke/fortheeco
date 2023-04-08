@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 
@@ -80,7 +81,7 @@
                             <a href="{% url 'ecoplatform:add_comment_to_problem' problem.pk %}">
                                 <button class="idea-count">
                                     <img src="{% static 'images/card/idea.png' %}" alt="">
-                                    <span>Idea</span>
+                                    <span>{{ comments|dict_get:problem.id|default:0 }}<span>
                                 </button>
                             </a>
                         </div>
