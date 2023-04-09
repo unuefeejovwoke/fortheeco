@@ -1,0 +1,134 @@
+{% extends 'ecoplatform/problem-base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .env{
+        padding:3px;
+    }
+
+    .cos{
+        padding:3px;
+    }
+
+    .cas{
+        padding:3px;
+    }
+</style>
+<section class="project-page" id="root">
+    <article class="project_modal--wrapper">
+        <a href="{{ request.META.HTTP_REFERER }}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
+        <h5>Edit Problem</h5>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" class="input-field location-field" name="location" value="{{ problem.location }}" required placeholder="Add Location">
+            <p>City, State</p>
+
+            <div class="project-category">
+                <label for="category">Choose category</label>
+                <select name="category" hx-get="/display" hx-target="#models" id="category" hx-indicator=".htmx-indicator" class="input-field">
+                    <option value="environment" {% if problem.category == 'environment' %} selected {% endif %}>Environment</option>
+                    <option value="community" {% if problem.category == 'community' %} selected {% endif %}>Community</option>
+                    <option value="organization" {% if problem.category == 'organization' %} selected {% endif %}>Organization</option>
+                </select>
+            </div>
+
+            <div class="projects-flier" id="models">
+                <div class="" id="environment">
+                    <select name="title" id="ens" class="input-field">
+                        <option value="clean_water_sanitation" {% if problem.title == 'clean_water_sanitation' %} selected {% endif %}>Clean water sanitation</option>
+                        <option value="clean_water_sanitation" {% if problem.title == 'clean_water_sanitation' %} selected {% endif %}>Clean water sanitation</option>
+                        <option value="Affordable_and_clean_energy" {% if problem.title == 'Affordable_and_clean_energy' %} selected {% endif %}>Affordable and clean energy</option>
+                        <option value="Climate_action" {% if problem.title == 'Climate_action' %} selected {% endif %}>Climate action</option>
+                        <option value="Life_below_water" {% if problem.title == 'Life_below_water' %} selected {% endif %}>Life below water</option>
+                        <option value="Life_and_land" {% if problem.title == 'Life_and_land' %} selected {% endif %}>Life on land </option>
+                    </select>
+
+                    <div class="env" id="clean_water_sanitation">
+                        <img src="{% static 'images/project-modal/environ-water.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Affordable_and_clean_energy">
+                        <img src="{% static 'images/project-modal/environ-energy.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Climate_action">
+                        <img src="{% static 'images/project-modal/environ-climate.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Life_below_water">
+                        <img src="{% static 'images/project-modal/environ-marine.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Life_and_land">
+                        <img src="{% static 'images/project-modal/environ-land.png' %}" alt="">
+                   
+
+
+            
+
+                    </div>
+
+
+
+                    <!-- <div class="projects-flier">
+                         
+        
+        
+                            <div class="data" id="organization">
+                                <input type="radio" name="gender" id="org-gender" class="input-hidden">
+                                <label for="org-gender">
+                                    <img src="{% static 'images/project-modal/org-gender.png' %}" alt="">
+                                </label>
+        
+                                <input type="radio" name="economy" id="org-economy" class="input-hidden">
+                                <label for="org-economy">
+                                    <img src="{% static 'images/project-modal/org-economy.png' %}" alt="">
+                                </label>
+        
+                                <input type="radio" name="industry" id="org-industry" class="input-hidden">
+                                <label for="org-industry">
+                                    <img src="{% static 'images/project-modal/org-industry.png' %}" alt="">
+                                </label>
+        
+                                <input type="radio" name="reduced" id="org-inequalities-reduced" class="input-hidden">
+                                <label for="org-inequalities-reduced">
+                                    <img src="{% static 'images/project-modal/org-inequalities-reduced.png' %}" alt="">
+                                </label>
+        
+                                <input type="radio" name="consumption" id="org-consumption" class="input-hidden">
+                                <label for="org-consumption">
+                                    <img src="{% static 'images/project-modal/org-consumption.png' %}" alt="">
+                                </label>
+        
+                                <input type="radio" name="partnership" id="org-partnership" class="input-hidden">
+                                <label for="org-partnership">
+                                    <img src="{% static 'images/project-modal/org-partnership.png' %}" alt="">
+                                </label>
+                            </div>
+                        </div>  -->
+        
+                    <div class="text-field">
+                        <small for="">Image [required]</small>
+                        <input type="file" class="input-field" name="first_image" required accept="image/*">
+                        <small for="">Image [optional]</small>
+                        <input type="file" class="input-field" name="second_image" required accept="image/*">
+                        <small for="">Image [optional]</small>
+                        <input type="file" class="input-field" name="third_image" accept="image/*">
+                        <small for="">Image [optional]</small>
+                        <input type="file" class="input-field" name="last_image" accept="image/*">
+        
+                    </div>
+        
+                    <div class="text-field">
+                        <label for="problem-description">Problem Description</label>
+                        <textarea name="description" id="" placeholder="Description of problem"></textarea>
+                    </div>
+        
+                    <span><button type="submit" class="btn--without-bg">Edit Problem</button></span>
+                </form>
+            </article>
+        </section>
+        
+        {% endblock content %}

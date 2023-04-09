@@ -31,7 +31,10 @@ urlpatterns = [
     # add problem
     path('add-problem/', views.add_problem, name="add-problem"),
     path('add-project/', views.add_project, name="add-project"),
-    path('display/', views.form_display, name="display")
-
+    path('display/', views.form_display, name="display"),
+    
+    #edit problem
+    path('problem/edit/<int:problem_id>/', views.edit_problem, name='edit_problem'),
+    path('edit-project/<int:project_id>/', views.edit_project, name='edit_project'),
    
 ]

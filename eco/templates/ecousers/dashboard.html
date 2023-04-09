@@ -169,7 +169,9 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="details-page.html" class="secondary-btn">
+                        <a href="{% url 'ecoplatform:edit_problem' problem_id=problem.id %}" class="secondary-btn">
+
+
                             <img
                                 src="{% static 'icons/edit.svg' %}"
                                 class="icon"

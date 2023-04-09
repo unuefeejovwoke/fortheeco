@@ -294,6 +294,34 @@ def add_problem(request):
 
     return render(request, "ecoplatform/add-problem.html")
 
+@login_required(login_url="ecousers:login")
+def edit_problem(request, problem_id):
+    problem = get_object_or_404(Problem, pk=problem_id, user=request.user)
+
+    if request.method == "POST":
+        location = request.POST.get("location")
+        description = request.POST.get("description")
+        first = request.FILES.get("first_image")
+        second = request.FILES.get("second_image")
+        third = request.FILES.get("third_image")
+        last = request.FILES.get("last_image")
+        category = request.POST.get("category")
+        category = Category.objects.get(name = category.capitalize())
+        title = request.POST.get("title")
+        title = title.replace("_", " ")
+        problem.location = location
+        problem.description = description
+        problem.first_image = first or problem.first_image
+        problem.second_image = second or problem.second_image
+        problem.third_image = third or problem.third_image
+        problem.last_image = last or problem.last_image
+        problem.category = category
+        problem.title = title
+        problem.save()
+        messages.success(request, "Problem updated successfully")
+        return redirect("ecousers:dashboard")
+
+    return render(request, "ecoplatform/edit-problem.html", {"problem": problem})
 
 
 @login_required(login_url="ecousers:login")
@@ -329,6 +357,54 @@ def add_project(request):
 
 
     return render(request, "ecoplatform/add-project.html")
+
+@login_required(login_url="ecousers:login")
+def edit_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == "POST":
+        location = request.POST.get("location")
+        category = request.POST.get("category")
+        title = request.POST.get("title")
+        sponsor = request.POST.get("sponsor-name")
+        description = request.POST.get("description")
+        linkedin = request.POST.get("linkedin")
+        twitter = request.POST.get("twitter")
+        instagram = request.POST.get("instagram")
+        Gmail = request.POST.get("Gmail")
+        category = Category.objects.get(name=category.capitalize())
+        title = request.POST.get("title")
+        title = title.replace("_", " ")
+
+        # Update the project object with the new values
+        project.location = location
+        project.category = category
+        project.title = title
+        project.sponsor = sponsor
+        project.description = description
+        project.linkedin = linkedin
+        project.twitter = twitter
+        project.instagram = instagram
+        project.Gmail = Gmail
+
+        project.save()
+        messages.success(request, "Project updated successfully")
+        return redirect("ecoplatform:project_detail", project_id=project.id)
+
+    # Pre-populate the form with the project information
+    form_data = {
+        "location": project.location,
+        "category": project.category.name,
+        "title": project.title,
+        "sponsor-name": project.sponsor,
+        "description": project.description,
+        "linkedin": project.linkedin,
+        "twitter": project.twitter,
+        "instagram": project.instagram,
+        "Gmail": project.Gmail,
+    }
+
+    return render(request, "ecoplatform/edit-project.html", {"form_data": form_data})
+
 
 def form_display(request):
     name=request.GET.get("category")
