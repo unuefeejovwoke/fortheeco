@@ -292,15 +292,43 @@ def add_problem(request):
         messages.success(request, "Problem add successfully")
         return redirect("ecoplatform:problem_list")
 
-
-        
-
-
-    else:
-        pass
     return render(request, "ecoplatform/add-problem.html")
 
 
+
+
+def add_project(request):
+    if request.method == "POST":
+        location = request.POST.get("location")
+        category = request.POST.get("category")
+        title = request.POST.get("title")
+        sponsor = request.POST.get("sponsor-name")
+        description = request.POST.get("description")
+        linkedin = request.POST.get("linkedin")
+        twitter = request.POST.get("twitter")
+        instagram = request.POST.get("instagram")
+        Gmail = request.POST.get("Gmail")
+        category = Category.objects.get(name = category.capitalize())
+        title = request.POST.get("title")
+        title = title.replace("_", " ")
+
+        Project.objects.create(
+            user = request.user,
+            title = title,
+            location = location,
+            description = description,
+            sponsor = sponsor,
+            category = category,
+            linkedin = linkedin,
+            twitter = twitter,
+            instagram = instagram,
+            Gmail = Gmail
+        )
+        messages.success(request, "project added successfully")
+        return redirect("ecoplatform:project_list")
+
+
+    return render(request, "ecoplatform/add-project.html")
 
 def form_display(request):
     name=request.GET.get("category")

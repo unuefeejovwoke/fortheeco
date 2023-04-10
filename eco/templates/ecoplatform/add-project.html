@@ -1,0 +1,118 @@
+{% extends 'ecoplatform/problem-base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .env{
+        padding:3px;
+    }
+
+    .cos{
+        padding:3px;
+    }
+
+    .cas{
+        padding:3px;
+    }
+</style>
+<section class="project-page" id="root">
+    <article class="project_modal--wrapper">
+        <a href="index.html"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
+        <h5>Add an ECO Problem</h5>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" class="input-field location-field" name="location" required placeholder="Add Location">
+            <p>City, State</p>
+
+            <div class="project-category">
+                <label for="category">Choose category</label>
+                <select name="category" hx-get="/display" hx-target="#models" id="category" hx-indicator=".htmx-indicator" class="input-field">
+                    <option value="environment">Environment</option>
+                    <option value="community">Community</option>
+                    <option value="organization">Organization</option>
+                </select>
+            </div>
+
+            <div class="projects-flier" id="models">
+                <div class="" id="environment">
+                    <select name="title" id="ens" class="input-field">
+                       
+                        <option value="clean_water_sanitation">Clean water sanitation</option>
+                        <option value="Affordable_and_clean_energy">Affordable and clean energy</option>
+                        <option value="Climate_action">Climate action</option>
+                        <option value="Life_below_water">Life below water</option>
+                        <option value="Life_and_land">Life on land </option>
+                    </select>
+
+                    <div class="env" id="clean_water_sanitation">
+                        <img src="{% static 'images/project-modal/environ-water.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Affordable_and_clean_energy">
+                        <img src="{% static 'images/project-modal/environ-energy.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Climate_action">
+                        <img src="{% static 'images/project-modal/environ-climate.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Life_below_water">
+                        <img src="{% static 'images/project-modal/environ-marine.png' %}" alt="">
+                    </div>
+
+                    <div class="env" id="Life_and_land">
+                        <img src="{% static 'images/project-modal/environ-land.png' %}" alt="">
+                    </div>
+                   
+                </div>
+
+
+            
+
+            </div>
+
+
+            <div class="text-field">
+                <label for="sponsor-name">Name of Sponsor</label>
+                <input type="text" name="sponsor-name" id="" required class="input-field"
+                    placeholder="Who's sponsoring project?">
+            </div>
+
+            <div class="text-field">
+                <label for="descriptioln">Project Description</label>
+                <textarea name="description" required id="" placeholder="Description of project"></textarea>
+            </div>
+
+            <article class="add-social-links">
+                <h5>Add Social media links</h5>
+                <div class="text-field">
+                    <label for="linkedin">LinkedIn</label>
+                    <input type="url" name="linkedin" id="" required  class="input-field">
+                </div>
+
+                <div class="text-field">
+                    <label for="twitter">Twitter</label>
+                    <input type="url" name="twitter" id="" required class="input-field">
+                </div>
+
+                <div class="text-field">
+                    <label for="instagram">Instagram</label>
+                    <input type="url" name="instagram" id="" required class="input-field">
+                </div>
+
+                <div class="text-field">
+                    <label for="gmail">Gmail</label>
+                    <input type="email" name="gmail" required id="" class="input-field">
+                </div>
+
+            </article>
+
+          
+
+            <span><button type="submit" class="btn--without-bg">EcHo Problem</button></span>
+        </form>
+    </article>
+</section>
+
+{% endblock content %}

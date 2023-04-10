@@ -30,6 +30,7 @@ urlpatterns = [
 
     # add problem
     path('add-problem/', views.add_problem, name="add-problem"),
+    path('add-project/', views.add_project, name="add-project"),
     path('display/', views.form_display, name="display")
 
    
