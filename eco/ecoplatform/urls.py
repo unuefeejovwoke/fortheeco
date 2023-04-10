@@ -29,7 +29,8 @@ urlpatterns = [
 
 
     # add problem
-    path('add-problem', views.add_problem, name="add-problem")
+    path('add-problem/', views.add_problem, name="add-problem"),
+    path('display/', views.form_display, name="display")
 
    
 ]

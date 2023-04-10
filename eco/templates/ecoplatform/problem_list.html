@@ -65,8 +65,16 @@
             <div class="detail-img">
                 <img style="border-radius: 8px;" src="{{problem.problem_photo_main.url}}" alt="" class="first">
                 <div class="second">
+                    {% if problem.problem_photo_1 == "" %}
+
+                    {% else %}
                     <img style="border-radius: 8px; margin-bottom:5px;" src="{{problem.problem_photo_1.url}}" alt="">
+                    {% endif %}
+                    {% if problem.problem_photo_2 == "" %}
+                    
+                    {% else %}
                     <img style="border-radius: 8px;" src="{{problem.problem_photo_2.url}}" alt="">
+                    {% endif %}
                 </div>
             </div>
         </div>
