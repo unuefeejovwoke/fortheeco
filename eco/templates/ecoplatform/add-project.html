@@ -18,7 +18,7 @@
 <section class="project-page" id="root">
     <article class="project_modal--wrapper">
         <a href="{{ request.META.HTTP_REFERER }}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
-        <h5>Add an ECO Problem</h5>
+        <h5>ECO Project</h5>
 
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -110,7 +110,7 @@
 
           
 
-            <span><button type="submit" class="btn--without-bg">EcHo Problem</button></span>
+            <span><button type="submit" class="btn--without-bg">Post Eco Problem</button></span>
         </form>
     </article>
 </section>

@@ -34,7 +34,8 @@ urlpatterns = [
     path('display/', views.form_display, name="display"),
     
     #edit problem
-    path('problem/edit/<int:problem_id>/', views.edit_problem, name='edit_problem'),
-    path('edit-project/<int:project_id>/', views.edit_project, name='edit_project'),
+    path('edit-problem/<int:problem_id>/', views.edit_problem, name='edit_problem'),
+    path('project/edit/<int:project_id>/', views.edit_project, name='edit_project'),
+
    
 ]

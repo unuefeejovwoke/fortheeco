@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Project, Problem, Category, Comment
 from django.contrib import messages, auth
+from django.urls import reverse
 
 from .forms import CommentForm
 from django.db.models import Q
@@ -269,7 +270,6 @@ def downvotes_count(request, pk):
 
 
     # forms
-
 @login_required(login_url="ecousers:login")
 def add_problem(request):
     if request.method == "POST":
@@ -281,47 +281,37 @@ def add_problem(request):
         third = request.FILES.get("third_image")
         last = request.FILES.get("last_image")
         category = request.POST.get("category")
-        category = Category.objects.get(name = category.capitalize())
-        # print(category)
-        # print(first)
-        #  environment
+        category = Category.objects.get(name=category.capitalize())
         title = request.POST.get("title")
         title = title.replace("_", " ")
-        # print(title)
         create_problem(user, category, location, title, description, first, second, third, last)
-        messages.success(request, "Problem add successfully")
+        messages.success(request, "Problem added successfully")
         return redirect("ecoplatform:problem_list")
 
     return render(request, "ecoplatform/add-problem.html")
 
+
 @login_required(login_url="ecousers:login")
 def edit_problem(request, problem_id):
-    problem = get_object_or_404(Problem, pk=problem_id, user=request.user)
-
+    problem = get_object_or_404(Problem, id=problem_id, user=request.user)
     if request.method == "POST":
-        location = request.POST.get("location")
-        description = request.POST.get("description")
-        first = request.FILES.get("first_image")
-        second = request.FILES.get("second_image")
-        third = request.FILES.get("third_image")
-        last = request.FILES.get("last_image")
-        category = request.POST.get("category")
-        category = Category.objects.get(name = category.capitalize())
-        title = request.POST.get("title")
-        title = title.replace("_", " ")
-        problem.location = location
-        problem.description = description
-        problem.first_image = first or problem.first_image
-        problem.second_image = second or problem.second_image
-        problem.third_image = third or problem.third_image
-        problem.last_image = last or problem.last_image
-        problem.category = category
-        problem.title = title
+        problem.location = request.POST.get("location")
+        problem.description = request.POST.get("description")
+        problem.category = Category.objects.get(name=request.POST.get("category").capitalize())
+        problem.title = request.POST.get("title").replace("_", " ")
+        problem.first_image = request.FILES.get("first_image") or problem.first_image
+        problem.second_image = request.FILES.get("second_image") or problem.second_image
+        problem.third_image = request.FILES.get("third_image") or problem.third_image
+        problem.last_image = request.FILES.get("last_image") or problem.last_image
         problem.save()
         messages.success(request, "Problem updated successfully")
         return redirect("ecousers:dashboard")
 
-    return render(request, "ecoplatform/edit-problem.html", {"problem": problem})
+    context = {
+        "problem": problem,
+        "action_url": reverse("ecoplatform:edit_problem", args=[problem_id]),
+    }
+    return render(request, "ecoplatform/add-problem.html", context=context)
 
 
 @login_required(login_url="ecousers:login")
@@ -360,50 +350,24 @@ def add_project(request):
 
 @login_required(login_url="ecousers:login")
 def edit_project(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
     if request.method == "POST":
-        location = request.POST.get("location")
+        project.location = request.POST.get("location")
         category = request.POST.get("category")
-        title = request.POST.get("title")
-        sponsor = request.POST.get("sponsor-name")
-        description = request.POST.get("description")
-        linkedin = request.POST.get("linkedin")
-        twitter = request.POST.get("twitter")
-        instagram = request.POST.get("instagram")
-        Gmail = request.POST.get("Gmail")
-        category = Category.objects.get(name=category.capitalize())
-        title = request.POST.get("title")
-        title = title.replace("_", " ")
-
-        # Update the project object with the new values
-        project.location = location
-        project.category = category
-        project.title = title
-        project.sponsor = sponsor
-        project.description = description
-        project.linkedin = linkedin
-        project.twitter = twitter
-        project.instagram = instagram
-        project.Gmail = Gmail
-
+        project.category = Category.objects.get(name = category.capitalize())
+        project.title = request.POST.get("title").replace("_", " ")
+        project.sponsor = request.POST.get("sponsor-name")
+        project.description = request.POST.get("description")
+        project.linkedin = request.POST.get("linkedin")
+        project.twitter = request.POST.get("twitter")
+        project.instagram = request.POST.get("instagram")
+        project.Gmail = request.POST.get("Gmail")
         project.save()
-        messages.success(request, "Project updated successfully")
-        return redirect("ecoplatform:project_detail", project_id=project.id)
+        messages.success(request, "project updated successfully")
+        return redirect("ecousers:user_project")
 
-    # Pre-populate the form with the project information
-    form_data = {
-        "location": project.location,
-        "category": project.category.name,
-        "title": project.title,
-        "sponsor-name": project.sponsor,
-        "description": project.description,
-        "linkedin": project.linkedin,
-        "twitter": project.twitter,
-        "instagram": project.instagram,
-        "Gmail": project.Gmail,
-    }
-
-    return render(request, "ecoplatform/edit-project.html", {"form_data": form_data})
+    context = {"project": project}
+    return render(request, "ecoplatform/add-project.html", context=context)
 
 
 def form_display(request):

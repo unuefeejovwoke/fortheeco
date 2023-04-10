@@ -81,6 +81,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
+        ordering = ['-created']
         
 class Category(models.Model):
     ## for project and problem category

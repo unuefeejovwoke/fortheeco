@@ -158,8 +158,8 @@
                             </p>
                         </div>
                         <div class="goal card-header--item">
-                            <p class="text-fix">UNSdg Goal:</p>
-                            <img class="icon" src="{% static 'images/card/eco.png' %}" alt="" />
+                            <p class="text-fix">UNSdg Goal:  </p>
+                            <span>{{problem.title}}</span>
                         </div>
                     </div>
                     <hr />
@@ -169,15 +169,8 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="{% url 'ecoplatform:edit_problem' problem_id=problem.id %}" class="secondary-btn">
-
-
-                            <img
-                                src="{% static 'icons/edit.svg' %}"
-                                class="icon"
-                                alt=""
-                                aria-hidden="true"
-                            />
+                        <a href="/edit-problem/{{ problem.id }}" class="secondary-btn">
+                            <img src="{% static 'icons/edit.svg' %}" class="icon" alt="" aria-hidden="true" />
                             <span>Edit problem</span>
                         </a>
                         <section class="project-page" id="root">

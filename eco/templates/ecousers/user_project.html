@@ -159,7 +159,7 @@
                         </div>
                         <div class="goal card-header--item">
                             <p class="text-fix">UNSdg Goal:</p>
-                            <img class="icon" src="{% static 'images/card/eco.png' %}" alt="" />
+                            <span>{{project.title}}</span>
                         </div>
                     </div>
                     <hr />
@@ -170,14 +170,10 @@
                     </div>
                     <div class="card-footer">
                         <a href="{% url 'ecoplatform:edit_project' project_id=project.id %}" class="secondary-btn">
-                            <img
-                                src="{% static 'icons/edit.svg' %}"
-                                class="icon"
-                                alt=""
-                                aria-hidden="true"
-                            />
+                            <img src="{% static 'icons/edit.svg' %}" class="icon" alt="" aria-hidden="true" />
                             <span>Edit project</span>
                         </a>
+                        
                         <section class="project-page" id="root">
                             <article class="project_modal--wrapper">
                                 <a href="{% url 'ecousers:user_project' %}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
