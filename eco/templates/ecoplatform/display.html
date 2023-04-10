@@ -1,0 +1,146 @@
+{% load static %}
+<!-- {{ name }} -->
+{% if name == "environment" %}
+
+<div class="" id="environment">
+    <select name="title" id="ens" class="input-field">
+          <option value="clean_water_sanitation">Clean water sanitation</option>
+        <option value="clean_water_sanitation">Clean water sanitation</option>
+        <option value="Affordable_and_clean_energy">Affordable and clean energy</option>
+        <option value="Climate_action">Climate action</option>
+        <option value="Life_below_water">Life below water</option>
+        <option value="Life_and_land">Life on land </option>
+    </select>
+
+    <div class="env" id="clean_water_sanitation">
+        <img src="{% static 'images/project-modal/environ-water.png' %}" alt="">
+    </div>
+
+    <div class="env" id="Affordable_and_clean_energy">
+        <img src="{% static 'images/project-modal/environ-energy.png' %}" alt="">
+    </div>
+
+    <div class="env" id="Climate_action">
+        <img src="{% static 'images/project-modal/environ-climate.png' %}" alt="">
+    </div>
+
+    <div class="env" id="Life_below_water">
+        <img src="{% static 'images/project-modal/environ-marine.png' %}" alt="">
+    </div>
+
+    <div class="env" id="Life_and_land">
+        <img src="{% static 'images/project-modal/environ-land.png' %}" alt="">
+    </div>
+   
+</div>
+
+
+{% elif name == "community" %}
+
+<div class="" id="community">
+    <select name="title" id="co" class="input-field">
+        <option value="No_poverty">No poverty</option>
+        <option value="Zero_hunger">Zero hunger</option>
+        <option value="Good_health_and_well_being">Good health and well-being</option>
+        <option value="Quality_education">Quality education</option>
+        <option value="Sustainable_cities_and_community">Sustainable cities and community</option>
+        <option value="Peace_justices_and_Strong_institutions">Peace,justices and  Strong institutions</option>
+    </select>
+
+    <div class="cos" id="No_poverty">
+        <img src="{% static 'images/project-modal/community-poverty.png' %}" alt="">
+    </div>
+
+    <div class="cos" id="Zero_hunger">
+        <img src="{% static 'images/project-modal/community-hunger.png' %}" alt="">
+    </div>
+
+    <div class="cos" id="Good_health_and_well_being">
+        <img src="{% static 'images/project-modal/community-health.png' %}" alt="">
+    </div>
+
+    <div class="cos" id="Quality_education">
+      <img src="{% static 'images/project-modal/community-education.png' %}" alt="">
+    </div>
+
+    <div class="cos" id="Sustainable_cities_and_community">
+        <img src="{% static 'images/project-modal/community-sustainance.png' %}" alt="">
+      </div>
+
+      <div class="cos" id="Peace_justices_and_Strong_institutions">
+        <img src="{% static 'images/project-modal/community-peace.png' %}" alt="">
+      </div>
+</div>
+
+
+
+
+{% else %}
+
+<div class="" id="organization">
+    <select name="title" id="ca" class="input-field">
+        <option value="Gender_equality">Gender equality</option>
+        <option value="Decent_work_and_economic_growth">Decent work and economic growth</option>
+        <option value="Industry_innovation_and_infrastructure">Industry, innovation and infrastructure</option>
+        <option value="Reduce_inequalities">Reduce inequalities</option>
+        <option value="Responsible_consumption_and_production">Responsible consumption and production</option>
+        <option value="Partnership_for_the_goals">Partnership for the goals</option>
+    </select>
+
+    <div class="cas" id="Gender_equality">
+        <img src="{% static 'images/project-modal/org-gender.png' %}" alt="">
+      </div>
+
+      <div class="cas" id="Decent_work_and_economic_growth">
+        <img src="{% static 'images/project-modal/org-economy.png' %}" alt="">
+      </div>
+
+      <div class="cas" id="Industry_innovation_and_infrastructure">
+        <img src="{% static 'images/project-modal/org-industry.png' %}" alt="">
+      </div>
+
+      <div class="cas" id="Reduce_inequalities">
+        <img src="{% static 'images/project-modal/org-inequalities-reduced.png' %}" alt="">
+      </div>
+
+      <div class="cas" id="Responsible_consumption_and_production">
+        <img src="{% static 'images/project-modal/org-consumption.png' %}" alt="">
+      </div>
+
+      <div class="cas" id="Partnership_for_the_goals">
+        <img src="{% static 'images/project-modal/org-partnership.png' %}" alt="">
+      </div>
+</div>
+
+
+
+
+{% endif %}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ens').on('change', function () {
+            $(".env").hide();
+            $("#" + $(this).val()).fadeIn(700);
+        }).change();
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#co').on('change', function () {
+            $(".cos").hide();
+            $("#" + $(this).val()).fadeIn(700);
+        }).change();
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ca').on('change', function () {
+            $(".cas").hide();
+            $("#" + $(this).val()).fadeIn(700);
+        }).change();
+    });
+</script>
