@@ -17,7 +17,7 @@
 </style>
 <section class="project-page" id="root">
     <article class="project_modal--wrapper">
-        <a href="index.html"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
+        <a href="{{ request.META.HTTP_REFERER }}"><img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn"></a>
         <h5>Add an ECO Problem</h5>
 
         <form method="POST" enctype="multipart/form-data">
