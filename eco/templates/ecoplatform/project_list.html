@@ -48,7 +48,7 @@
         </aside>
         
         <div class="add-problems-btn">
-            <a>Add Project</a>
+            <a href="{% url 'ecoplatform:add-project' %}">Add Project</a>
         </div>
         {% if projects %}
         {% for project in projects %}
