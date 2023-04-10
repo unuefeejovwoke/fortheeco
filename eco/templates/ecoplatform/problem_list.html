@@ -45,6 +45,9 @@
 
     </div>
 </aside>
+<div class="add-problems-btn">
+    <a href="{% url 'ecoplatform:add-problem' %}">Add Problem</a>
+</div>
 {% if problems %}
 {% for problem in problems %}
  <div class="card">

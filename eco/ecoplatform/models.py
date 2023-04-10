@@ -57,10 +57,11 @@ class Project(models.Model):
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
     created = models.DateTimeField(default = timezone.now)
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
-    project_photo_main = models.ImageField(upload_to=get_image_path)
-    project_photo_1 = models.ImageField(upload_to=get_image_path,blank=True)
-    project_photo_2 = models.ImageField(upload_to=get_image_path,blank=True)
-    project_photo_3 = models.ImageField(upload_to=get_image_path,blank=True)
+    sponsor = models.CharField(max_length=100, blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    Gmail = models.URLField(blank=True, null=True)
    
   
     slug = models.SlugField(blank=True,null=True)

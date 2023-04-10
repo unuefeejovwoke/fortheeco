@@ -9,20 +9,16 @@
         <h1>Make your vote counts by developing with the PALs network</h1>
         <a href="#"><button class="btn">Join the PALs network</button></a>
 
-        <div class="btn-group">
-            <button class="btn--without-bg secondary-cta" id="add-problem">Add Problem</button>
-            <button class="btn--without-bg secondary-cta" id="add-project">Add Project</button>
-        </div>
-
         <div class="metric--container">
             <div class="metric">
-                <h5>{{total_problems}}</h5>
-                <a href="{% url 'ecoplatform:problem_list' %}">View Problems</a>
+                <!-- <h5></h5> -->
+                <a style="margin-right: 10px;" href="{% url 'ecoplatform:problem_list' %}">{{total_problems }} Problems</a>
+                <a style="margin-right: 10px;"  href="{% url 'ecoplatform:project_list' %}">{{ total_projects }} Projects</a>
             </div>
-            <div class="metric">
+            <!-- <div class="metric">
                 <h5>{{total_projects}}</h5>
                 <a href="{% url 'ecoplatform:project_list' %}">View Projects</a>
-            </div>
+            </div> -->
         </div>
     </article>
 
