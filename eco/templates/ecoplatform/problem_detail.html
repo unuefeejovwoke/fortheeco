@@ -3,7 +3,7 @@
 {% block title %}<title>Eco Problems </title> {% endblock title %}
 {% block contents %}
 <div class="heading" id="details-heading">
-    <a href="problems.html"><img src="{% static 'images/return.png' %}" alt="back button"></a>
+    <a href="{{ request.META.HTTP_REFERER }}"><img src="{% static 'images/return.png' %}" alt="back button"></a>
     
     <h5>Problems Posted on The ECO</h5>
 </div>         
