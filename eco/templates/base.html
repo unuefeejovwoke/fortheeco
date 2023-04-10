@@ -62,6 +62,17 @@
                     </form>
             
                     <h5>Based on location</h5>
+                    {% if projects %}
+                    <form class="cat-search" action="{% url 'ecoplatform:project_list' %}">
+                        <input type="text" name="location_query" placeholder="Enter search location..">
+                        <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                    </form>
+                    <h5>Based on host</h5>
+                    <form class="cat-search" action="{% url 'ecoplatform:project_list' %}">
+                        <input type="text" name="user_query" placeholder="Search description..">
+                        <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
+                    </form>
+                    {% else %}
                     <form class="cat-search" action="{% url 'ecoplatform:problem_list' %}">
                         <input type="text" name="location_query" placeholder="Enter search location..">
                         <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
@@ -71,6 +82,7 @@
                         <input type="text" name="user_query" placeholder="Search host name..">
                         <button><img src="{% static 'images/category/search.png' %}" alt="search button"></button>
                     </form>
+                {% endif %}
                 </div>
             </aside>
 
