@@ -19,28 +19,34 @@ from .utils import create_problem
 # Create your views here.
 
 def index(request):
-    
     # Create a context dictionary with the data you want to pass to the template
     category_list = Category.objects.all()
-    
-    comments = Comment.objects.all()
-    total_problems = Problem.objects.all().count()
+
+    # Get all the problems from the database
+    problems = Problem.objects.all()
+
+    # Loop through each problem to get its associated comments count
+    comments = {}
+    for problem in problems:
+        comments[problem.id] = problem.comments.count()
+
+    total_problems = problems.count()
     total_projects = Project.objects.all().count()
     projects = Project.objects.all()
-    problems = Problem.objects.all()
-    
+
     context = {
         'category_list': category_list,
         'total_problems': total_problems,
         'total_projects': total_projects,
         'projects': projects,
         'problems': problems,
-        "home": "home",
-        'comments':comments,
+        'home': 'home',
+        'comments': comments,
     }
 
     # Render the template with the context dictionary and return the rendered HTML
     return render(request, 'ecoplatform/index.html', context)
+
 
 
 
@@ -51,7 +57,7 @@ def problemListView(request, category_slug=None):
     category_slug = request.GET.get('category')
     user_query = request.GET.get('user_query')
     location_query = request.GET.get('location_query')
-
+    
     # Filter by category
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
@@ -59,6 +65,10 @@ def problemListView(request, category_slug=None):
     else:
         category = None
         problems = Problem.objects.all()
+
+    comments = {}
+    for problem in problems:
+        comments[problem.id] = problem.comments.count()
 
     # Filter by user query
     if user_query:
@@ -75,9 +85,10 @@ def problemListView(request, category_slug=None):
         'categories': categories,
         'selected_category': category_slug,
         'category': category,
-       
+        'comments':comments,
     }
     return render(request, 'ecoplatform/problem_list.html', context)
+
 
 
 #detail view for the problem
