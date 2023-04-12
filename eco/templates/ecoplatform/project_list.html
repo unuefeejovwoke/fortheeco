@@ -59,13 +59,13 @@
                         <p class="text-fix2">Sponsor: <a href="">{{project.user.full_name}}</a></p>
                     </div>
                     <div class="post-location">
-                        <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="location">Ikeja,Lagos</span>
+                        <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="location">{{project.location}}</span>
                     </div>
                     <div class="eco-cat">
                         <p class="text-fix2">Eco Categories: <a href="">{{project.category}}</a></p>
                     </div>
                     <div class="goal">
-                        <p class="text-fix2">UNSdg Goal: </p><span>{{project.title}}</span>
+                        <p class="text-fix2">UNSdg Goal: </p><span style="font-size:8px">{{project.title}}</span>
                     </div>
                 </div>
     

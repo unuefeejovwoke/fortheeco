@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
-{% block title %} <title>User Profile | Problems</title> {% endblock title %}
-{% block profile %}
+{% block title %} <title>User Profile</title> {% endblock title %}
+{% block content %}
 {% include 'components/alerts.html' %}
 <style>
     #overlay {
@@ -83,7 +83,7 @@
                 </div>
                 <a href="{% url 'ecousers:edit_profile' %}" class="edit-profile">
                     <img
-                        src="/assets/icons/edit.svg"
+                        src="{% static 'icons/edit.svg' %}"
                         class="icon"
                         alt=""
                         aria-hidden="true"
@@ -93,7 +93,7 @@
             </div>
             <button class="ambassador-btn">
                 <img
-                    src="/assets/icons/star.svg"
+                    src="{% static 'icons/star.svg' %}"
                     class="icon"
                     alt=""
                     aria-hidden="true"
@@ -206,7 +206,7 @@
         <aside class="sidebar form"></aside>
     </section>
 
-    <script src="{% static 'js/nav.js' %}" defer></script>
+ 
     <script>
         const deleteBtn = document.querySelector('#delete-btn');
         const modalWrapper = document.querySelector('.project_modal--wrapper');
@@ -224,4 +224,4 @@
         });
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {% endblock profile %}
+    {% endblock content %}

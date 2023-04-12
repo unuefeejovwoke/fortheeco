@@ -23,7 +23,7 @@
 			</div>
 			<a href="{% url 'ecousers:edit_profile' %}" class="edit-profile">
 				<img
-					src="/assets/icons/edit.svg"
+					src="{% static 'icons/edit.svg' %}"
 					class="icon"
 					alt=""
 					aria-hidden="true"
@@ -33,7 +33,7 @@
 		</div>
 		<button class="ambassador-btn">
 			<img
-				src="/assets/icons/star.svg"
+				src="{% static 'icons/star.svg' %}"
 				class="icon"
 				alt=""
 				aria-hidden="true"
@@ -59,7 +59,7 @@
 						alt="profile avatar"
 						aria-hidden="true"
 					/>
-					<span class="user-avatar">
+					<span style="font-size:8px;" class="user-avatar">
 						{{profile_form.profile_picture}}
 						<img
 							class="user-avatar--icon"
