@@ -10,6 +10,6 @@
 ### 🛠 Skills
 Javascript, HTML, CSS, DJANGO
 
- 
+ Project done, moving to hosting
 
 
