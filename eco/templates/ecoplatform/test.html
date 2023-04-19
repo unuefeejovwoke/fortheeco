@@ -70,8 +70,8 @@
                             class="eco-img">
                         </button>
                         <div class="dropdown-content d-none">
-                            <a href="{% url 'ecoplatform:problem_list' %}">ECO Problems</a>
-                            <a href="{% url 'ecoplatform:project_list' %}">ECO Projects</a>
+                            <a href="{% url 'ecoplatform:problem_list' %}">See ECO Problems</a>
+                            <a href="{% url 'ecoplatform:project_list' %}">See ECO Projects</a>
                         </div>
                     </div>
         
@@ -131,8 +131,8 @@
                                     <div class="flash--card">
                                     
                                     <div class="zero--details">
-                                        <p>Goal : <span style="font--size:10px;">{{problem.title}}</span></p>
-                                        
+                                        <p>Goal :</p>
+                                        <span class="semi-bold">{{problem.title}}</span>
                                     </div>
                                     </div>
                                     <div class="location--display">

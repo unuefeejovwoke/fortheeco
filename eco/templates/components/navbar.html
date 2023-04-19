@@ -1,7 +1,6 @@
 {% load static %}
 
-
-<nav>
+<nav id="navbar">
     <div class="logo">
         <img src="{% static 'images/notification/logo 3(1).png' %}" alt="Eco logo">
     </div>
@@ -16,8 +15,8 @@
                     class="eco-img">
                 </button>
                 <div class="dropdown-content d-none">
-                    <a href="{% url 'ecoplatform:problem_list' %}">See ECO Problems</a>
-                    <a href="{% url 'ecoplatform:project_list' %}">See ECO Projects</a>
+                    <a href="{% url 'ecoplatform:problem_list' %}">ECO Problems</a>
+                    <a href="{% url 'ecoplatform:project_list' %}">ECO Projects</a>
                 </div>
             </div>
 
