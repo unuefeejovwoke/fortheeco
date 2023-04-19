@@ -2,15 +2,16 @@
 
 <nav id="navbar">
     <div class="logo">
+        <a href="{% url 'ecoplatform:home' %}">
         <img src="{% static 'images/notification/logo 3(1).png' %}" alt="Eco logo">
+        </a>
     </div>
 
     <div class="right-side__nav hidden">
         <div class="nav-links toggler">
-            <a href="{% url 'ecoplatform:home' %}">Home</a>
 
             <div class="dropdown">
-                <button class="dropbtn">The Eco
+                <button class="dropbtn">ECO
                     <img src="{% static 'images/notification/arrowdown.png' %}" alt="arrow down"
                     class="eco-img">
                 </button>

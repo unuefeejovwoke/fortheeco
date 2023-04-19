@@ -1,40 +1,9 @@
+{% extends 'main.html' %}
 {% load static %}
 {% load custom_filters %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco website</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!--Remix Icon CDN-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'scss/main.css' %}">
-
-    <!--OWL CAROUSEL CSS CDN-->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
-</head>
+{% block content %}
 
 <style>
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-      }
       
       .modal {
         position: fixed;
@@ -51,56 +20,20 @@
       .hidden {
         display: none;
       }
+
+      .echo{
+        margin-bottom: 8px;
+        font-weight: light;
+      }
       
 </style>
-<body>
-    <div class="body-wrapper">
-        <nav id="navbar">
-            <div class="logo">
-                <img src="{% static 'images/notification/logo 3(1).png' %}" alt="Eco logo">
-            </div>
 
-            <div class="right-side__nav hidden">
-                <div class="nav-links toggler">
-                    <a href="{% url 'ecoplatform:home' %}">Home</a>
-        
-                    <div class="dropdown">
-                        <button class="dropbtn">The Eco
-                            <img src="{% static 'images/notification/arrowdown.png' %}" alt="arrow down"
-                            class="eco-img">
-                        </button>
-                        <div class="dropdown-content d-none">
-                            <a href="{% url 'ecoplatform:problem_list' %}">ECO Problems</a>
-                            <a href="{% url 'ecoplatform:project_list' %}">ECO Projects</a>
-                        </div>
-                    </div>
-        
-                    <a href="#">PAls App</a>
-                    <a href="#">Tech4Good</a>
-                    <a href="#">Services</a>
-                </div>
-                {% if user.id is None %}
-                    <div class="connect toggler skew">
-                        <a href="{% url 'ecousers:login' %}" id="login1">Log In</a>
-                        <a href="{% url 'ecousers:register' %}" id="create1">Create Account</a>
-                    </div>
-                {% else %}
-                    <div class="connect toggler skew">
-                        <a href="{% url 'ecousers:logout' %}" id="login1">Log Out</a>
-                        <a href="{% url 'ecousers:dashboard' %}" id="create1">{{user.first_name|capfirst}} || Dashboard</a>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="menu">
-                <button><img src="{% static 'images/notification/more.png' %}" alt=""></button>
-            </div>
-        </nav>
         <section class="hero-section">
             <article class="text-description">
-                <h1>Make your vote counts by developing with the PALs network</h1>
+                <h1>Share, Vote and Innovate problems and projects in your Local ECO for Impact and Governance</h1>
                 <div class="btn-group">
                     {% if user.is_authenticated %}
-                    <button class="btn--without-bg secondary-cta" id="add-problem">Add Problem / Project</button>
+                    <button class="btn--without-bg secondary-cta" id="add-problem">Echo Problem / Project</button>
                     {% else %}
                     <a href="{% url 'ecousers:register' %}"><button class="btn">Join The Pals Network</button></a>
                     {% endif %}
@@ -126,42 +59,43 @@
                         {% for problem in problems %}
                             <main class="problem--card">
                                 <div class="problem--card-container">
-                                <article class="project--info">
-                                    <img src="{% static 'images/avatar.png' %}" alt="preview avatar image" class="profile-avatar">
-                                    <div class="flash--card">
-                                    
-                                    <div class="zero--details">
-                                        <p>Goal : <span style="font--size:10px;">{{problem.title}}</span></p>
-                                        
-                                    </div>
-                                    </div>
-                                    <div class="location--display">
-                                    <address>
-                                        <img src="{% static 'icons/location-icon.png' %}" alt="icon for location" class="location-icon">
-                                        <p class="location">{{ problem.location }}</p>
-                                    </address>
-                                    <p class="category-tag">{{ problem.category }}</p>
-                                    </div>
-                                </article>
+                                    <a href="{% url 'ecoplatform:problem-detail' problem.id %}" >
+                                        <article class="project--info">
+                                            <img style="border-radius:50%; height:30px; width:30px;" src="{{problem.user.userprofile.profile_picture.url}}">
+                                            <div class="flash--card">
+
+                                            <div class="zero--details">
+                                                <p>Goal : <span style="font--size:10px;">{{problem.title}}</span></p>
+                                                
+                                            </div>
+                                            </div>
+                                            <div class="location--display">
+                                            
+                                            <p class="category-tag">{{ problem.category }}</p>
+                                            </div>
+                                        </article>
+                                    </a>
         
-                                <hr>
-                                <article class="project--description">
-                                    <p>{{ problem.description }}</p>
-                                    <div class="img--container">
-                                    <img src="{{ problem.problem_photo_main.url }}" class="item1 img-item" alt="">
-                                    {% if problem.problem_photo_1 %}
-                                        <div class="img-group">
-                                        <img src="{{ problem.problem_photo_1.url }}" class="item2 img-item" alt="">
-                                        {% if problem.problem_photo_2 %}
-                                            <img src="{{ problem.problem_photo_2.url }}" class="item3 img-item" alt="">
-                                        {% endif %}
-                                        {% if problem.problem_photo_3 %}
-                                            <img src="{{ problem.problem_photo_3.url }}" class="item4 img-item" alt="">
-                                        {% endif %}
-                                        </div>
-                                    {% endif %}
-                                    </div>
-                                </article>
+                                    <hr>
+                                    <a href="{% url 'ecoplatform:problem-detail' problem.id %}" class="card-link">
+                                        <article class="project--description">
+                                            <p>{{ problem.description }}</p>
+                                            <div class="img--container">
+                                            <img src="{{ problem.problem_photo_main.url }}" class="item1 img-item" alt="">
+                                            {% if problem.problem_photo_1 %}
+                                                <div class="img-group">
+                                                <img src="{{ problem.problem_photo_1.url }}" class="item2 img-item" alt="">
+                                                {% if problem.problem_photo_2 %}
+                                                    <img src="{{ problem.problem_photo_2.url }}" class="item3 img-item" alt="">
+                                                {% endif %}
+                                                {% if problem.problem_photo_3 %}
+                                                    <img src="{{ problem.problem_photo_3.url }}" class="item4 img-item" alt="">
+                                                {% endif %}
+                                                </div>
+                                            {% endif %}
+                                            </div>
+                                        </article>
+                                    </a>
                                 </div>
                                 <div class="cta-buttons">
                                     <button class="up-count" hx-get="{% url 'ecoplatform:upvotes' problem.id %}">
@@ -192,16 +126,16 @@
             </article>
 
         </section>
-
+        
         <div class="overlay hidden"></div>
         <section class="modal project-modal hidden">
             <div class="inner--modal">
                 <article class="project_modal--wrapper">
                     <img src="{% static 'images/project-modal/close-btn.png' %}" alt="" class="close-btn">
-                    <h5>Add an ECO Problem / Project</h5>
+                    <h3 class="echo">Echo Problem / Project</h3>
                     <div class="btn-group">
-                        <a href="{% url 'ecoplatform:add-problem' %}"><button class="btn">Post Problem</button></a>
-                        <a href="{% url 'ecoplatform:add-project' %}"><button class="btn--without-bg">Post Project</button></a>
+                        <a href="{% url 'ecoplatform:add-problem' %}"><button class="btn">ECHO PROBLEM</button></a>
+                        <a href="{% url 'ecoplatform:add-project' %}"><button class="btn--without-bg">ECHO PROJECT</button></a>
                     </div>
                 </article>
             </div>
@@ -469,22 +403,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
     <script>
         const addProblemButton = document.getElementById('add-problem');
-        const overlay = document.querySelector('.overlay');
         const modal = document.querySelector('.modal');
         const closeBtn = document.querySelector('.close-btn');
         
         addProblemButton.addEventListener('click', function() {
-          overlay.classList.remove('hidden');
+       
           modal.classList.remove('hidden');
         });
         
         overlay.addEventListener('click', function() {
-          overlay.classList.add('hidden');
+         
           modal.classList.add('hidden');
         });
         
         closeBtn.addEventListener('click', function() {
-          overlay.classList.add('hidden');
+         
           modal.classList.add('hidden');
         });
         
@@ -504,6 +437,4 @@
             center: true
         })
     </script>
-</body>
-
-</html>
+{% endblock content%}

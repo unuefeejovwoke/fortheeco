@@ -54,7 +54,7 @@
     <div class="card-wrapper">
         <div class="card-header">
             <div class="post-location">
-                {{problem.user.full_name|capfirst}} |  <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
+                {{problem.user.first_name|capfirst}} |  <img src="{% static 'images/card/Pindrop.png' %}" alt=""><span class="text-fix">{{problem.location}}</span>
             </div>
             <div class="eco-cat">
                 <p class="text-fix">Eco Community: <a href="">{{problem.category}}</a></p>

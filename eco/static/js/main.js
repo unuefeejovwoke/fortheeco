@@ -13,13 +13,13 @@ const dropBtn = document.querySelector(".dropbtn");
 const dropContent = document.querySelector(".dropdown-content");
 
 dropBtn.addEventListener("click", (e) => {
-  if (e.target === dropBtn) {
-    dropContent.classList.remove("d-none");
-    dropContent.classList.add("d-show");
-  } else {
-    dropContent.add("d-none");
-  }
-
+  // if (e.target === dropBtn) {
+  //   dropContent.classList.remove("d-none");
+  //   dropContent.classList.add("d-show");
+  // } else {
+  //   dropContent.add("d-none");
+  // }
+  dropContent.classList.toggle("d-none");
   console.log("clicked dropdown");
 });
 // window.onclick = (function (e) {
@@ -86,3 +86,5 @@ const messageDisappear = function(){
 }
 
 setTimeout(messageDisappear, 3500);
+
+
