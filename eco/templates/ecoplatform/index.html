@@ -4,6 +4,10 @@
 {% block content %}
 
 <style>
+
+        .home__text {
+            color: #302f2f;
+        }
       
       .modal {
         position: fixed;
@@ -30,7 +34,7 @@
 
         <section class="hero-section">
             <article class="text-description">
-                <h1>Share, Vote and Innovate problems and projects in your Local ECO for Impact and Governance</h1>
+                <h1 class="home__text">Share, Vote and Innovate problems and projects in your Local ECO for Impact and Governance</h1>
                 <div class="btn-group">
                     {% if user.is_authenticated %}
                     <button class="btn--without-bg secondary-cta" id="add-problem">Echo Problem / Project</button>
@@ -153,7 +157,7 @@
         </section>
 
 
-        <section class="coming-soon__app">
+        <section class="coming-soon__app" id="pals">
             <article class="img-description">
                 <div class="img-group">
                     <img src="{% static 'images/mockup-screen-1.png' %}" alt="">
@@ -252,7 +256,7 @@
         </section>
         
         
-        <section class="features-section">
+        <section class="features-section" id="ipals">
             <div class="lhs-description">
                 <h4 class="non-bold">We are</h4>
                 <h2 class="primary-color">ECO AFRICA</h2>
