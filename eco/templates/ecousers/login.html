@@ -5,7 +5,11 @@
 {% block title %}<title>Eco website | Login</title>{% endblock title %}
 {% block content %}
 
-{% include 'components/alerts.html' %}
+<style>
+    .alert{
+        text-align: center;
+    }
+</style>
 
   <section class="form-content">
         {% if request.GET.command == 'verification' %}
@@ -39,6 +43,8 @@
             <div class="form-variables d-show" id="Login">
                 <form action="{% url 'ecousers:login' %}" method="POST">
                     {% csrf_token %}
+                   
+
                     <label for="Email">Email Address</label>
                     <div class="var-input">
                         <img src="{% static 'images/form/sms.png' %}" alt="">
@@ -56,45 +62,22 @@
                     <input type="checkbox" name="Remember" id="Remember">
                     <label for="Remember">Remember me</label>
 
+                    {% if messages %}
+                    {% for message in messages %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                    {% endfor %}
+                    {% endif %}
+
                     <div class="submit-btn">
                         <button>Log In</button>
                         <a href="{% url 'ecousers:forgotPassword' %}">Forgot Password</a>
                     </div>
+                   
                 </form>
 
                 <p>Don't have an account yet? <a href="{% url 'ecousers:register' %}">Register for free.</a></p>
             </div>
-            {% comment %} <div class="form-variables d-none" id="Register">
-                <form action="">
-                    <label for="firstName">First Name</label>
-                    <div class="var-input">
-                        <img src="{% static 'images/form/profile.png' %}" alt="">
-                        <input type="text" name="firstName" id="firstName" required>
-                    </div>
-                    <label for="lastName">Last Name</label>
-                    <div class="var-input">
-                        <img src="{% static 'images/form/profile.png' %}" alt="">
-                        <input type="text" name="lastName" id="lastName" required>
-                    </div>
-                    <label for="Email">Email Address</label>
-                    <div class="var-input">
-                        <img src="{% static 'images/form/sms.png' %}" alt="">
-                        <input type="text" name="Email" id="Email" required>
-                    </div>
-
-                    <label for="Password">Password</label> <br>
-                    <div class="var-input">
-                        <img src="{% static 'images/form/security-safe.png' %}" alt="">
-                        <input type="password" name="Password" id="Password" required>
-                    </div>
-
-                    <div class="submit-btn">
-                        <button>Create Account</button>
-                    </div>
-                </form>
-
-                <p>Already have an account? <a href="">Login to your portal.</a></p>
-            </div> {% endcomment %}
+          
         </div>
         
     </div>

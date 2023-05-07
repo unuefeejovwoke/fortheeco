@@ -33,8 +33,10 @@
 
 <body>
     
+    
         <div class="body-wrapper user--profile">
             {% include 'components/navbar.html' %}
+            {% include 'components/alerts.html' %}
             {% block content %}
             {% endblock content %}
         </div>
@@ -52,6 +54,7 @@
         <script src="{% static 'js/main.js' %}"></script>
         <script src="{% static 'js/nav.js' %}" defer></script>
         <script src="{% static 'js/form.js' %}"></script>
+        
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
          <!--OWL CAROUSEL 2 CDN-->
         <!--OWL CAROUSEL 2 CDN-->
