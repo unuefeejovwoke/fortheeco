@@ -24,3 +24,8 @@ urlpatterns = [
     path("", include('allauth.urls')),
     path('accounts/', include('ecousers.urls',namespace='ecousers')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+handler404 = "ecoplatform.views.error_404"

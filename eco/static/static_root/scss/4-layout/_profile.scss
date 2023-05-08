@@ -1,0 +1,224 @@
+/* =========== USER PROFILE SECTION ===================== */
+.profile {
+	width: 25%;
+	height: 70vh;
+	padding: 0.8rem;
+	position: sticky;
+	top: 7.5rem;
+	display: flex;
+	flex-direction: column;
+
+	&--card {
+		border-top: 4px solid $primaryColor;
+		border-radius: 0.8rem 0.8rem 0rem 0rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 0.8rem;
+		margin-bottom: 1rem;
+		width: 100%;
+		box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.08);
+
+		p {
+			font-size: 0.8em;
+		}
+	}
+
+	&--img {
+		width: 80%;
+		aspect-ratio: 1/1;
+		border-radius: 50%;
+		object-fit: cover;
+		-o-object-fit: cover;
+	}
+
+	.username {
+		font-size: $bodyFontSize;
+		color: $primaryColor;
+		text-transform: capitalize;
+		margin-block: 0.2rem;
+	}
+
+	.user-role {
+		font-size: 0.7em;
+		text-transform: capitalize;
+		margin-bottom: 1rem;
+	}
+
+	.user-mobile {
+		margin: 0.5rem auto;
+		font-size: 0.8em;
+	}
+
+	.edit-profile {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		justify-self: flex-end;
+		margin: 1rem 0 auto;
+		text-transform: capitalize;
+		color: $primaryColor;
+	}
+
+	.icon {
+		width: 1rem;
+		aspect-ratio: 1/1;
+		display: inline-block;
+		margin-right: 0.2rem;
+	}
+
+	.link-text {
+		color: $titleTextColor;
+		text-transform: capitalize;
+		font-size: $bodyFontSize;
+		font-weight: 600;
+		display: inline-block;
+		margin-block: 0.5rem;
+		padding: 0;
+
+		&:hover {
+			color: $accentColor;
+		}
+	}
+
+	.account-action {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.ambassador-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.8rem;
+	border-radius: 0.4rem;
+	width: 95%;
+	margin-inline: auto;
+	margin-bottom: 1rem;
+	color: white;
+	font-size: 0.8rem;
+	background-color: $primaryColor;
+
+	span {
+		display: inline-block;
+		margin-left: 0.2rem;
+	}
+}
+
+.logout-btn {
+	color: red;
+	font-size: $h5FontSize;
+	font-weight: bold;
+	display: inline-block;
+}
+
+// ===================== MEDIA QUERIES ==========================
+@media screen and (max-width: 900px) {
+	.profile {
+		width: 28%;
+
+		.user-mobile {
+			font-size: 0.7rem;
+		}
+		.ambassador-btn {
+			font-size: 0.6rem;
+		}
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.profile {
+		.ambassador-btn {
+			font-size: 0.6rem;
+		}
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.profile {
+		width: 90%;
+		height: auto;
+		margin: 2rem auto;
+		position: static;
+		box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.08);
+		border-top: 4px solid $primaryColor;
+		border-radius: 0.8rem 0.8rem 0rem 0rem;
+
+		.link-text,
+		.logout-btn {
+			display: none;
+		}
+
+		&--card {
+			box-shadow: none;
+			border: unset;
+			border-radius: 0;
+			position: relative;
+		}
+
+		&--img {
+			margin-block: 2rem 1rem;
+		}
+
+		.username {
+			font-size: 2rem;
+		}
+
+		.user-role {
+			font-size: 1.2rem;
+		}
+
+		.user-mobile {
+			margin: 0.5rem;
+		}
+
+		.user-contact {
+			display: flex;
+			align-items: center;
+			justify-content: start;
+			font-size: 1.5rem;
+		}
+
+		.edit-profile {
+			font-size: 0.8em;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		.ambassador-btn {
+			width: 90%;
+			font-size: 1.2rem;
+			margin-inline: auto;
+		}
+	}
+}
+
+@media screen and (max-width: 520px) {
+	.profile {
+		.user-contact {
+			font-size: 1rem;
+		}
+
+		.username {
+			font-size: 1.2rem;
+		}
+
+		.user-role {
+			font-size: 1rem;
+		}
+	}
+}
+
+@media screen and (max-width: 375px) {
+	.profile {
+		.user-mobile {
+			font-size: 0.7rem;
+		}
+		.ambassador-btn {
+			font-size: 0.6rem;
+		}
+	}
+}

@@ -1,0 +1,330 @@
+.card-main {
+  width: 75%;
+
+  .heading {
+    margin-bottom: 1rem;
+
+    .search{
+      display: flex;
+      width: 30%;
+      input:focus {
+        outline: none;
+      }
+    }
+    form {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      border: 1px solid black;
+      padding: 0.3rem 0.3rem;
+      border-radius: 0.5rem;
+      margin: 0.5rem 0;
+
+      input {
+        border: 0;
+        background: transparent;
+        
+      }
+
+      button {
+        border: 0;
+        background: transparent;
+        background-color: $secondaryColor;
+        padding: 0.2rem;
+
+        img {
+          width: 70%;
+        }
+      }
+    }
+  }
+}
+
+
+.add-problems-btn{
+  display: flex;
+  justify-content: flex-end;
+  width: 89%;
+  margin-top: 1rem;
+
+  a{
+    color: #1DB559;
+  }
+}
+
+.card-wrapper {
+  padding: 1rem;
+}
+
+.card {
+  margin: 2rem auto;
+  width: 90%;
+  border-radius: 0.7rem;
+  box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.08);
+  margin-top: 0.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+
+  .goal {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 20%;
+      margin-left: 0.3rem;
+    }
+  }
+}
+
+.card-details {
+  margin-top: 1rem;
+
+  .detail-img {
+    display: flex;
+    justify-content: space-between;
+
+    .first {
+      width: 62%;
+    }
+
+    .second {
+      width: 37%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
+}
+
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+
+  .card-link {
+    width: 35%;
+    background-color: $secondaryColor;
+    justify-content: center;
+    text-align: center;
+    margin-top: 0.3rem;
+    color: white;
+    border-radius: 0.4rem;
+    padding: 0.3rem 0;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 0;
+
+    img {
+      width: 40%;
+      margin-right: 0.3rem;
+    }
+
+    span {
+      font-size: 0.83rem;
+    }
+  }
+}
+
+.comment-card{
+  background-color: #EFF6F2;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  .comment-wrapper{
+    padding: 0.5rem 1.5rem;
+  }
+}
+.comment-header{
+  display: flex;
+  align-items: center;
+
+}
+
+.user-profile{
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  .user-img{
+    margin-right: 0.3rem;
+    display: flex;
+    align-items: center;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+#details-heading{
+  justify-content: flex-start;
+  a{
+    margin: 0 2rem;
+  }
+  h5{
+    margin: 0 5rem;
+    
+  }
+}
+
+.comment-text{
+  margin: 1rem 0;
+}
+
+.date-posted > *{
+  margin-top: 0.2rem;
+  font-size: 0.5rem;
+}
+
+.comment-footer{
+  display: flex;
+  justify-content: flex-end;
+  button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 0;
+
+    img {
+      width: 40%;
+      margin-right: 0.3rem;
+    }
+
+    span {
+      font-size: 0.83rem;
+    }
+  }
+}
+
+
+// ================== EMPTY CARD STATE START HERE==================
+
+.empty-card {
+
+	.card-details {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+	}
+}
+// ================== EMPTY CARD STATE END HERE==================
+
+
+@media only screen and (max-width: 1020px) {
+  .heading form input {
+    width: 65%;
+  }
+
+    .card-header div span,
+  p {
+    font-size: 0.9rem;
+  }
+.location {
+  font-size: 0.6rem !important;
+}
+
+.text-fix2 {
+  font-size: 0.6rem;
+}
+
+}
+
+@media only screen and (max-width: 770px) {
+  .heading {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .heading form input {
+    width: 60%;
+  }
+
+.location {
+  font-size: 0.65rem !important;
+}
+
+.text-fix2 {
+  font-size: 0.6rem;
+}
+}
+
+@media only screen and (max-width: 660px) {
+  .card-main {
+    width: 100%;
+  }
+
+  .search {
+    width: 40% !important;
+  }
+
+    .card-header div span p {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .card-main {
+    width: 100%;
+  }
+
+  .heading {
+    flex-direction: column;
+
+    .search {
+      width: 60% !important;
+    }
+  }
+  #details-heading{
+    flex-direction: row;
+    h5{
+      margin: 0 1rem;
+    }
+  }
+
+.text-fix {
+  font-size: 0.7rem;
+  }
+
+  .post-location {
+    display: flex;
+    align-items: center;
+}
+.location {
+  font-size: 0.5rem !important;
+}
+
+.text-fix2 {
+  font-size: 0.5rem;
+}
+
+.filter-btn{
+  display: block !important;
+  margin-left: 0.3rem !important;
+}
+}
+
+@media only screen and (max-width: 395px) {
+  .text-fix {
+      font-size: 0.55rem;
+    }
+  
+    .location {
+      font-size: 0.5rem !important;
+    }
+  
+    .text-fix2 {
+      font-size: 0.45rem;
+  }
+}

@@ -92,6 +92,8 @@ def logout(request):
     messages.success(request, "You are now logged out")
     return redirect('ecousers:login')
 
+
+
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -122,6 +124,9 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Invalid activation link')
         return redirect('ecousers:register')
+    
+    
+    
     
 @login_required(login_url = 'ecousers:login')
 def dashboard(request):

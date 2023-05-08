@@ -50,6 +50,14 @@ def index(request):
 
 
 
+#404 error page
+
+def error_404(request,exception):
+    return render(request, 'ecoplatform/404.html')
+
+
+
+
 
 
 #list view for the problems
@@ -377,3 +385,8 @@ def form_display(request):
         "name" : name
     }
     return render(request, "ecoplatform/display.html", context)
+
+
+
+
+
