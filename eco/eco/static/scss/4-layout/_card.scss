@@ -206,6 +206,20 @@
   }
 }
 
+// ================== EMPTY CARD STATE START HERE==================
+
+.empty-card {
+
+	.card-details {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+	}
+}
+// ================== EMPTY CARD STATE END HERE==================
 
 
 

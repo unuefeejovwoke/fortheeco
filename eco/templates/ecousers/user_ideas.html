@@ -128,9 +128,7 @@
                 </button>
             </section>
             <section class="profile-ideas--container">
-                <p class="ideas-heading display-on-desktop">
-                    Link to where the problem was dropped
-                </p>
+              
                 
                 {% for comment in comments %}
                 <div class="card">
@@ -177,6 +175,28 @@
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <!-----------------EMPTY STATE START HERE-------------->
+					 <div class="card empty-card">
+						<div class="card-wrapper">
+							<div class="card-header">
+								
+
+								
+							</div>
+							<hr />
+							<div class="card-details">
+								<img
+									src="{% static 'images/card/empty-state.png' %}"
+									alt="empty category"
+									class="card-img"
+								/>
+								<p>No comments</p>
+								<button class="btn btn-primary"><a href="{% url 'ecoplatform:home' %}">Fortheeco</a></button>
+							</div>
+						</div>
+					</div> 
+				<!------------------EMPTY STATE END HERE-------------->
                 {% endfor %}
                 
             </section>

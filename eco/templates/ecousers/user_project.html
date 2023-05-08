@@ -111,7 +111,7 @@
                 <h5 class="stats-heading">
                     Projects posted <span id="problem_count">({{projects_count}})</span>
                 </h5>
-                <div class="stats--wrapper">
+                {% comment %} <div class="stats--wrapper">
                     <span class="stats--com">70%</span>
                     <span class="stats--org">20%</span>
                     <span class="stats--env">10%</span>
@@ -129,7 +129,7 @@
                         <div class="legend--item org"></div>
                         <span class="legend-label">organization</span>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </section>
             {% for project in projects %}
             <div class="card">
@@ -181,7 +181,27 @@
                 </div>
             </div>
             {% empty %}
-            <p style="text-align:center; margin:5px;"> You have not posted a project</p>
+            <!-----------------EMPTY STATE START HERE-------------->
+					 <div class="card empty-card">
+						<div class="card-wrapper">
+							<div class="card-header">
+								
+
+								
+							</div>
+							<hr />
+							<div class="card-details">
+								<img
+									src="{% static 'images/card/empty-state.png' %}"
+									alt="empty category"
+									class="card-img"
+								/>
+								<p>You have not posted any projects</p>
+								<button class="btn btn-primary"><a href="{% url 'ecoplatform:add-project' %}">Echo Project</a></button>
+							</div>
+						</div>
+					</div> 
+					<!------------------EMPTY STATE END HERE-------------->
             {% endfor %}
             
         </main>
