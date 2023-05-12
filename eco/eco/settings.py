@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'sass_processor',
     #local applications
+    'bleach',
     
     'ecoplatform',
     'ecousers',

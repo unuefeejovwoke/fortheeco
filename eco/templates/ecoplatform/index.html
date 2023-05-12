@@ -83,7 +83,7 @@
                                     <hr>
                                     <a href="{% url 'ecoplatform:problem-detail' problem.id %}" class="card-link">
                                         <article class="project--description">
-                                            <p>{{ problem.description }}</p>
+                                            <p>{{ problem.description|truncatechars_html:100 }}</p>
                                             <div class="img--container">
                                             <img src="{{ problem.problem_photo_main.url }}" class="item1 img-item" alt="">
                                             {% if problem.problem_photo_1 %}
