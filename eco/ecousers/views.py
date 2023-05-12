@@ -131,6 +131,13 @@ def dashboard(request):
     
     problems = Problem.objects.order_by('-created').filter(user_id=request.user.id)
     problems_count = problems.count()
+
+    color_percentages = {
+        'community': {'color': 'com', 'percentage': 70},
+        'organization': {'color': 'org', 'percentage': 20},
+        'environment': {'color': 'env', 'percentage': 10},
+    }
+
     
     context = {
         'projects_count': projects_count,
@@ -138,6 +145,7 @@ def dashboard(request):
         'userprofile':userprofile,
         'problems':problems,
         'projects':projects,
+        'color_percentages': color_percentages,
     
     }
     return render(request, 'ecousers/dashboard.html', context)
